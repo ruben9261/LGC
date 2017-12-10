@@ -55,6 +55,10 @@ class ConsGestionCobro_m extends CI_Model {
 		}
 	}
 
+	public function obt_TotalPaginas(){
+		
+	}
+
 	public function insertDocCobro($DocCobro)
 	{	
 		$this->db->trans_start();
