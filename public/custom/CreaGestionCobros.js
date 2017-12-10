@@ -343,10 +343,15 @@ function fn_GuardarDocCobro(){
 		// contentType:"application/json",
 		data: {DocCobro: DocCobro},
 		success: function(response){
-			
+			var respuesta = response;
+			if(respuesta){
+				AlertNotify('', 'Éxito', 'El registro se guardo correctamente', 'success');
+			}else{
+				AlertNotify('', 'Error', 'No se pudo guardar el registro', 'danger');
+			}
 		},
 		error: function(e){
-
+			AlertNotify('', 'Error', 'Error en el servidor consulte con el administrador', 'danger');
 		}
 	});
 }

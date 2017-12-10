@@ -82,8 +82,7 @@ class MantGestionCobros_c  extends CI_Controller{
 	    $listOrdenEntradaDet=$this->consGestionCobro_m->obt_OrdenEntradaDet($CodOrdenE);
 		mysqli_next_result($this->db->conn_id);
 
-		$array = array( 'listOrdenEntradaDet'=>$listOrdenEntradaDet
-	        				   );
+		$array = array( 'listOrdenEntradaDet'=> $listOrdenEntradaDet );
 
 		$jsonResponse = json_encode($array);
 
