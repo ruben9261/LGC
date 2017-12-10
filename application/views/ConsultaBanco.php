@@ -7,6 +7,7 @@
     <script type="text/javascript" src="<?php echo base_url()?>public/jquery/jquery-3.1.1.min.js"></script>
     <script  type="text/javascript"  src="<?php echo base_url()?>public/bootstrap-3.3.7-dist/js/bootstrap.min.js"> </script>
     <!-- hola a todos -->
+    <!--Prueba-->
      <style type="text/css">
 		.modal-static { 
 		    position: fixed;
