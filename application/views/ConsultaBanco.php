@@ -6,7 +6,7 @@
     <link rel="stylesheet" type ="text/css" href="<?php echo base_url()?>public/bootstrap-3.3.7-dist/css/bootstrap.min.css"> 
     <script type="text/javascript" src="<?php echo base_url()?>public/jquery/jquery-3.1.1.min.js"></script>
     <script  type="text/javascript"  src="<?php echo base_url()?>public/bootstrap-3.3.7-dist/js/bootstrap.min.js"> </script>
-    
+
      <style type="text/css">
 		.modal-static { 
 		    position: fixed;
@@ -366,7 +366,7 @@ function seleccionar_pagina(npagina){
             <div class="modal-body">
                 <div class="text-center">
                     <img src="<?php echo base_url()?>public/images/cargar2.gif">
-                    <h4>            Procesando... <button type="button" class="close" style="float: none;" data-dismiss="modal" aria-hidden="true">×</button></h4>
+                    <h4>            Procesando... <button type="button" class="close" style="float: none;" data-dismiss="modal" aria-hidden="true">ï¿½</button></h4>
                 </div>
             </div>
         </div>
