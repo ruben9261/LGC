@@ -1,0 +1,30 @@
+#prueba,
+#pnl_logo
+{
+	background-color:white;
+	 
+	
+}
+
+
+#cabeza {
+	
+	background-color: rgb(180,205,230);
+	
+} 
+
+
+#text_menu{
+	font-size:11px;
+	font-family:Arial, Helvetica, Verdana;
+	font-weight:bold;
+	color:rgb(0,128,255);
+	
+}
+
+
+
+#text_item{
+	font-size:10px;
+		
+}
