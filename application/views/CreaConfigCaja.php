@@ -46,10 +46,10 @@
 							  
 							 
 							   <div class="form-group">
-							       <a class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" onclick="guardar();" >
+							   <button class="btn btn-primary" type="submit"  id="Guardar" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);">
 							   				Guardar
 							        	    <img src="<?php echo base_url()?>public/images/GUARDAR.png">
-							        </a>
+							        </button>
 							     
 						            <a href="<?php echo base_url()?>consConfigCaja_c/" class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);">
 						            		 Cancelar
@@ -123,6 +123,31 @@
 
 
  <script  type="text/javascript"> 
+
+$( "#Guardar" ).click(function( e ) {
+$("#frmCreaConfigCaja").validate({
+        rules: {
+            usuario: {
+                required: true
+            },
+            caja: {
+                required: true
+            }
+        }, messages: {
+            usuario: {
+                required: "Seleccione un usuario"
+            },
+            caja: {
+                required: "Seleccione un menú"
+            }
+        },
+        submitHandler: function (form) {
+            e.preventDefault();
+            insertar();
+        }
+	});
+});
+
 function validarDatos()
 {	 var v_usu= $("#usuario").val();
 	 var v_caja= $("#caja").val();
@@ -139,7 +164,29 @@ function validarDatos()
     return Msg;
 }
 
-
+$( "#Guardar" ).click(function( e ) {
+$("#frmCreaConfigCaja").validate({
+        rules: {
+            usuario: {
+                required: true
+            },
+            caja: {
+                required: true
+            }
+        }, messages: {
+            usuario: {
+                required: "Seleccione un usuario"
+            },
+            caja: {
+                required: "Seleccione un menú"
+            }
+        },
+        submitHandler: function (form) {
+            e.preventDefault();
+            insertar();
+        }
+	});
+});
 function guardar()
 { var msg=validarDatos();
   if (msg=='')
