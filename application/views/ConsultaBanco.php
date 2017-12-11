@@ -10,7 +10,7 @@
 <!-- quiero jugar un imba 2-->
    <!-- hola kevin-->
     <!-- hola a todos -->
-    <!--Prueba 2-->
+    <!--Prueba 234-->
      <style type="text/css">
 		.modal-static { 
 		    position: fixed;
