@@ -11,8 +11,8 @@
    <!-- hola kevin-->
     <!-- hola a todos -->
     <!--Prueba 234-->
-	
-	<!-- Hola Gordito -->
+
+	<!-- Hola Gordito 2 -->
      <style type="text/css">
 		.modal-static { 
 		    position: fixed;
