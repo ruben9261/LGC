@@ -138,7 +138,7 @@ $("#frmCreaConfigCaja").validate({
                 required: "Seleccione un usuario"
             },
             caja: {
-                required: "Seleccione un menú"
+                required: "Seleccione un caja"
             }
         },
         submitHandler: function (form) {

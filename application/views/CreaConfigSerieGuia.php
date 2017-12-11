@@ -156,7 +156,7 @@ $("#frmCreaConfigSerieGuia").validate({
                 required: "Seleccione un usuario"
             },
             serie: {
-                required: "Seleccione un menú"
+                required: "Seleccione un serie"
             }
         },
         submitHandler: function (form) {
