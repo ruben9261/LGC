@@ -122,7 +122,7 @@
 						    
 						    <div class="form-group">
 						         <span style="color:rgb(0,128,255);">Comentario</span>
-						          <textarea id="comentario" rows="5" cols="80" class="form-control" placeholder="observaciòn">
+						          <textarea id="comentario" rows="5" cols="80" class="form-control" placeholder="observaciï¿½n">
 						          </textarea>
 						    </div>	
 						 
@@ -141,10 +141,10 @@
 						    <br/> 
 						    
 						    <div class="form-group">
-									   <a class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" onclick="guardar();" >
-									   		   Guardar
-									           <img src="<?php echo base_url()?>public/images/GUARDAR.png">
-									   </a>
+							<button class="btn btn-primary" type="submit"  id="Guardar" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);">
+							Guardar
+						 <img src="<?php echo base_url()?>public/images/GUARDAR.png">
+								</button>
 									     
 									   <a href="<?php echo base_url()?>ConsOrdenEntrada_c/" class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);">
 										        Cancelar
@@ -341,19 +341,73 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+ <script type="text/javascript" src="/public/jquery/jquery.validate.js"></script>
  <script  type="text/javascript"> 
+ jQuery.validator.addMethod("decimal", function(value, element) {
+	 return this.optional(element) || /^\d{0,10}(\.\d{0,2})?$/i.test(value);
+ }, "You must include two decimal places");
+ jQuery.validator.addMethod("lettersonly", function(value, element) {
+ return this.optional(element) || /^[a-z\s]+$/i.test(value);
+ }, "Only alphabetical characters");
+ $(function () {
+	$.validator.setDefaults({
+		errorClass: 'help-block',
+		highlight: function (element) {
+			// $(element)
+			//     .closest('.form-group')
+			//     .addClass('has-error');
+			$(element).parent().removeClass('has-success').addClass('has-error');
+		},
+		unhighlight: function (element) {
+			// $(element)
+			//     .closest('.form-group')
+			//     .removeClass('has-error');
+			$(element).parent().removeClass('has-error').addClass('has-success');
+		},
+		errorPlacement: function (error, element) {
+			if (element.prop('type') === 'checkbox') {
+				error.insertAfter(element.parent());
+			} else {
+				error.insertAfter(element);
+			}
+		}
+	});
+ 
+ 
+ 
+ });
 
+ $( "#Guardar" ).click(function( e ) {
+ $("#frmCreaOrdenEntrada").validate({
+		 rules: {
+			oficina: {
+				 required: true
+			 },tipo: {
+				 required: true
+			 },serie: {
+				 required: true
+			 },numero: {
+				 required: true,
+				 number:true
+			 }
+		 }, messages: {
+			oficina: {
+				 required: "Ingrese Nombre"
+			 },tipo: {
+				 required: "Ingrese Telefono 1"
+			 },serie: {
+				 required: "Ingrese Telefono 2"
+			 },numero: {
+				 required: "Ingrese Numero",
+				 number:"Ingrese Digito "
+			 }
+		 },
+		 submitHandler: function (form) {
+			 e.preventDefault();
+			 insertar();
+		 }
+	 });
+ });
 
 function validarDatos()
 {

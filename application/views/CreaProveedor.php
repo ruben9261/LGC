@@ -19,16 +19,16 @@
 		            </div>
 				    <form id="frmCreaProveedor"  action="<?php echo base_url()?>mantProveedor_c/insertar" method="POST">
 					        <div class="form-group">
-						          <input id="nombre" type="text" class="form-control" placeholder="Nombre" >
+						          <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre" >
 						    </div>
 						   
 						    <div class="form-group">
-						         <input id="documento" type="text" class="form-control" placeholder="Documento">
+						         <input id="documento" name="documento" type="text" class="form-control" placeholder="Documento">
 						    </div>
 						   
 						    <div class="form-group">
 						       <select  id="oferta" name="oferta"  class="form-control">
-								    <option value="0">
+								    <option value="">
 											SELECCIONAR OFERTA
 								     </option>
 								     
@@ -41,23 +41,23 @@
 						   </div>
 						    
 						   <div class="form-group">
-						         <input id="tlfn1" type="text" class="form-control" placeholder="Primer Telefono">
+						         <input id="tlfn1"  name="tlfn1"   type="text" class="form-control" placeholder="Primer Telefono">
 						    </div>
-						    
+						    <br>
 						    <div class="form-group">
-						         <input id="tlfn2"   type="text" class="form-control" placeholder="Segundo Telefono">
+						         <input id="tlfn2"    name="tlfn2"   type="text" class="form-control" placeholder="Segundo Telefono">
 						    </div>
-						    
+                            <br>
 						    <div class="form-group">
-						        <input id="correo1" type="text" class="form-control" placeholder="Primer Correo">
+						        <input id="correo1"  name="correo1"   type="text" class="form-control" placeholder="Primer Correo">
 						    </div>
-						    
+                            <br>
 						    <div class="form-group">
-						         <input  id="correo2"  type="text" class="form-control" placeholder="Segundo Correo">
+						         <input  id="correo2"   name="correo2"   type="text" class="form-control" placeholder="Segundo Correo">
 						    </div>
-						    
+                            <br>
 						    <div class="form-group">
-						        <textarea id="comentario" rows="10" cols="80" class="form-control" placeholder="Comentario"></textarea>
+						        <textarea id="comentario" name="comentario" rows="10" cols="80" class="form-control" placeholder="Comentario"></textarea>
 						        <!--
 						         <input  type="tel" class="form-control" placeholder="Comentario">
 						        
@@ -67,10 +67,10 @@
 						  
 						  <div class="form-group">
 							 
-							   <a class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" onclick="guardar();" >
-							   				Guardar
-							        	<img src="<?php echo base_url()?>public/images/GUARDAR.png">
-							   </a>
+                          <button class="btn btn-primary" type="submit"  id="Guardar" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);">
+						  Guardar
+					   <img src="<?php echo base_url()?>public/images/GUARDAR.png">
+			                  </button>
 							     
 							   <a href="<?php echo base_url()?>ConsProveedor_c/" class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);">
 							        Cancelar
@@ -141,10 +141,115 @@
    </div>
 </div>
 
+<script type="text/javascript" src="/public/jquery/jquery.validate.js"></script>
 
 
 
  <script  type="text/javascript"> 
+jQuery.validator.addMethod("lettersonly", function(value, element) {
+return this.optional(element) || /^[a-z\s]+$/i.test(value);
+}, "Only alphabetical characters");
+$(function () {
+    $.validator.setDefaults({
+        errorClass: 'help-block',
+        highlight: function (element) {
+            // $(element)
+            //     .closest('.form-group')
+            //     .addClass('has-error');
+            $(element).parent().removeClass('has-success').addClass('has-error');
+        },
+        unhighlight: function (element) {
+            // $(element)
+            //     .closest('.form-group')
+            //     .removeClass('has-error');
+            $(element).parent().removeClass('has-error').addClass('has-success');
+        },
+        errorPlacement: function (error, element) {
+            if (element.prop('type') === 'checkbox') {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+
+
+
+});
+
+
+$( "#Guardar" ).click(function( e ) {
+$("#frmCreaProveedor").validate({
+        rules: {
+            nombre: {
+                required: true,
+                lettersonly: true
+            },
+            documento: {
+                required: true
+            },
+            oferta: {
+                required: true
+            },
+            tlfn1: {
+                required: true,
+                number: true
+            },
+            tlfn2: {
+                required: true,
+                number: true
+            },
+            correo1: {
+                required: true,
+                email: true
+            },
+            correo2: {
+                required: true,
+                email: true
+            },
+            comentario: {
+                required: true
+            }
+        }, messages: {
+            nombre: {
+                required: "Ingrese Nombre",
+                lettersonly: "Ingrese Letras"
+            },
+            documento: {
+                required: "Seleccione Documento"
+            },
+            oferta: {
+                required: "Seleccione Oferta"
+            },
+            tlfn1: {
+                required: "Ingrese Telf 1",
+                number: "Ingrese Digitos"
+            },
+            tlfn2: {
+                required: "Ingrese Telf 2",
+                number: "Ingrese Digitos"
+            },
+            correo1: {
+                required: "Ingrese Correo 1",
+                email: "Ingrese Correo"
+            },
+            correo2: {
+                required: "Ingrese Correo 2",
+                email: "Ingrese Correo"
+            },
+            comentario: {
+                required: "Ingrese Comentario"
+            }
+        },
+        submitHandler: function (form) {
+            e.preventDefault();
+            insertar();
+        }
+	});
+});
+
+
+
 
 
 function validarDatos()

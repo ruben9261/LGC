@@ -20,7 +20,7 @@
 				   <form  id="frmCreaConfigSerieOrden"  action="<?php echo base_url()?>mantConfigSerieOrden_c/insertar" method="POST"> 
 						       <div class="form-group">
 								       <select class="form-control" id="usuario" name="usuario" >
-								    	         <option value="0">
+								    	         <option value="">
 										                 SELECCIONAR USUARIO
 										         </option>
 										         <?php foreach ($usuarios as $usuario): ?>
@@ -33,7 +33,7 @@
 							  </div>
 							  <div class="form-group">
 								     <select class="form-control" id="serie" name="serie">
-								          <option value="0">
+								          <option value="">
 								                        SELECCIONAR SERIE DE ORDEN
 										   </option>
 								    	    <?php foreach ($series as $campos): ?>
@@ -121,8 +121,35 @@
    </div>
 </div>
 
-
+<script type="text/javascript" src="/public/jquery/jquery.validate.js"></script>
  <script  type="text/javascript"> 
+ $(function () {
+    $.validator.setDefaults({
+        errorClass: 'help-block',
+        highlight: function (element) {
+            // $(element)
+            //     .closest('.form-group')
+            //     .addClass('has-error');
+            $(element).parent().removeClass('has-success').addClass('has-error');
+        },
+        unhighlight: function (element) {
+            // $(element)
+            //     .closest('.form-group')
+            //     .removeClass('has-error');
+            $(element).parent().removeClass('has-error').addClass('has-success');
+        },
+        errorPlacement: function (error, element) {
+            if (element.prop('type') === 'checkbox') {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+
+
+
+});
 function validarDatos()
 {	 var v_usu= $("#usuario").val();
 	 var v_Serie= $("#serie").val();

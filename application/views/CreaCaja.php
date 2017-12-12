@@ -20,7 +20,7 @@
 				    <form id="frmCreaCaja"  action="<?php echo base_url()?>mantCaja_c/insertar" method="POST">
 					        <div class="form-group">
 								       <select class="form-control" id="oficina" name="oficina" >
-								    	         <option value="0">
+								    	         <option value="">
 										                 SELECCIONAR OFICINA
 										         </option>
 										         <?php foreach ($oficinas as $oficina): ?>
@@ -33,13 +33,13 @@
 							 </div>
 						   
 						    <div class="form-group">
-						         <input id="caja" type="text" class="form-control" placeholder="Descripci&oacute;n de caja">
+						         <input id="caja" name="caja" type="text" class="form-control" placeholder="Descripci&oacute;n de caja">
 						    </div>
 						   
 						    
 						    <div class="form-group">
 								       <select class="form-control" id="tipo" name="tipo" >
-								    	         <option value="0">
+								    	         <option value="">
 										                 SELECCIONAR TIPO CAJA
 										         </option>
 										         <?php foreach ($tipos as $tipo): ?>
@@ -53,10 +53,10 @@
 						   
 						    
 						    <div class="form-group">
-							   <a class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" onclick="guardar();" >
-							   				Guardar
-							        	<img src="<?php echo base_url()?>public/images/GUARDAR.png">
-							   </a>
+							<button class="btn btn-primary" type="submit"  id="Guardar" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);">
+							Guardar
+						 <img src="<?php echo base_url()?>public/images/GUARDAR.png">
+								</button>
 							     
 							   <a href="<?php echo base_url()?>ConsCaja_c/" class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);">
 							        Cancelar
@@ -129,9 +129,71 @@
 
 
 
+<script type="text/javascript" src="/public/jquery/jquery.validate.js"></script>
+<script  type="text/javascript"> 
+jQuery.validator.addMethod("lettersonly", function(value, element) {
+return this.optional(element) || /^[a-z\s]+$/i.test(value);
+}, "Only alphabetical characters");
+$(function () {
+   $.validator.setDefaults({
+	   errorClass: 'help-block',
+	   highlight: function (element) {
+		   // $(element)
+		   //     .closest('.form-group')
+		   //     .addClass('has-error');
+		   $(element).parent().removeClass('has-success').addClass('has-error');
+	   },
+	   unhighlight: function (element) {
+		   // $(element)
+		   //     .closest('.form-group')
+		   //     .removeClass('has-error');
+		   $(element).parent().removeClass('has-error').addClass('has-success');
+	   },
+	   errorPlacement: function (error, element) {
+		   if (element.prop('type') === 'checkbox') {
+			   error.insertAfter(element.parent());
+		   } else {
+			   error.insertAfter(element);
+		   }
+	   }
+   });
 
- <script  type="text/javascript"> 
 
+
+});
+
+$( "#Guardar" ).click(function( e ) {
+$("#frmCreaCaja").validate({
+        rules: {
+            oficina: {
+                required: true
+            },
+            caja: {
+                required: true,
+                number: true
+            },
+            tipo: {
+                required: true,
+                number: true
+            }
+        }, messages: {
+            oficina: {
+                required: "Seleccione un Oficina"
+            },
+            caja: {
+                required: "Ingrese Caja",
+                number: "Ingrese Digitos"
+            },
+            tipo: {
+                required: "Seleccione Tipo"
+            }
+        },
+        submitHandler: function (form) {
+            e.preventDefault();
+            insertar();
+        }
+	}); 
+});
 
 function validarDatos()
 {
@@ -145,7 +207,7 @@ function validarDatos()
       }
 
     if(caj==''  || caj === null)
-    {     Msg = Msg + "- Ingrese descripción de caja </br>" ;
+    {     Msg = Msg + "- Ingrese descripciï¿½n de caja </br>" ;
     }
 
     if(tip==0 || tip === null)

@@ -47,8 +47,8 @@
 					         <div class="form-group">
 								         <div id="row">
 									               <div class='col-xs-6' >
-													          <select  id="contacto" name="contacto"  class="form-control">
-																       <option value="0">
+													          <select  id="contacto" name="contactos"  class="form-control">
+																       <option value="">
 																	      SELECCIONAR CONTACTO
 																   </option>
 																	<?php foreach ($contactos as $contacto): ?>
@@ -91,8 +91,8 @@
 						     <div class="form-group">
 						             <div id="row">
 						                     <div class='col-xs-7' >
-										                <select  id="actividad" name="actividad"  class="form-control">
-												   	       <option value="0">SELECCIONAR ACTIVIDAD</option>
+										                <select  id="actividad" name="actividades"  class="form-control">
+												   	       <option value="">SELECCIONAR ACTIVIDAD</option>
 															      <?php foreach ($actividades as $actividad): ?>
 															            <option value="<?php echo "".$actividad->CLAVE?>">
 																		  		       <?php echo "".$actividad->VALOR?>
@@ -125,12 +125,12 @@
 							   </div>	
 						  						    
 					        <div class="form-group">
-						          <input id="razon_social" type="text" class="form-control" placeholder="RAZON SOCIAL">
+						          <input id="razon_social" name="nombre" type="text" class="form-control" placeholder="RAZON SOCIAL">
 						    </div>
 						   
 						    <div class="form-group">
 						       <select  id="tipo" name="tipo"  class="form-control">
-								    <option value="0">
+								    <option value="">
 											SELECCIONAR TIPO DOCUMENTO
 								     </option>
 								     
@@ -148,16 +148,16 @@
 						   </div>
 						   
 						    <div class="form-group">
-						         <input id="documento" type="text" class="form-control" placeholder="Documento" onkeyup="fn_copiar_udr()">
+						         <input id="documento"  name="documento" type="text" class="form-control" placeholder="Documento" onkeyup="fn_copiar_udr()">
 						    </div>
 						    
 						   <div class="form-group">
-						         <input id="udr" type="text" class="form-control">
+						         <input id="udr" name="udr" type="text" class="form-control">
 						    </div>
 						    
 						    <div class="form-group">
 						       <select  id="regimen" name="regimen"  class="form-control">
-								    <option value="0">
+								    <option value="">
 											SELECCIONAR REGIMEN
 								     </option>
 										<?php foreach ($regimenes as $regimen): ?>
@@ -170,7 +170,7 @@
 						    
 						    <div class="form-group">
 						       <select  id="estado" name="estado"  class="form-control">
-								    <option value="0">
+								    <option value="">
 											SELECCIONAR ESTADO
 								     </option>
 								     
@@ -185,7 +185,7 @@
 						    
 						    <div class="form-group">
 						       <select  id="clasificacion" name="clasificacion"  class="form-control">
-								    <option value="0">
+								    <option value="">
 											SELECCIONAR CLASIFICACION
 								     </option>
 								     
@@ -199,47 +199,48 @@
 						   </div>
 						     
 						   <div class="form-group">
-						         <input id="usuario_sol"  type="text" class="form-control" placeholder="Usuario SOL" >
+						         <input id="usuario_sol" name="usu_sol"  type="text" class="form-control" placeholder="Usuario SOL" >
 						   </div>
 						  
 						   <div class="form-group">
-						        <input id="clave_sol"    type="text" class="form-control" placeholder="Clave SOL" >
+						        <input id="clave_sol" name="clave_sol"    type="text" class="form-control" placeholder="Clave SOL" >
 							</div>
 						
 							<div class="form-group">
-								 <input id="pregunta" type="text" class="form-control" placeholder="Pregunta" >
+								 <input id="pregunta"  name="pregunta"  type="text" class="form-control" placeholder="Pregunta" >
 							</div>
 							
 							<div class="form-group">    
-							     <input id="respuesta" type="text" class="form-control" placeholder="Respuesta" >
+							     <input id="respuesta"  name="respuesta"  type="text" class="form-control" placeholder="Respuesta" >
 						    </div>
 						   
 						    
 						   <div class="form-group">
-						        <input id="usuario_afp" type="text" class="form-control" placeholder="Usuario AFP">
+						        <input id="usuario_afp"  name="usu_afp"  type="text" class="form-control" placeholder="Usuario AFP">
 						    </div>
 						
 						   <div class="form-group">
-							   	<input id="clave_afp"   type="text" class="form-control" placeholder="Clave AFP" >
+							   	<input id="clave_afp"    name="clave_afp"  type="text" class="form-control" placeholder="Clave AFP" >
 						   </div>
 						   
 						   
 							<div class="form-group">
-								 <input id="nrocuenta" type="text" class="form-control" placeholder="N&uacute;mero de cuenta" >
+								 <input id="nrocuenta"  name="nrocuenta"  type="text" class="form-control" placeholder="N&uacute;mero de cuenta" >
 							</div>
 							
 						   
 						   <div class="form-group">
-						         <input id="usuario_bn"  type="text" class="form-control" placeholder="Usuario BN">
+						         <input id="usuario_bn"   name="usu_bn"  type="text" class="form-control" placeholder="Usuario BN">
 						   </div>
 						  
 						   <div class="form-group">
-						        <input id="clave_bn"    type="text" class="form-control" placeholder="Clave BN" >
+						        <input id="clave_bn"     name="clave_bn"  type="text" class="form-control" placeholder="Clave BN" >
 							</div>
 						  <div class="form-group">
-							   <a class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" onclick="guardar();" >
-						          Guardar <img src="<?php echo base_url()?>public/images/GUARDAR.png">
-							   </a>
+						  <button class="btn btn-primary" type="submit"  id="Guardar" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);">
+						  Guardar
+					   <img src="<?php echo base_url()?>public/images/GUARDAR.png">
+			                  </button>
 						
 							     <?php if(!empty($band_SelCliente)){ ?>
 								      <a href="<?php echo base_url()?>ConsCliente_c/mostrar_Seleccion_Cliente" class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);">
@@ -320,11 +321,169 @@
       </div>
    </div>
 </div>
+<script type="text/javascript" src="/public/jquery/jquery.validate.js"></script>
 
 
 
 
  <script  type="text/javascript"> 
+
+$(function () {
+    $.validator.setDefaults({
+        errorClass: 'help-block',
+        highlight: function (element) {
+            // $(element)
+            //     .closest('.form-group')
+            //     .addClass('has-error');
+            $(element).parent().removeClass('has-success').addClass('has-error');
+        },
+        unhighlight: function (element) {
+            // $(element)
+            //     .closest('.form-group')
+            //     .removeClass('has-error');
+            $(element).parent().removeClass('has-error').addClass('has-success');
+        },
+        errorPlacement: function (error, element) {
+            if (element.prop('type') === 'checkbox') {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+
+
+
+});
+
+$( "#Guardar" ).click(function( e ) {
+$("#frmCreaCliente").validate({
+        rules: {
+            contactos: {
+                required: true
+            },
+            actividades: {
+                required: true
+            },
+            nombre: {
+                required: true
+            },
+            tipo: {
+                required: true
+            },
+            documento: {
+				required: true,
+				number: true
+            },
+            regimen: {
+                required: true
+            },
+            estado: {
+                required: true
+            },
+            clasificacion: {
+                required: true
+            },
+            usu_sol: {
+                required: true
+            },
+            clave_sol: {
+                required: true
+            },
+            pregunta: {
+                required: true
+            },
+            respuesta: {
+                required: true
+            },
+            usu_afp: {
+                required: true
+            },
+            clave_afp: {
+                required: true
+            },
+            nrocuenta: {
+                required: true,
+				number: true
+            },
+            usu_bn: {
+                required: true
+            },
+            clave_bn: {
+                required: true
+            }
+        }, messages: {
+            contactos: {
+                required: "Seleccione contactos"
+            },
+            actividades: {
+                required: "Seleccione actividades"
+            },
+            nombre: {
+                required: "Ingrese Nombre"
+            },
+            tipo: {
+                required: "Ingrese Tipo"
+            }
+			,
+            documento: {
+				required: "Ingrese Documento",
+				number: "Ingrese Digitos"
+				
+			}
+			,
+            regimen: {
+                required: "Ingrese Regimen"
+			}
+			,
+            estado: {
+                required: "Ingrese Estado"
+			}
+			,
+            clasificacion: {
+                required: "Ingrese Clasificacion "
+            },
+            usu_sol: {
+                required: "Ingrese Usuario Sol"
+            },
+            clave_sol: {
+                required: "Ingrese Clave Sol "
+            },
+            pregunta: {
+                required: "Ingrese Pregunta"
+            },
+            respuesta: {
+                required: "Ingrese Respuesta"
+            },
+            usu_afp: {
+                required: "Ingrese Usuario AFP"
+            },
+            clave_afp: {
+                required: "Ingrese Clave AFP"
+            },
+            nrocuenta: {
+				required: "Ingrese Numero de Cuenta",
+				number: "Ingrese Digitos"
+            },
+            usu_bn: {
+                required: "Ingrese Usuario BN"
+            },
+            clave_bn: {
+                required: "Ingrese Clave BN"
+            }
+        },
+        submitHandler: function (form) {
+            e.preventDefault();
+            insertar();
+        }
+	});
+});
+
+
+
+               
+				
+
 
 
  var lstActividad=[];//lista de codigos para validar si actividad ya fue ingresado

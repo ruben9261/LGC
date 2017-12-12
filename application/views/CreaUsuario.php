@@ -19,13 +19,13 @@
 		            </div>
 				    <form id="frmCreaUsuario"  action="<?php echo base_url()?>mantUsuario_c/insertar" method="POST">
 					        <div class="form-group">
-						          <input id="usuario" type="text" class="form-control" placeholder="Usuario" >
+						          <input id="usuario" name="usuario"   type="text" class="form-control" placeholder="Usuario" autocomplete="off">
 						    </div>
 						   
 						    <div class="form-group">
 						        <div class="row">
 								        <div class="col-xs-9">
-								               <input id="clave" type="password" class="form-control" placeholder="Clave">
+								               <input id="clave" name="clave" type="password" class="form-control" placeholder="Clave" autocomplete="off">
 								        </div>
 								        <a  id="ver"  class="control-label col-xs-3">
 								             <img src="<?php echo base_url()?>public/images/ver1.png">  
@@ -37,7 +37,7 @@
 						   
 						    <div class="form-group">
 						       <select  id="nivel" name="nivel"  class="form-control">
-								    <option value="0">
+								    <option value="">
 											SELECCIONAR NIVEL
 								     </option>
 								     
@@ -50,23 +50,23 @@
 						   </div>
 						    
 						   <div class="form-group">
-						         <input id="nom_usu" type="text" class="form-control" placeholder="Nombre">
+						         <input id="nom_usu" name="nom_usu" type="text" class="form-control" placeholder="Nombre">
 						    </div>
 						    
 						    <div class="form-group">
-						         <input id="ape_usu"   type="text" class="form-control" placeholder="Apellido">
+						         <input id="ape_usu" name="ape_usu"  type="text" class="form-control" placeholder="Apellido">
 						    </div>
 						    
 						    <div class="form-group">
-						        <input id="cargo" type="text" class="form-control" placeholder="Cargo">
+						        <input id="cargo" name="cargo" type="text" class="form-control" placeholder="Cargo">
 						    </div>
 						    
 						    <div class="form-group">
 							 
-							   <a class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" onclick="guardar();" >
-							   				Guardar
-							        	<img src="<?php echo base_url()?>public/images/GUARDAR.png">
-							   </a>
+							<button class="btn btn-primary" type="submit"  id="Guardar" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);">
+							Guardar
+						 <img src="<?php echo base_url()?>public/images/GUARDAR.png">
+								</button>
 							     
 							   <a href="<?php echo base_url()?>ConsUsuario_c/" class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);">
 							        Cancelar
@@ -138,9 +138,109 @@
 </div>
 
 
+<script type="text/javascript" src="/public/jquery/jquery.validate.js"></script>
+<script  type="text/javascript"> 
+jQuery.validator.addMethod("lettersonly", function(value, element) {
+return this.optional(element) || /^[a-z\s]+$/i.test(value);
+}, "Only alphabetical characters");
+$(function () {
+   $.validator.setDefaults({
+	   errorClass: 'help-block',
+	   highlight: function (element) {
+		   // $(element)
+		   //     .closest('.form-group')
+		   //     .addClass('has-error');
+		   $(element).parent().removeClass('has-success').addClass('has-error');
+	   },
+	   unhighlight: function (element) {
+		   // $(element)
+		   //     .closest('.form-group')
+		   //     .removeClass('has-error');
+		   $(element).parent().removeClass('has-error').addClass('has-success');
+	   },
+	   errorPlacement: function (error, element) {
+		   if (element.prop('type') === 'checkbox') {
+			   error.insertAfter(element.parent());
+		   } else {
+			   error.insertAfter(element);
+		   }
+	   }
+   });
 
 
- <script  type="text/javascript"> 
+
+});
+
+$( "#Guardar" ).click(function( e ) {
+$("#frmCreaUsuario").validate({
+        rules: {
+            usuario: {
+                required: true,
+                lettersonly: true
+            },
+            clave: {
+                required: true
+            },
+            nivel: {
+                required: true
+            },
+            nom_usu: {
+                required: true,
+                lettersonly: true
+            },
+            ape_usu: {
+                required: true,
+                lettersonly: true
+            },
+            cargo: {
+                required: true
+            }
+        }, messages: {
+            usuario: {
+                required: "Ingrese Usuario",
+				lettersonly:"Ingrese Letras"
+            },
+            clave: {
+                required: "Ingrese Clave"
+            },
+            nivel: {
+                required: "Seleccione un nivel"
+            },
+            nom_usu: {
+                required: "Ingrese Nombre",
+                lettersonly: "Ingrese Letras"
+            },
+            ape_usu: {
+                required: "Ingrese apellido",
+                lettersonly: "Ingrese letras"
+            },
+            cargo: {
+                required: "Ingrese Cargo"
+            }
+        },
+        submitHandler: function (form) {
+            e.preventDefault();
+            insertar();
+        }
+	});
+});
+
+function validarDatos()
+{	 var v_usu= $("#usuario").val();
+	var v_caja= $("#caja").val();
+   
+
+   var Msg="";
+   if(v_usu==0)
+	 {     Msg = Msg + "- seleccione Usuario </br>" ;
+	 }
+
+   if(v_caja==0)
+   {     Msg = Msg + "- seleccione Caja </br>" ;
+   }
+   return Msg;
+}
+
 
 
 function validarDatos()

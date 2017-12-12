@@ -20,7 +20,7 @@
 				   <form  id="frmCreaConfigCaja"  action="<?php echo base_url()?>mantConfigCaja_c/insertar" method="POST"> 
 						       <div class="form-group">
 								       <select class="form-control" id="usuario" name="usuario" >
-								    	         <option value="0">
+								    	         <option value="">
 										                 SELECCIONAR USUARIO
 										         </option>
 										         <?php foreach ($usuarios as $usuario): ?>
@@ -33,7 +33,7 @@
 							  </div>
 							  <div class="form-group">
 								     <select class="form-control" id="caja" name="caja">
-								          <option value="0">
+								          <option value="">
 								                        SELECCIONAR CAJA
 										   </option>
 								    	    <?php foreach ($cajas as $campos): ?>
@@ -121,31 +121,35 @@
    </div>
 </div>
 
-
+<script type="text/javascript" src="/public/jquery/jquery.validate.js"></script>
  <script  type="text/javascript"> 
 
-$( "#Guardar" ).click(function( e ) {
-$("#frmCreaConfigCaja").validate({
-        rules: {
-            usuario: {
-                required: true
-            },
-            caja: {
-                required: true
-            }
-        }, messages: {
-            usuario: {
-                required: "Seleccione un usuario"
-            },
-            caja: {
-                required: "Seleccione un caja"
-            }
+$(function () {
+    $.validator.setDefaults({
+        errorClass: 'help-block',
+        highlight: function (element) {
+            // $(element)
+            //     .closest('.form-group')
+            //     .addClass('has-error');
+            $(element).parent().removeClass('has-success').addClass('has-error');
         },
-        submitHandler: function (form) {
-            e.preventDefault();
-            insertar();
+        unhighlight: function (element) {
+            // $(element)
+            //     .closest('.form-group')
+            //     .removeClass('has-error');
+            $(element).parent().removeClass('has-error').addClass('has-success');
+        },
+        errorPlacement: function (error, element) {
+            if (element.prop('type') === 'checkbox') {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
         }
-	});
+    });
+
+
+
 });
 
 function validarDatos()
