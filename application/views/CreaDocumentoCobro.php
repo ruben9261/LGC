@@ -33,7 +33,6 @@
 		}
 	</style>
  </head>
-
 <body>
 <?php
 
@@ -252,7 +251,7 @@ if($COD_TIPOCOBRO==1){
 													$cols .= '<td class="col-md-2 input-sm" >'.$item->ObsProd.'</td>';
 													$cols .= '<td class="col-md-3 input-sm" >'.$item->Precio.'</td>';
 													$cols .= '<td class="col-md-2 input-sm" >'.$item->Importe.'</td>';
-													$cols .= '<td class="col-md-1 input-sm" ><i class="btn glyphicon glyphicon-ok" onclick="fn_EliminarOrdenEntradaDetalle('."'fila".$item->CodOrdenE."'".');"></i></td>';
+													$cols .= '<td class="col-md-1 input-sm" ><i class="btn glyphicon glyphicon-remove" onclick="fn_EliminarOrdenEntradaDetalle('."'fila".$item->CodOrdenE."'".');"></i></td>';
 													$cols .= '</tr>';
 													$importe = intval($item->Importe);
 													$Total = $Total + $importe;

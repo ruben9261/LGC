@@ -243,7 +243,7 @@ function fn_SeleccionarOrdenEntrada(CodOrdenE){
 								cols += '<td class="col-md-2 input-sm" >'+value.ObsProd+'</td>';
 								cols += '<td class="col-md-3 input-sm" >'+value.Precio+'</td>';
 								cols += '<td class="col-md-2 input-sm" >'+value.Importe+'</td>';
-								cols += '<td class="col-md-1 input-sm" ><i class="btn glyphicon glyphicon-ok" onclick="fn_EliminarOrdenEntradaDetalle('+"'FILA"+value.CodOrdenE+"'"+');"></i></td>';
+								cols += '<td class="col-md-1 input-sm" ><i class="btn glyphicon glyphicon-remove" onclick="fn_EliminarOrdenEntradaDetalle('+"'FILA"+value.CodOrdenE+"'"+');"></i></td>';
 								
 								$("#TablaOrdenEntradaDet tbody").append(cols);
 								Total = Total + parseInt(value.Importe);
