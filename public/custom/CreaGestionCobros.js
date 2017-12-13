@@ -2,9 +2,6 @@ $(document).ready(function() {
 
 	fn_ObtenerTipoCobro();
 
-	$("#NUMERO_OPERACION").val("0");
-	$("#NUMERO_CUENTA").val("0");
-
 	    $.validator.setDefaults({
         errorClass: 'help-block',
         highlight: function (element) {
@@ -235,8 +232,8 @@ function fn_SeleccionarOrdenEntrada(CodOrdenE){
 						if(listOrdenEntradaDet.length>0){
 							$.each(listOrdenEntradaDet, function(index, value){
 								var cols = "";
-								cols += '<tr>';
-								cols += '<input type="hidden" class="COD_DOC_COBRO_DET" value="'+value.COD_DOC_COBRO_DET+'">';
+								cols += '<tr class="FILA'+value.CodOrdenE+'">';
+								cols += '<input type="hidden" class="COD_DOC_COBRO_DET" value="'+value.COD_DET_ORDEN_E+'">';
 								cols += '<input type="hidden" class="CodOrdenE" value="'+value.CodOrdenE+'">';
 								cols += '<input type="hidden" class="SUB_TOTAL" value="'+value.Importe+'">'
 								cols += '<td class="col-md-3 input-sm">'+value.CodOrdenE+'-'+value.Serie+'-'+value.Numero+'</td>';
@@ -246,6 +243,8 @@ function fn_SeleccionarOrdenEntrada(CodOrdenE){
 								cols += '<td class="col-md-2 input-sm" >'+value.ObsProd+'</td>';
 								cols += '<td class="col-md-3 input-sm" >'+value.Precio+'</td>';
 								cols += '<td class="col-md-2 input-sm" >'+value.Importe+'</td>';
+								cols += '<td class="col-md-1 input-sm" ><i class="btn glyphicon glyphicon-ok" onclick="fn_EliminarOrdenEntradaDetalle('+"'FILA"+value.CodOrdenE+"'"+');"></i></td>';
+								
 								$("#TablaOrdenEntradaDet tbody").append(cols);
 								Total = Total + parseInt(value.Importe);
 								$("#Total").html(Total);
@@ -305,10 +304,32 @@ $( "#Guardar" ).click(function( e ) {
 
 });
 
-
+function fn_ActualizarDetalleDocCobro(listDocCobroDet){
+	if(listDocCobroDet.length>0){
+		$.each(listDocCobroDet, function(index, value){
+			var cols = "";
+			cols += '<tr>';
+			cols += '<input type="hidden" class="COD_DOC_COBRO_DET" value="'+value.COD_DOC_COBRO_DET+'">';
+			cols += '<input type="hidden" class="CodOrdenE" value="'+value.CodOrdenE+'">';
+			cols += '<input type="hidden" class="SUB_TOTAL" value="'+value.Importe+'">'
+			cols += '<td class="col-md-3 input-sm">'+value.CodOrdenE+'-'+value.Serie+'-'+value.Numero+'</td>';
+			cols += '<td class="col-md-1 input-sm" >'+value.Cantidad+'</td>';
+			cols += '<td class="col-md-1 input-sm" >'+value.Producto+'</td>';
+			cols += '<td class="col-md-3 input-sm" >'+value.TipoProducto+'</td>';
+			cols += '<td class="col-md-2 input-sm" >'+value.ObsProd+'</td>';
+			cols += '<td class="col-md-3 input-sm" >'+value.Precio+'</td>';
+			cols += '<td class="col-md-2 input-sm" >'+value.Importe+'</td>';
+			$("#TablaOrdenEntradaDet tbody").append(cols);
+			Total = Total + parseInt(value.Importe);
+			$("#Total").html(Total);
+			$("#MONTO_TOTAL").val(Total);
+			$("#MONTO_NETO").val(Total);
+		});
+	}
+}
 function fn_GuardarDocCobro(){
-	debugger;
 	var DocCobro = new Object();
+	DocCobro.COD_DOC_COBRO = $("#COD_DOC_COBRO").val();
 	DocCobro.COD_OFI = $("#COD_OFI").val();
 	DocCobro.COD_CAJA = $("#COD_CAJA").val();
 	DocCobro.COD_USU = $("#COD_USU").val();
@@ -323,16 +344,32 @@ function fn_GuardarDocCobro(){
 	DocCobro.MONTO_NETO = $("#MONTO_NETO").val();
 	DocCobro.COD_TIPOCOBRO = $("#COD_TIPOCOBRO").val();
 
+	DocCobro.TIPO_TRANSACCION = $("#TIPO_TRANSACCION").val();
+
 	var listDocCobroDet = new Array();
 	var DocCobroDet = null;
 	$("#TablaOrdenEntradaDet tbody tr").each(function(){
 		DocCobroDet = new Object();
 		var CodOrdenE = $(".CodOrdenE",this).val();
 		DocCobroDet.COD_ORDEN_E = $(".CodOrdenE",this).val();
-		DocCobroDet.SUB_TOTAL = $(".SUB_TOTAL",this).val();
+		DocCobroDet.SUB_TOTAL = parseInt($(".SUB_TOTAL",this).val());
 		
 		listDocCobroDet.push(DocCobroDet);
 	});
+	debugger;
+
+	var result = [];
+	listDocCobroDet = listDocCobroDet.reduce(function (res, value) {
+		if (!res[value.COD_ORDEN_E]) {
+			res[value.COD_ORDEN_E] = {
+				SUB_TOTAL: 0,
+				COD_ORDEN_E: value.COD_ORDEN_E
+			};
+			result.push(res[value.COD_ORDEN_E])
+		}
+		res[value.COD_ORDEN_E].SUB_TOTAL += value.SUB_TOTAL
+		return res;
+	}, {});
 
 	DocCobro.listDocCobroDet = listDocCobroDet;
 	var valor  = 1;
@@ -343,9 +380,12 @@ function fn_GuardarDocCobro(){
 		// contentType:"application/json",
 		data: {DocCobro: DocCobro},
 		success: function(response){
-			var respuesta = response;
-			if(respuesta){
+			debugger;
+			var response = JSON.parse(response);
+			if(response.respuesta){
 				AlertNotify('', 'Éxito', 'El registro se guardo correctamente', 'success');
+				("#COD_DOC_COBRO").val(response.COD_DOC_COBRO);
+				("#TIPO_TRANSACCION").val(2);
 			}else{
 				AlertNotify('', 'Error', 'No se pudo guardar el registro', 'danger');
 			}
@@ -430,3 +470,62 @@ function LoadingPage() {
     $("#WindowLoad").html(imgCentro);
 
 }
+
+function fn_EliminarOrdenEntradaDetalle(elemento){
+	debugger;
+	var elemento2 = '.'+elemento.trim();
+	$(elemento2).remove();
+
+	var SUB_TOTAL = 0;
+	$("#TablaOrdenEntradaDet tbody tr").each(function(){
+		SUB_TOTAL += parseInt($(".SUB_TOTAL",this).val());
+	});
+
+	$("#Total").html(SUB_TOTAL);
+	$("#MONTO_TOTAL").val(SUB_TOTAL);
+	$("#MONTO_NETO").val(SUB_TOTAL);
+}
+
+var DataGrouper = (function() {
+    var has = function(obj, target) {
+        return _.any(obj, function(value) {
+            return _.isEqual(value, target);
+        });
+    };
+
+    var keys = function(data, names) {
+        return _.reduce(data, function(memo, item) {
+            var key = _.pick(item, names);
+            if (!has(memo, key)) {
+                memo.push(key);
+            }
+            return memo;
+        }, []);
+    };
+
+    var group = function(data, names) {
+        var stems = keys(data, names);
+        return _.map(stems, function(stem) {
+            return {
+                key: stem,
+                vals:_.map(_.where(data, stem), function(item) {
+                    return _.omit(item, names);
+                })
+            };
+        });
+    };
+
+    group.register = function(name, converter) {
+        return group[name] = function(data, names) {
+            return _.map(group(data, names), converter);
+        };
+    };
+
+    return group;
+}());
+
+DataGrouper.register("sum", function(item) {
+    return _.extend({}, item.key, {Value: _.reduce(item.vals, function(memo, node) {
+        return memo + Number(node.Value);
+    }, 0)});
+});

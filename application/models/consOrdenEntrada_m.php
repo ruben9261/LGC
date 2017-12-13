@@ -44,9 +44,5 @@ class ConsOrdenEntrada_m extends CI_Model {
 		}
 	
 	}
-	
-	
-	
-	
 		
 }

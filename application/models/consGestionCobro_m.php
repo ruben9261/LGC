@@ -37,6 +37,43 @@ class ConsGestionCobro_m extends CI_Model {
 		}
 	}
 
+	public function obt_DocCobro($COD_DOC_COBRO)
+	{	
+		$this->db->select('*');
+		$this->db->from('doc_cobro dc');
+		$this->db->join('cliente c', 'dc.COD_CLI = c.COD_CLI');
+		$this->db->where("COD_DOC_COBRO",$COD_DOC_COBRO);
+		//$string = $this->db->get_compiled_select();
+		$query  = $this->db->get();
+		$result = $query->result();
+
+		return $result;
+	}
+
+	public function obt_DocCobroDet($COD_DOC_COBRO)
+	{	
+		$this->db->select('dcd.COD_DOC_COBRO_DET ,oed.COD_DET_ORDEN_E ,oe.cod_orden_e as CodOrdenE,oe.cod_serie_orden as CodSerieOrden');
+		$this->db->select('oe.serie as Serie,oe.numero as Numero');
+		$this->db->select('p.DESCRIPCION as Producto,p.PRECIO as Precio');
+		$this->db->select('IFNULL(oed.OBS_PROD,"NINGUNA") as ObsProd,p.PRECIO as Precio');
+		$this->db->select('p.DESCRIPCION as Producto,oed.CANTIDAD as Cantidad');
+		$this->db->select('oed.Precio as Precio');
+		$this->db->select('(oed.CANTIDAD * oed.PRECIO) as Importe');
+		$this->db->select('tp.desc_tipo as TipoProducto');
+		$this->db->from('doc_cobro_detalle dcd');
+		$this->db->join('orden_e oe', 'dcd.COD_ORDEN_E = oe.COD_ORDEN_E');
+		$this->db->join('orden_e_det oed', 'oe.COD_ORDEN_E = oed.COD_ORDEN_E');
+		$this->db->join('producto p', 'oed.COD_PROD = p.COD_PROD');
+		$this->db->join('Tipo_Producto tp', 'p.cod_tip_prod = tp.cod_tip_prod');
+		$this->db->join('doc_cobro dc', 'dcd.COD_DOC_COBRO = dc.COD_DOC_COBRO');
+		$this->db->join('tipo_cobro tc', 'dc.COD_TIPOCOBRO = tc.COD_TIPOCOBRO');
+		$this->db->where("dcd.COD_DOC_COBRO",$COD_DOC_COBRO);
+		//$string = $this->db->get_compiled_select();
+		$query  = $this->db->get();
+		$result = $query->result();
+		return $result;
+	}
+
 	public function obt_OrdenEntraClientes()
 	{	
 		if($query = $this->db->query("CALL SP_R_TESORERIA_COBRO_OBT_CLIENTES();"))
@@ -55,8 +92,63 @@ class ConsGestionCobro_m extends CI_Model {
 		}
 	}
 
-	public function obt_TotalPaginas(){
-		
+	public function obt_totpaginas($Filtros){
+		$TotalPaginas = 0;
+		$this->db->select('dc.COD_DOC_COBRO,cli.NOMBRE, cli.NRO_DOCUMENTO, u.COD_USU, u.USU,c.DESC_CAJA,tc.NOM_TIPOCOBRO');
+		$this->db->from('doc_cobro dc');
+		$this->db->join('cliente cli', 'dc.COD_CLI = cli.COD_CLI');
+		$this->db->join('usuario u', 'dc.COD_USU = u.COD_USU');
+		$this->db->join('caja c', 'dc.COD_CAJA = c.COD_CAJA');
+		$this->db->join('tipo_cobro tc', 'dc.COD_TIPOCOBRO = tc.COD_TIPOCOBRO');
+		$this->db->where("((".$Filtros["COD_CLI"]."=0) or(dc.COD_CLI=".$Filtros["COD_CLI"]."))");
+		$this->db->where("((".$Filtros["COD_USU"]."=0) or(u.COD_USU=".$Filtros["COD_USU"]."))");
+		$this->db->where("((".$Filtros["COD_TIPOCOBRO"]."=0) or(dc.COD_TIPOCOBRO=".$Filtros["COD_TIPOCOBRO"]."))");
+		$this->db->where("(('".$Filtros["COD_DOC_COBRO"]."'='') or(dc.COD_DOC_COBRO='".$Filtros["COD_DOC_COBRO"]."'))");
+		$this->db->where("(('".$Filtros["DOC_COBRO_FECHA"]."'='') or(date(dc.DOC_COBRO_FECHA)='".$Filtros["DOC_COBRO_FECHA"]."'))");
+		//$string = $this->db->get_compiled_select();
+		$query  = $this->db->get();
+		$result = $query->result();
+		//$error = $this->db->error_message();
+		$TotalRegistros = $this->db->count_all_results()+1;
+		$TotalPaginas = round($TotalRegistros/10)+1;
+		return $TotalPaginas;
+	}
+
+	public function obt_Usuarios()
+	{	$query  = $this->db->get("usuario");
+		$result = $query->result();
+		return $result;
+	}
+
+	public function obt_Oficina()
+	{	$query = $this->db->get("oficina");
+		$result = $query->result();
+		return $result;
+	}
+
+	public function obt_lista($Filtros){
+
+		$P_numpagina = $Filtros["numpagina"] - 1;
+		$filasxpagina = 10;
+		$inicio = round($P_numpagina/$filasxpagina);
+
+				$this->db->select('dc.COD_DOC_COBRO,cli.NOMBRE, cli.NRO_DOCUMENTO, u.COD_USU, u.USU,c.DESC_CAJA,tc.NOM_TIPOCOBRO');
+				$this->db->from('doc_cobro dc');
+				$this->db->join('cliente cli', 'dc.COD_CLI = cli.COD_CLI');
+				$this->db->join('usuario u', 'dc.COD_USU = u.COD_USU');
+				$this->db->join('caja c', 'dc.COD_CAJA = c.COD_CAJA');
+				$this->db->join('tipo_cobro tc', 'dc.COD_TIPOCOBRO = tc.COD_TIPOCOBRO');
+				$this->db->where("((".$Filtros["COD_CLI"]."=0) or(dc.COD_CLI=".$Filtros["COD_CLI"]."))");
+				$this->db->where("((".$Filtros["COD_USU"]."=0) or(u.COD_USU=".$Filtros["COD_USU"]."))");
+				$this->db->where("((".$Filtros["COD_TIPOCOBRO"]."=0) or(dc.COD_TIPOCOBRO=".$Filtros["COD_TIPOCOBRO"]."))");
+				$this->db->where("(('".$Filtros["COD_DOC_COBRO"]."'='') or(dc.COD_DOC_COBRO='".$Filtros["COD_DOC_COBRO"]."'))");
+				$this->db->where("(('".$Filtros["DOC_COBRO_FECHA"]."'='') or(date(dc.DOC_COBRO_FECHA)='".$Filtros["DOC_COBRO_FECHA"]."'))");
+				$this->db->limit($filasxpagina,$inicio);
+				//$string = $this->db->get_compiled_select();
+				$query  = $this->db->get();
+				$result = $query->result();
+
+		return $result;
 	}
 
 	public function insertDocCobro($DocCobro)
@@ -66,6 +158,7 @@ class ConsGestionCobro_m extends CI_Model {
 		$FECHA_OPERACION = "1900-10-10";
 		date_default_timezone_set('America/Lima');
 		$DOC_COBRO_FECHA = date('Y/m/d h:i:s', time());
+		$COD_DOC_COBRO = 0;
 
 		$doc_cobro = array(
 				'COD_OFI' => $DocCobro["COD_OFI"],
@@ -96,16 +189,25 @@ class ConsGestionCobro_m extends CI_Model {
 			);
 			$this->db->insert('doc_cobro_detalle',$doc_cobro_detalle);
 		}
-
+		
+		$respuesta = FALSE;
 		$this->db->trans_complete();
 		if ($this->db->trans_status() === FALSE) {
 			$this->db->trans_rollback();
-			return FALSE;
+			$respuesta =  FALSE;
 		} 
 		else {
 			$this->db->trans_commit();
-			return TRUE;
+			$respuesta =  TRUE;
 		}
+
+		
+		$response = array(
+			'respuesta' => $respuesta,
+			'COD_DOC_COBRO'=> $COD_DOC_COBRO
+		);
+
+		return $response;
 	}
 
 	public function updateDocCobro($DocCobro)
@@ -135,18 +237,43 @@ class ConsGestionCobro_m extends CI_Model {
 
 		$this->db->where('COD_DOC_COBRO', $COD_DOC_COBRO);
 		$this->db->update('doc_cobro', $doc_cobro);
-		$COD_DOC_COBRO = $this->db->insert_id();
-		
+		$this->db->delete('doc_cobro_detalle', array('COD_DOC_COBRO' => $COD_DOC_COBRO));
+
 		foreach($DocCobro["listDocCobroDet"] as $item){
-			$COD_DOC_COBRO_DET = $item['COD_DOC_COBRO_DET'];
 			$doc_cobro_detalle = array(
 				'COD_DOC_COBRO' => $COD_DOC_COBRO,
 				'COD_ORDEN_E' => $item["COD_ORDEN_E"],
 				'SUB_TOTAL' => $item["SUB_TOTAL"]
 			);
-			$this->db->where('COD_DOC_COBRO_DET', $COD_DOC_COBRO_DET);
-			$this->db->update('doc_cobro_detalle',$doc_cobro_detalle);
+			$this->db->insert('doc_cobro_detalle',$doc_cobro_detalle);
 		}
+
+		$this->db->trans_complete();
+
+		$respuesta = false;
+		if ($this->db->trans_status() === FALSE) {
+			$this->db->trans_rollback();
+			$respuesta = FALSE;
+		} 
+		else {
+			$this->db->trans_commit();
+			$respuesta = TRUE;
+		}
+		
+		$response = array(
+			'respuesta' => $respuesta,
+			'COD_DOC_COBRO'=> $COD_DOC_COBRO,
+			
+		);
+
+		return $response;
+	}
+
+	public function eliminar($COD_DOC_COBRO){
+		$this->db->trans_start();
+		
+		$this->db->delete('doc_cobro', array('COD_DOC_COBRO' => $COD_DOC_COBRO));
+		$this->db->delete('doc_cobro_detalle', array('COD_DOC_COBRO' => $COD_DOC_COBRO));
 
 		$this->db->trans_complete();
 		if ($this->db->trans_status() === FALSE) {

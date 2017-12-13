@@ -4,9 +4,6 @@
     <title>Gesti&oacute;n Orden de Entrada </title> 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type ="text/css" href="/public/bootstrap-3.3.7-dist/css/bootstrap.min.css"> 
-    <script type="text/javascript" src="/public/jquery/jquery-3.1.1.min.js"></script>
-    <script  type="text/javascript"  src="/public/bootstrap-3.3.7-dist/js/bootstrap.min.js"> </script>
-    <script  type="text/javascript"  src="/public/custom/CreaGestionCobros.js"> </script>
      <style type="text/css">
 		.modal-static { 
 		    position: fixed;
@@ -41,7 +38,7 @@
          <br/>
     	<div class="well" style="background-color:rgb(255,255,255); border: 1px solid rgb(0,128,255);">    	     
 		     
-		    <form   id="frmGestOrdenEntrada"  action="/MantGestionCobros_c/mostrar_Nuevo" method="POST" > 
+		    <form   id="frmGestOrdenEntrada"  action="/MantGestionCobros_c/CreaDocumentoCobro/0" method="POST" > 
 		          <input type="hidden" name="codigo"> 
 		    	  <input type="hidden" id="tpagina">
 		    	  <input type="hidden" id="pactual">
@@ -58,11 +55,40 @@
 		    	  </div>
 		    	  <br/>
 		    	  <div class="form_group">
-				       <input type="text" name="btnbuscar" id="txt_fecha"     class="form-control"  placeholder="fecha"> 
-					   <input type="text" name="btnbuscar" id="txt_serie"     class="form-control"  placeholder="serie">
-					   <input type="text" name="btnbuscar" id="txt_numero"    class="form-control"  placeholder="numero"> 
-					   <input type="text" name="btnbuscar" id="txt_cliente" class="form-control"  placeholder="cliente">
-					   <input type="text" name="btnbuscar" id="txt_documento" class="form-control"  placeholder="documento">						    
+				  	   <input type="text" name="btnbuscar" id="COD_DOC_COBRO"  class="form-control"  placeholder="fecha">
+				       <input type="text" name="btnbuscar" id="DOC_COBRO_FECHA" class="form-control"  placeholder="fecha"> 
+					   <select name="btnbuscar" class="form-control" id="COD_OFI">
+					   		<option value="0">--TODAS LAS OFICINAS--</option>
+						   <?php
+								foreach($listOficina as $item){
+									echo "<option value='".$item->COD_OFI."'>".$item->NOMB_OFICINA."</option>";
+								}  
+						   ?>
+					   </select>
+					   <select name="btnbuscar" class="form-control" id="COD_USU">
+					   		<option value="0">--TODOS LOS USUARIOS--</option>
+						   <?php
+								foreach($listUsuarios as $item){
+									echo "<option value='".$item->COD_USU."'>".$item->NOM_USU."</option>";
+								}  
+						   ?>
+					   </select>
+					   <select name="btnbuscar" class="form-control" id="COD_TIPOCOBRO">
+					   		<option value="0">--TODOS LOS TIPO DE COBRO--</option>
+						   <?php
+								foreach($listTipoCobro as $item){
+									echo "<option value='".$item->COD_TIPOCOBRO."'>".$item->NOM_TIPOCOBRO."</option>";
+								}  
+						   ?>
+					   </select>	
+					   <select name="btnbuscar" class="form-control" id="COD_CLI">
+					   		<option value="0">--TODOS LOS CLIENTES--</option>
+						   <?php
+								foreach($listClientes as $item){	
+									echo "<option value='".$item->COD_CLI."'>".$item->NOMBRE."</option>";
+								}  
+						   ?>
+					   </select>				    
 					   <br/>
 					   <button  type="button"  id="btnbuscar"   style="background-color:rgb(255,255,255);color:rgb(0,128,255); border: 1px solid rgb(0,128,255);">
 							  <img src="/public/images/BUSCAR.png">
@@ -137,5 +163,8 @@
       </div>
    </div>
 </div>
+<script type="text/javascript" src="/public/jquery/jquery-3.1.1.min.js"></script>
+<script  type="text/javascript"  src="/public/bootstrap-3.3.7-dist/js/bootstrap.min.js"> </script>
+<script type="text/javascript" src="/public/custom/GestionDeCobros.js"></script>
 </body> 
 </html> 

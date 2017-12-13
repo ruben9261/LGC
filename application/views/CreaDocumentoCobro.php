@@ -35,6 +35,38 @@
  </head>
 
 <body>
+<?php
+
+$NUMERO_CUENTA = "";
+$FECHA_OPERACION = "";
+$NUMERO_OPERACION = "";
+$NRO_DOCUMENTO = "";
+$COD_CLI = "";
+$NOMBRE = "";
+$Total = 0;
+$COD_TIPOCOBRO = 0;
+$COD_TIPO_DOC = 0;
+if(count($docCobro)>0){
+	foreach($docCobro as $item){
+		$NUMERO_CUENTA = $item->NUMERO_CUENTA;
+		$FECHA_OPERACION = $item->FECHA_OPERACION;
+		$NUMERO_OPERACION = $item->NUMERO_OPERACION;
+		$NRO_DOCUMENTO = $item->NRO_DOCUMENTO;
+		$COD_CLI = $item->COD_CLI;
+		$NOMBRE = $item->NOMBRE;
+		$COD_TIPOCOBRO = $item->COD_TIPOCOBRO;
+		$COD_TIPO_DOC = $item->COD_TIPO_DOC;
+	}
+}
+$display = "";
+
+if($COD_TIPOCOBRO==1){
+	$display = "none";
+}else{
+	$display = "block";
+}
+
+?>
 	<input type="hidden" Id="CodCli" name="" value="">
 	<div class="container" id="contenedor">
 		           <br/>
@@ -43,17 +75,18 @@
 		            </div>
 					<br/>
 				<form id="frmCreaDocCobro" rol="form" class="form-horizontal" method="POST">
-						 <input type="hidden" name="COD_DOC_COBRO" id="COD_DOC_COBRO">
-				         <input type="hidden" name="COD_CLI" id="COD_CLI">
-						 <input type="hidden" name="COD_TIPO_DOC" id="COD_TIPO_DOC" >
+						 <input type="hidden" name="COD_DOC_COBRO" id="COD_DOC_COBRO" value="<?php echo $COD_DOC_COBRO;?>">
+				         <input type="hidden" name="COD_CLI" id="COD_CLI" value="<?php echo $COD_CLI;?>">
+						 <input type="hidden" name="COD_TIPO_DOC" id="COD_TIPO_DOC" value="<?php echo $COD_TIPO_DOC;?>">
 						 <input type="hidden" name="COD_OFI" id="COD_OFI" value="<?php echo $COD_OFI?>">
 						 <input type="hidden" name="COD_CAJA" id="COD_CAJA" value="<?php echo $COD_CAJA?>">
 						 <input type="hidden" name="COD_USU" id="COD_USU" value="<?php echo $COD_USU?>">
-						 <input type="hidden" name="MONTO_TOTAL" id="MONTO_TOTAL" value="0">
-						 <input type="hidden" name="MONTO_NETO" id="MONTO_NETO" value="0">
+						 <input type="hidden" name="MONTO_TOTAL" id="MONTO_TOTAL" value="<?php echo $Total;?>">
+						 <input type="hidden" name="MONTO_NETO" id="MONTO_NETO" value="<?php echo $Total;?>">
 						 <input type="hidden" id="tpagina">
 		    	         <input type="hidden" id="pactual">
-						
+						 <input type="hidden" id="TIPO_TRANSACCION" value="<?php echo $TIPO_TRANSACCION; ?>">
+						 <input type="hidden" id="COD_DOC_COBRO" value="<?php echo $COD_DOC_COBRO; ?>">
 							<div class="form-group">
 								<div class="col-md-4 container-style">
 									<label for="" class="control-label col-md-3">TipoCobro :</label>
@@ -86,10 +119,10 @@
 										</label>
 									</div>
 								</div>
-								<div class="col-md-4 col-md-offset-3 container-style" style="display:none;" id="divNroCuenta">
+								<div class="col-md-4 col-md-offset-3 container-style" style="display:<?php echo $display;?>;" id="divNroCuenta">
 									<label for="" class="control-label col-md-6"  >Número de Cuenta :</label>
 									<div class="col-md-6">
-										<input type="text" class="form-control input-sm" name="NUMERO_CUENTA" id="NUMERO_CUENTA" value="">
+										<input type="text" class="form-control input-sm" name="NUMERO_CUENTA" id="NUMERO_CUENTA" value="<?php echo $NUMERO_CUENTA;?>">
 									</div>
 								</div>
 							</div>
@@ -104,17 +137,18 @@
 											</label>
 										</div>
 								</div>
-								<div class="col-md-3 container-style" style="display:none;" id="divNroOperacion">
+								<div class="col-md-3 container-style" style="display:<?php echo $display;?>;" id="divNroOperacion">
 									<label for="" class="control-label col-md-6" >N° de Operación :</label>
 									<div class="col-md-6">
-										<input type="text" class="form-control input-sm" name="NUMERO_OPERACION" id="NUMERO_OPERACION" value="">
+										<input type="text" class="form-control input-sm" name="NUMERO_OPERACION" id="NUMERO_OPERACION"
+										 value="<?php echo $NUMERO_OPERACION;?>">
 									</div>
 								</div>
-								<div class="col-md-4 container-style" style="display:none" id="divFechaOperacion">
+								<div class="col-md-4 container-style" style="display:<?php echo $display;?>" id="divFechaOperacion">
 									<label for="" class="control-label col-md-6" >Fecha Operación :</label>
 									<div class="col-md-6">
 										<div class='input-group'>
-										<input type='text' name="FECHA_OPERACION" id="FECHA_OPERACION" class="form-control input-sm calendario" placeholder="Fecha de Inicio" />
+										<input type='text' name="FECHA_OPERACION" id="FECHA_OPERACION" class="form-control input-sm calendario" value="<?php echo $FECHA_OPERACION;?>" placeholder="Fecha de Inicio" />
 										<!-- <div class="input-group-addon">
 										<span class="glyphicon glyphicon-calendar"></span>
 										</div> -->
@@ -137,7 +171,7 @@
 								<div class='col-md-4 col-md-offset-3 container-style'>
 										<label class="control-label col-md-6">Serie:</label>
 										<div class="col-md-6">
-											<label class=" control-label">001-100</label>
+											<label class=" control-label"><?php echo $COD_DOC_COBRO;?></label>
 										</div>
 								</div>
 							</div>
@@ -145,14 +179,14 @@
 								<div  class='col-md-4 container-style'>
 									<label for="" class="control-label col-md-3"> Cliente :</label>
 									<div class="col-md-6 input-group">
-										<input text="text" id="Cliente" name="NombreCliente" class="form-control input-sm" disabled /> 
+										<input text="text" id="Cliente" name="NombreCliente" class="form-control input-sm" value="<?php echo $NOMBRE; ?>" disabled /> 
 										<span class="btn input-group-addon glyphicon glyphicon-search" onclick="fn_ObtenerClientes();"></span>
 									</div>
 								</div>
 								<div  class='col-md-4 col-md-offset-3 container-style'>
 									<label for="" class="control-label col-md-6"> N° Documento :</label>
 									<div class="col-md-6">
-										<input text="text" id="NRO_DOCUMENTO" name="NRO_DOCUMENTO" class="form-control input-sm"/> 
+										<input text="text" id="NRO_DOCUMENTO" name="NRO_DOCUMENTO" class="form-control input-sm" value="<?php echo $NRO_DOCUMENTO; ?>" /> 
 									</div>
 								</div>
 						     </div>
@@ -194,9 +228,35 @@
 											<th class='col-md-1 thead-style'>
 													IMPORTE
 											</th>
+											<th class='col-md-1 thead-style'>
+													Acciones
+											</th>
 											</tr>
 										</thead>
 									<tbody>
+										<?php
+											if(count($docCobroDet)>0){
+												
+												foreach($docCobroDet as $item){
+													$cols = "";
+													$cols .= '<tr class="fila'.$item->CodOrdenE.'">';
+													$cols .= '<input type="hidden" class="CodOrdenE" value="'.$item->CodOrdenE.'">';
+													$cols .= '<input type="hidden" class="SUB_TOTAL" value="'.$item->Importe.'">';
+													$cols .= '<td class="col-md-3 input-sm">'.$item->CodOrdenE.'-'.$item->Serie.'-'.$item->Numero.'</td>';
+													$cols .= '<td class="col-md-1 input-sm" >'.$item->Cantidad.'</td>';
+													$cols .= '<td class="col-md-1 input-sm" >'.$item->Producto.'</td>';
+													$cols .= '<td class="col-md-3 input-sm" >'.$item->TipoProducto.'</td>';
+													$cols .= '<td class="col-md-2 input-sm" >'.$item->ObsProd.'</td>';
+													$cols .= '<td class="col-md-3 input-sm" >'.$item->Precio.'</td>';
+													$cols .= '<td class="col-md-2 input-sm" >'.$item->Importe.'</td>';
+													$cols .= '<td class="col-md-1 input-sm" ><i class="btn glyphicon glyphicon-ok" onclick="fn_EliminarOrdenEntradaDetalle('."'fila".$item->CodOrdenE."'".');"></i></td>';
+													$cols .= '</tr>';
+													$importe = intval($item->Importe);
+													$Total = $Total + $importe;
+													echo $cols;
+												}
+											}
+										?>
 									</tbody>
 									<tfoot>
 										<tr>
@@ -206,7 +266,8 @@
 											<th class='col-md-1'></th>
 											<th class='col-md-3'></th>
 											<th class='col-md-1'>Total:</th>
-											<th class='col-md-1'><span id="Total">0</span></th>
+											<th class='col-md-1'><span id="Total"><?php echo $Total; ?></span></th>
+											<th class='col-md-1'></th>
 										</tr>
 									</tfoot>
 									</table>
@@ -327,5 +388,11 @@
 	<script src="/public/js/bootstrap-datepicker.min.js"></script>   
   	<script src="/public/js/bootstrap-datepicker.es.min.js"></script> 
 	<script src="/public/pnotify/pnotify.custom.min.js"></script>
+	<script>
+		$(document).ready(function() {
+
+			$("#COD_TIPOCOBRO").val("<?php echo $docCobro->COD_TIPOCOBRO; ?>");
+		});
+	</script>
 </body>
 </html>
