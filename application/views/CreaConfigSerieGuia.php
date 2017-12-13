@@ -46,10 +46,10 @@
 							  
 							 
 							   <div class="form-group">
-							       <a class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" onclick="guardar();" >
+							   <button class="btn btn-primary" type="submit"  id="Guardar" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" >
 							   				Guardar
 							        	    <img src="<?php echo base_url()?>public/images/GUARDAR.png">
-							        </a>
+							   </button>
 							     
 						            <a href="<?php echo base_url()?>consConfigSerieGuia_c/" class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);">
 						            		 Cancelar
@@ -123,6 +123,10 @@
 
 
  <script  type="text/javascript"> 
+
+
+
+
 function validarDatos()
 {	 var v_usu= $("#usuario").val();
 	 var v_Serie= $("#serie").val();
@@ -138,6 +142,29 @@ function validarDatos()
     }
     return Msg;
 }
+$( "#Guardar" ).click(function( e ) {
+$("#frmCreaConfigSerieGuia").validate({
+        rules: {
+            usuario: {
+                required: true
+            },
+            serie: {
+                required: true
+            }
+        }, messages: {
+            usuario: {
+                required: "Seleccione un usuario"
+            },
+            serie: {
+                required: "Seleccione un serie"
+            }
+        },
+        submitHandler: function (form) {
+            e.preventDefault();
+            insertar();
+        }
+	});
+});
 
 
 function guardar()

@@ -6,8 +6,13 @@
     <link rel="stylesheet" type ="text/css" href="<?php echo base_url()?>public/bootstrap-3.3.7-dist/css/bootstrap.min.css"> 
     <script type="text/javascript" src="<?php echo base_url()?>public/jquery/jquery-3.1.1.min.js"></script>
     <script  type="text/javascript"  src="<?php echo base_url()?>public/bootstrap-3.3.7-dist/js/bootstrap.min.js"> </script>
+
+<!-- quiero jugar un imba 2-->
+   <!-- hola kevin-->
     <!-- hola a todos -->
-    <!--Prueba 2-->
+    <!--Prueba 234-->
+
+	<!-- Hola Gordito 2 -->
      <style type="text/css">
 		.modal-static { 
 		    position: fixed;

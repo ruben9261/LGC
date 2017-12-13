@@ -72,7 +72,7 @@
 							        </button>
 							            -->
 							
-							        <button class="btn btn-primary" type="submit"  id="Guardar" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" >
+							        <button class="btn btn-primary" type="submit"  id="Guardar" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);">
 							   				Guardar
 							        	<img src="<?php echo base_url()?>public/images/GUARDAR.png">
 							        </button>
