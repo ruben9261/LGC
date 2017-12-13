@@ -165,6 +165,6 @@
 </div>
 <script type="text/javascript" src="/public/jquery/jquery-3.1.1.min.js"></script>
 <script  type="text/javascript"  src="/public/bootstrap-3.3.7-dist/js/bootstrap.min.js"> </script>
-<script type="text/javascript" src="/public/custom/GestionDeCobros.js"></script>
+<script type="text/javascript" src="/public/custom/GestionDePagos.js"></script>
 </body> 
 </html> 
