@@ -1,7 +1,7 @@
 <?php if( ! defined ('BASEPATH')) exit('error al intentar acceder');
 
 
-class ConsGestionCobro_m extends CI_Model {
+class ConsGestionPago_m extends CI_Model {
 		
 	public function _construct()
 	{
@@ -10,7 +10,7 @@ class ConsGestionCobro_m extends CI_Model {
 	}
 	
 	
-	public function obt_DatosCobro($CodUsu)
+	public function obt_DatosPago($CodUsu)
 	{	
 		if($query = $this->db->query("CALL SP_R_TESORERIA_COBRO_OBT_DATOSCOBRO('".$CodUsu."');"))
 		{	if($query->num_rows() > 0 )
@@ -19,30 +19,51 @@ class ConsGestionCobro_m extends CI_Model {
 		}
 	}
 
-	public function obt_OrdenEntrada($P_COD_ORDENE)
+	public function obt_OrdenSalida($P_COD_ORDENS)
 	{	
-		if($query = $this->db->query("CALL SP_R_TESORERIA_COBRO_OBT_ORDEN_E('".$P_COD_ORDENE."');"))
-		{	if($query->num_rows() > 0 )
-			{	return $query->result();} 
-			else{ return 0;}
-		}
+		$this->db->select('os.COD_ORDEN_S');
+		$this->db->select('os.SERIE');
+		$this->db->select('os.NUMERO');
+		$this->db->select('c.nombre as CLIENTE');
+		$this->db->select('c.NRO_DOCUMENTO as DOCUMENTO');
+		$this->db->from('orden_s os');
+		$this->db->join('proveedor p', 'os.COD_PROVEEDOR = c.COD_PROV');
+		$this->db->where("COD_ORDEN_S",$P_COD_ORDENS);
+		//$string = $this->db->get_compiled_select();
+		$query  = $this->db->get();
+		$result = $query->result();
+
+		return $result;
 	}
 
-	public function obt_OrdenEntradaDet($P_COD_ORDENE)
+	public function obt_OrdenSalidaDet($P_COD_ORDENS)
 	{	
-		if($query = $this->db->query("CALL SP_R_TESORERIA_COBRO_OBT_ORDENE_DET('".$P_COD_ORDENE."');"))
-		{	if($query->num_rows() > 0 )
-			{	return $query->result();} 
-			else{ return 0;}
-		}
+		$this->db->select('osd.COD_DET_ORDEN_S');
+		$this->db->select('os.COD_ORDEN_S');
+		$this->db->select('os.SERIE');
+		$this->db->select('os.NUMERO');
+		$this->db->select('p.DESCRIPCION');
+		$this->db->select('osd.PRECIO');
+		$this->db->select('(osd.CANTIDAD * osd.PRECIO) as IMPORTE');
+		$this->db->select('tp.desc_tipo as TIPOPRODUCTO');
+		$this->db->from('orden_s os');
+		$this->db->join('orden_s_det osd', 'os.COD_ORDEN_S = osd.COD_ORDEN_S');
+		$this->db->join('producto p', 'osd.COD_PROD = p.COD_PROD');
+		$this->db->join('Tipo_Producto tp', 'p.cod_tip_prod = tp.cod_tip_prod');
+		$this->db->where("COD_ORDEN_S",$P_COD_ORDENS);
+		//$string = $this->db->get_compiled_select();
+		$query  = $this->db->get();
+		$result = $query->result();
+
+		return $result;
 	}
 
-	public function obt_DocCobro($COD_DOC_COBRO)
+	public function obt_DocPago($COD_DOC_PAGO)
 	{	
 		$this->db->select('*');
-		$this->db->from('doc_cobro dc');
-		$this->db->join('cliente c', 'dc.COD_CLI = c.COD_CLI');
-		$this->db->where("COD_DOC_COBRO",$COD_DOC_COBRO);
+		$this->db->from('doc_pago dp');
+		$this->db->join('Proveedor p', 'dp.COD_PROV = p.COD_PROV');
+		$this->db->where("COD_DOC_PAGO",$COD_DOC_PAGO);
 		//$string = $this->db->get_compiled_select();
 		$query  = $this->db->get();
 		$result = $query->result();
@@ -50,46 +71,51 @@ class ConsGestionCobro_m extends CI_Model {
 		return $result;
 	}
 
-	public function obt_DocCobroDet($COD_DOC_COBRO)
+	public function obt_DocPagoDet($COD_DOC_PAGO)
 	{	
-		$this->db->select('dcd.COD_DOC_COBRO_DET ,oed.COD_DET_ORDEN_E ,oe.cod_orden_e as CodOrdenE,oe.cod_serie_orden as CodSerieOrden');
-		$this->db->select('oe.serie as Serie,oe.numero as Numero');
-		$this->db->select('p.DESCRIPCION as Producto,oed.PRECIO as Precio');
-		$this->db->select('IFNULL(oed.OBS_PROD,"NINGUNA") as ObsProd');
-		$this->db->select('p.DESCRIPCION as Producto,oed.CANTIDAD as Cantidad');
-		$this->db->select('oed.Precio as Precio');
-		$this->db->select('(oed.CANTIDAD * oed.PRECIO) as Importe');
-		$this->db->select('tp.desc_tipo as TipoProducto');
-		$this->db->from('doc_cobro_detalle dcd');
-		$this->db->join('orden_e oe', 'dcd.COD_ORDEN_E = oe.COD_ORDEN_E');
-		$this->db->join('orden_e_det oed', 'oe.COD_ORDEN_E = oed.COD_ORDEN_E');
-		$this->db->join('producto p', 'oed.COD_PROD = p.COD_PROD');
+		$this->db->select('dpd.COD_DOC_PAGO_DET');
+		$this->db->select('osd.COD_DET_ORDEN_S');
+		$this->db->select('os.COD_ORDEN_S');
+		$this->db->select('os.SERIE,os.NUMERO');
+		$this->db->select('p.DESCRIPCION as PRODUCTO,osd.PRECIO');
+		$this->db->select('IFNULL(osd.DESCRIPCION,"NINGUNA") as DESCRIPCION');
+		$this->db->select('osd.CANTIDAD');
+		$this->db->select('(osd.CANTIDAD * osd.PRECIO) as IMPORTE');
+		$this->db->select('tp.desc_tipo as TIPOPRODUCTO');
+		$this->db->from('doc_pago_detalle dpd');
+		$this->db->join('orden_s os', 'dpd.COD_ORDEN_S = os.COD_ORDEN_S');
+		$this->db->join('orden_s_det osd', 'os.COD_ORDEN_S = osd.COD_ORDEN_S');
+		$this->db->join('producto p', 'osd.COD_PROD = p.COD_PROD');
 		$this->db->join('Tipo_Producto tp', 'p.cod_tip_prod = tp.cod_tip_prod');
-		$this->db->join('doc_cobro dc', 'dcd.COD_DOC_COBRO = dc.COD_DOC_COBRO');
-		$this->db->join('tipo_cobro tc', 'dc.COD_TIPOCOBRO = tc.COD_TIPOCOBRO');
-		$this->db->where("dcd.COD_DOC_COBRO",$COD_DOC_COBRO);
+		$this->db->join('doc_pago dp', 'dpd.COD_DOC_PAGO = dp.COD_DOC_PAGO');
+		$this->db->join('tipo_cobro tc', 'dp.COD_TIPOPAGO = tc.COD_TIPOPAGO');
+		$this->db->where("dpd.COD_DOC_PAGO",$COD_DOC_PAGO);
 		//$string = $this->db->get_compiled_select();
 		$query  = $this->db->get();
 		$result = $query->result();
 		return $result;
 	}
 
-	public function obt_OrdenEntraClientes()
+	public function obt_OrdenSalidaProveedores()
 	{	
-		if($query = $this->db->query("CALL SP_R_TESORERIA_COBRO_OBT_CLIENTES();"))
-		{	if($query->num_rows() > 0 )
-			{	return $query->result();} 
-			else{ return 0;}
-		}
+		$this->db->select('*');
+		$this->db->from('Proveedor');
+
+		$query  = $this->db->get();
+		$result = $query->result();
+
+		return $result;
 	}
 
 	public function obt_TipoCobro()
 	{	
-		if($query = $this->db->query("CALL SP_R_TESORERIA_COBRO_OBT_TIPOCOBRO();"))
-		{	if($query->num_rows() > 0 )
-			{	return $query->result();} 
-			else{ return 0;}
-		}
+		$this->db->select('*');
+		$this->db->from('tipo_cobro');
+
+		$query  = $this->db->get();
+		$result = $query->result();
+
+		return $result;
 	}
 
 	public function obt_totpaginas($Filtros){
