@@ -9,7 +9,6 @@ class ConsGestionPago_m extends CI_Model {
 		$this->load->database('default');
 	}
 	
-	
 	public function obt_DatosPago($CodUsu)
 	{	
 		if($query = $this->db->query("CALL SP_R_TESORERIA_COBRO_OBT_DATOSCOBRO('".$CodUsu."');"))
