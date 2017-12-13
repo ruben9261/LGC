@@ -30,6 +30,12 @@ class MantGestionCobros_c  extends CI_Controller{
 		$this->load->view("GestionDeCobros",$data);
 	}
 
+	public function DocCobroPdf($COD_DOC_COBRO){
+		$codigo = $COD_DOC_COBRO;
+
+		$this->load->view("DocCobroPdf");
+	}
+
 	public function CreaDocumentoCobro($COD_DOC_COBRO)
 	{ 	
 			$this->load->library('session');

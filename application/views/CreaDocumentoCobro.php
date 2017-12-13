@@ -72,6 +72,9 @@ if($COD_TIPOCOBRO==1){
 		           <br/>
 		            <div class="modal-header" style="color:rgb(0,128,255);"> 
 		                 <STRONG>Registrar Orden de Entrada </STRONG>
+						 <div>
+						 	<a class="btn btn-success" href="/mantGestionCobros_c/DocCobroPdf/1">Imprimir</a>
+						 </div>
 		            </div>
 					<br/>
 				<form id="frmCreaDocCobro" rol="form" class="form-horizontal" method="POST">
