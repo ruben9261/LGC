@@ -9,7 +9,34 @@
 	<link rel="stylesheet" href="/public/styles/bootstrap-datepicker.css"/>
 	<script type="text/javascript" src="/public/jquery/jquery-3.1.1.min.js"></script>
 	<script  type="text/javascript"  src="/public/bootstrap-3.3.7-dist/js/bootstrap.min.js"> </script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+	
 	<style>
+		p.pull-rigth {
+    float: right;
+    margin-right: 105px;
+	margin-top: 5px;
+}
+th.sorting_asc,th.sorting_desc,th.sorting {
+    background: #007ffd;
+    color: #ffffff;
+} a.btn.btn-success {
+    float: right !important;
+}
+i.btn.glyphicon.glyphicon-ok {
+    background: #00da08;
+    color: #ffffff;
+}.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}.fa-file-pdf-o:before {
+    content: "\f1c1";
+}
+
 		.container{
 			background-color:rgb(255,255,255);
 			border: 1px solid rgb(0,128,255); 
@@ -71,8 +98,8 @@ if($COD_TIPOCOBRO==1){
 		           <br/>
 		            <div class="modal-header" style="color:rgb(0,128,255);"> 
 		                 <STRONG>Registrar Orden de Entrada </STRONG>
-						 <div>
-						 	<a class="btn btn-success" href="/mantGestionCobros_c/DocCobroPdf/1">Imprimir</a>
+						 <div class="">
+						 	<a class="btn btn-success" href="/mantGestionCobros_c/DocCobroPdf/1">Imprimir <i class="fa fa-file-pdf-o"> </i>  </a>
 						 </div>
 		            </div>
 					<br/>
@@ -267,16 +294,19 @@ if($COD_TIPOCOBRO==1){
 											<th class='col-md-3'></th>
 											<th class='col-md-1'></th>
 											<th class='col-md-3'></th>
-											<th class='col-md-1'>Total:</th>
-											<th class='col-md-1'><span id="Total"><?php echo $Total; ?></span></th>
+											<th class='col-md-1'></th>
+											<th class='col-md-1'></th>
 											<th class='col-md-1'></th>
 										</tr>
 									</tfoot>
 									</table>
+                                      
 								</div> 
 								
 							</div>
-						
+							<br><br>
+							<p class="pull-rigth">Total: <span id="Total"><?php echo $Total; ?></span></p>
+									
 						    <br/>
 						    
 						    <div class="form-group">
@@ -309,7 +339,7 @@ if($COD_TIPOCOBRO==1){
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 style="color:red;"><span class="glyphicon glyphicon-lock"></span> Login</h4>
+          <h4 style="color:red;">Orden de Entrada</h4>
         </div>
         <div class="modal-body">
 		<table id="TablaOrdenEntrada" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -328,8 +358,7 @@ if($COD_TIPOCOBRO==1){
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-          <p>Not a member? <a href="#">Sign Up</a></p>
-          <p>Forgot <a href="#">Password?</a></p>
+ 
         </div>
       </div>
     </div>
@@ -343,7 +372,7 @@ if($COD_TIPOCOBRO==1){
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 style="color:red;"><span class="glyphicon glyphicon-lock"></span> Login</h4>
+          <h4 style="color:red;"> Buscar Cliente</h4>
         </div>
         <div class="modal-body">
 		<table id="TabalClientes" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -362,8 +391,7 @@ if($COD_TIPOCOBRO==1){
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-          <p>Not a member? <a href="#">Sign Up</a></p>
-          <p>Forgot <a href="#">Password?</a></p>
+          
         </div>
       </div>
     </div>
@@ -383,7 +411,7 @@ if($COD_TIPOCOBRO==1){
 	</div>
 
 	<script type="text/javascript" src="/public/custom/CreaGestionCobros.js"></script>
- 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" ></script>
+ 	<script type="text/javascript" src="/public/js/datatable.js" ></script>
  	<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 	<script type="text/javascript" src="/public/jquery/jquery.validate.js"></script>
 	<script type="text/javascript" src="/public/js/moment.min.js" charset="UTF-8"></script>

@@ -51,7 +51,7 @@
 							         <div  class='col-xs-8'>
 								         <a href="#" class="btn btn-primary"  id="fech" style="background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);">
 								             Cliente
-										     <label id="nomb_cliente"    style="background-color: white; color:rgb(0,128,255);font-size:12px;">_____________________________________________________________________</label>   
+										     <label id="nomb_cliente"   name="codcliente"  style="background-color: white; color:rgb(0,128,255);font-size:12px;">_____________________________________________________________________</label>   
 											
 									     </a>
 								     </div>   
@@ -116,7 +116,7 @@
 							   			 		</div>
 							   			 	</div>	
 						
-											<div id="tabla"> </div> 
+											<div id="tabla" >  </div> 
 									
 									</div>
 						
@@ -125,7 +125,7 @@
 						    
 						    <div class="form-group">
 						         <span style="color:rgb(0,128,255);">Comentario</span>
-						          <textarea id="comentario" rows="5" cols="80" class="form-control" placeholder="observaci&oacute;n"></textarea>
+						          <textarea id="comentario" name="obs" rows="5" cols="80" class="form-control" placeholder="observaci&oacute;n"></textarea>
 						    </div>	
 						 
 						    <br/>
@@ -143,11 +143,14 @@
 						    <br/> 
 						    
 						    <div class="form-group">
-									   <a  href="#" class="btn btn-primary"  style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" onclick="fn_registrar_OrdenE();" >
-									   		   Guardar
-									           <img src="<?php echo base_url()?>public/images/GUARDAR.png">
-									   </a>
-									     
+							<a class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" onclick="fn_registrar_OrdenE();" >
+							Guardar
+					 <img src="<?php echo base_url()?>public/images/GUARDAR.png">
+			</a>
+			<button class="btn btn-primary" type="submit"  id="Guardar" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);">
+						   Enviar
+						<img src="<?php echo base_url()?>public/images/GUARDAR.png">
+							   </button>  
 									   <a href="<?php echo base_url()?>ConsOrdenEntrada_c/" class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);">
 										        Cancelar
 										        <img src="<?php echo base_url()?>public/images/CANCELAR.png">
@@ -234,7 +237,7 @@
 ****************************************************************************** -->
 	  
 <!--*****************************************************************************
-*********   Inicio formulario modal añadir item detalle de orden         ********
+*********   Inicio formulario modal aï¿½adir item detalle de orden         ********
 ***************************************************************************** -->
  
   <div  data-backdrop="static"  class="modal fade" id="modal_add_producto" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
@@ -293,7 +296,7 @@
 </div>
 
 <!-- *****************************************************************************
-*********   Fin formulario modal añadir item detalle de orden     ********
+*********   Fin formulario modal aï¿½adir item detalle de orden     ********
 ***************************************************************************** -->
 
 
@@ -385,12 +388,12 @@
 		           <form id="frmCreaCliente" >
 					       
 						   <div class="form-group">
-						          <input id="txt_razon_social" type="text" class="form-control" placeholder="RAZON SOCIAL">
+						          <input id="txt_razon_social" name="razon_social" type="text" class="form-control" placeholder="RAZON SOCIAL">
 						    </div>
 						   
 						    <div class="form-group">
-								       <select  id="tipo_doc" name="tipo_doc"  class="form-control">
-										    <option value="0">
+								       <select  id="tipo_doc"  name="tipo"  class="form-control">
+										    <option value="">
 													SELECCIONAR TIPO DOCUMENTO
 										     </option>
 										     
@@ -406,25 +409,26 @@
 						   </div>
 						   
 						    <div class="form-group">
-						         <input id="txt_doc_cliente" type="text" class="form-control" placeholder="Documento" onkeyup="fn_copiar_udr()">
+						         <input id="txt_doc_cliente" name="documento" type="text" class="form-control" placeholder="Documento" onkeyup="fn_copiar_udr()">
 						    </div>
 						    
 						   <div class="form-group">
-						         <input id="txt_contacto" type="text" class="form-control" placeholder="Contacto" >
+						         <input id="txt_contacto" name="v_contact" type="text" class="form-control" placeholder="Contacto" >
 						    </div>
 						    <div class="form-group">
-						         <input id="txt_direccion" type="text" class="form-control" placeholder="Direcci&oacute;n" >
+						         <input id="txt_direccion" name="domicilio" type="text" class="form-control" placeholder="Direcci&oacute;n" >
 						    </div>
 						 
 						    <div class="form-group">
-						         <input id="txt_tlfn" type="text" class="form-control" placeholder="Telefono" >
+						         <input id="txt_tlfn" name="tlfn" type="text" class="form-control" placeholder="Telefono" >
 						    </div>
 						 
 						 
 						  <div class="form-group">
-							   <a href="#" class="btn btn-primary"  style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" onclick="fn_registrar_cliente();" >
-						          Guardar <img src="<?php echo base_url()?>public/images/GUARDAR.png">
-							   </a>
+						  <button class="btn btn-primary" type="submit"  id="GuardarCliente" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);">
+						  Guardar
+					   <img src="<?php echo base_url()?>public/images/GUARDAR.png">
+							  </button>
 							  
 							  <a href="#" class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);" onclick="fn_ocultar_modal('modal_crea_cliente');fn_limpiar_modal_crea_cliente();fn_limpiar_modal_sel_cliente(); fn_mostrar_modal('modal_seleccionar_cliente');">   
                                    Cancelar <img src="<?php echo base_url()?>public/images/CANCELAR.png">
@@ -576,7 +580,8 @@
 	
              
              <div class="modal-footer">
-          			<a class="btn btn-primary"  style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" onclick="fn_ocultar_modal('modal_seleccionar_producto'), fn_limpiar_modal_sel_producto(),fn_mostrar_modal('modal_add_producto');" >
+          			<a class="btn btn-primar
+					  y"  style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" onclick="fn_ocultar_modal('modal_seleccionar_producto'), fn_limpiar_modal_sel_producto(),fn_mostrar_modal('modal_add_producto');" >
 						Salir
 					</a>
             </div>
@@ -608,12 +613,12 @@
 		     <div class="modal-body">
 		          <form id="frmCreaProducto" >
 					    <div class="form-group">
-						          <input id="txt_desc_producto" type="text" class="form-control" placeholder="Descripcion" >
+						          <input id="txt_desc_producto" name="descripcion"  type="text" class="form-control" placeholder="Descripcion" >
 					    </div>
 						   
 						<div class="form-group">
-						       <select  id="tipo_producto" name="tipo_producto"  class="form-control">
-								    <option value="0">
+						       <select  id="tipo_producto" name="tipo"  class="form-control">
+								    <option value="">
 											SELECCIONAR TIPO	
 								     </option>
 								      
@@ -626,15 +631,15 @@
 						 </div>
 						    
 						  <div class="form-group">
-						         <input id="txt_precio_producto" type="text" class="form-control" placeholder="Precio">
+						         <input id="txt_precio_producto"  name="precio" type="text" class="form-control" placeholder="Precio">
 						  </div>
 						    
 						   
 						  <div class="form-group">
-							   <a class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" onclick="fn_registrar_producto();" >
-							 			Guardar
-							        	<img src="<?php echo base_url()?>public/images/GUARDAR.png">
-							   </a>
+						  <button class="btn btn-primary" type="submit"  id="GuardarProducto" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);">
+						  Guardar
+					   <img src="<?php echo base_url()?>public/images/GUARDAR.png">
+							  </button>
 							     
 							   <a href="#" class="btn btn-primary" style="background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);" onclick="fn_ocultar_modal('modal_crea_producto'),fn_limpiar_modal_crea_producto(),fn_limpiar_modal_sel_producto(), fn_mostrar_modal('modal_seleccionar_producto');">
 							           Cancelar
@@ -726,8 +731,198 @@
 *****************************************************************************
  -->
 
-
+ <script type="text/javascript" src="/public/jquery/jquery.validate.js"></script>
  <script  type="text/javascript"> 
+ jQuery.validator.addMethod("decimal", function(value, element) {
+	 return this.optional(element) || /^\d{0,10}(\.\d{0,2})?$/i.test(value);
+ }, "You must include two decimal places");
+ jQuery.validator.addMethod("lettersonly", function(value, element) {
+ return this.optional(element) || /^[a-z\s]+$/i.test(value);
+ }, "Only alphabetical characters");
+ $(function () {
+	$.validator.setDefaults({
+		errorClass: 'help-block',
+		highlight: function (element) {
+			// $(element)
+			//     .closest('.form-group')
+			//     .addClass('has-error');
+			$(element).parent().removeClass('has-success').addClass('has-error');
+		},
+		unhighlight: function (element) {
+			// $(element)
+			//     .closest('.form-group')
+			//     .removeClass('has-error');
+			$(element).parent().removeClass('has-error').addClass('has-success');
+		},
+		errorPlacement: function (error, element) {
+			if (element.prop('type') === 'checkbox') {
+				error.insertAfter(element.parent());
+			} else {
+				error.insertAfter(element);
+			}
+		}
+	});
+ 
+ 
+ 
+ });
+
+
+ 
+
+
+ $( "#Guardar" ).click(function( e ) {
+	var cod_SerOrden=<?php echo $codserorden?>;
+   var serie=<?php echo $serie?>;
+   var numero=<?php echo $numero?>;
+   var serie=pad(serie,6);
+   var numero=pad(numero,6);
+   var fecha =$('#fecha').text(); 
+   var codcliente=$('#codcliente').val(); 
+   var total=$('#txt_total').text(); 
+   var obs=$("#comentario").val(); 
+   var usuario=<?php echo $codusuario?>;
+
+   var A_detfactura = [];
+   for(var i=0;i<A_codproducto.length;i++)
+		{  var item = {};
+	       item ["codproducto"]= A_codproducto[i];
+	       item ["cantidad"]= A_cantidad[i];
+	       item ['obs']=  A_observacion[i];
+	       item ['precio']= A_precio[i];
+	       A_detfactura.push(item);
+	   	  
+		}
+   var detfactura=JSON.stringify(A_detfactura);
+
+
+
+
+ $("#frmCreaOrdenEntrada").validate({
+		 rules: {
+			cod_SerOrden: {
+				 required: true
+			 },serie: {
+				 required: true
+			 },numero: {
+				 required: true,
+				 number:true
+			 },fecha: {
+				 required: true
+			 },codcliente: {
+				 required: true
+			 },total: {
+				 required: true
+			 },obs: {
+				 required: true
+			 },usuario: {
+				 required: true
+			 },detfactura: {
+				 required: true
+			 }
+		 }, messages: {
+			cod_SerOrden: {
+				 required: "Ingrese Codigo de Orden"
+			 },serie: {
+				 required: "Ingrese Serie"
+			 },numero: {
+				 required: "Ingrese Numero",
+				 number:"Ingrese Digito "
+			 },fecha: {
+				 required: "Ingrese Fecha"
+			 },codcliente: {
+				 required: "Ingrese Codigo Cliente"
+			 },total: {
+				 required: "Ingrese Total"
+			 },obs: {
+				 required: "Ingrese Observacion"
+			 },usuario: {
+				 required: "Ingrese Usuario"
+			 },detfactura: {
+				 required: "Ingrese Detalle Factura"
+			 }
+		 },
+		 submitHandler: function (form) {
+			 e.preventDefault();
+			 insertar();
+		 }
+	 });
+ });
+
+ $( "#GuardarProducto" ).click(function( e ) {
+ $("#frmCreaProducto").validate({
+		 rules: {
+			descripcion: {
+				 required: true
+			 },tipo: {
+				 required: true
+			 },precio: {
+				 required: true,
+				 decimal:true
+			 }
+		 }, messages: {
+			descripcion: {
+				 required: "Ingrese Descripcion"
+			 },tipo: {
+				 required: "Seleccione Tipo"
+			 },precio: {
+				 required: "Ingrese Numero",
+				 decimal:"Ingrese 2 Decimales "
+			 }
+		 },
+		 submitHandler: function (form) {
+			 e.preventDefault();
+			 insertar_Producto();
+		 }
+	 });
+ });
+
+ $( "#GuardarCliente" ).click(function( e ) {
+ $("#frmCreaCliente").validate({
+		 rules: {
+			nombre: {
+				 required: true
+			 },v_contact: {
+				 required: true
+			 },tlfn: {
+				 required: true,
+				 number:true
+			 },domicilio: {
+				 required: true
+			 },razon_social: {
+				 required: true
+			 },tipo: {
+				 required: true
+			 },documento: {
+				 required: true,
+				 number:true
+			 }
+		 }, messages: {
+			nombre: {
+				 required: "Ingrese Descripcion"
+			 },v_contact: {
+				 required: "Ingrese Contacto"
+			 },tlfn: {
+				 required: "Ingrese Telefono",
+				 number: "Ingrese Digitos"
+			 },domicilio: {
+				 required: "Ingrese domicilio",
+			 },razon_social: {
+				 required: "Ingrese Razon Social",
+			 },tipo: {
+				 required: "Seleccione tipo",
+			 },documento: {
+				 required: "Ingrese documento",
+				 number: "Ingrese Digitos"
+				 
+			 }
+		 },
+		 submitHandler: function (form) {
+			 e.preventDefault();
+			 insertar_Cliente();
+		 }
+	 });
+ });
 //arrays detalle orden
 var A_codproducto=[];  	
 var A_cantidad=[];     	
@@ -736,7 +931,7 @@ var A_tipo=[];
 var A_observacion=[];    
 var A_precio=[];       
 var A_importe=[];      
-var op_item=0;	//bandera para controlar operación 0 insertar item 1 actualizar item
+var op_item=0;	//bandera para controlar operaciï¿½n 0 insertar item 1 actualizar item
  
 /*******************utilitarios********************/
  function fn_mostrar_modal(ide)
@@ -752,7 +947,7 @@ var op_item=0;	//bandera para controlar operación 0 insertar item 1 actualizar i
 
 
 
-/**********************inicio selección de cliente **************************/
+/**********************inicio selecciï¿½n de cliente **************************/
 
 
 function fn_limpiar_modal_sel_cliente()
@@ -968,7 +1163,7 @@ function seleccionar_pagina(npagina){
 
 }
 
-/********************* fin selección cliente  ***********************/
+/********************* fin selecciï¿½n cliente  ***********************/
  
  
  /**********************  mantenimiento cliente **************************/

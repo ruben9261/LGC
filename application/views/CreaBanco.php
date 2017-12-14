@@ -19,15 +19,15 @@
 		            </div>
 				    <form id="frmCreaBanco">
 					       <div class="form-group">
-						          <input id="nombre" type="text" class="form-control" placeholder="Nombre de Banco" >
+						          <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre de Banco" >
 						   </div>
 						   
 						   <div class="form-group">
 							 
-							   <a class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" onclick="guardar();" >
-							   				Guardar
-							        	<img src="<?php echo base_url()?>public/images/GUARDAR.png">
-							   </a>
+                           <button class="btn btn-primary" type="submit"  id="Guardar" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);">
+						   Guardar
+						<img src="<?php echo base_url()?>public/images/GUARDAR.png">
+							   </button>
 							     
 							   <a href="<?php echo base_url()?>ConsBanco_c/" class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);">
 							        Cancelar
@@ -101,10 +101,59 @@
 
 
 
+<script type="text/javascript" src="/public/jquery/jquery.validate.js"></script>
+<script  type="text/javascript"> 
+jQuery.validator.addMethod("decimal", function(value, element) {
+    return this.optional(element) || /^\d{0,10}(\.\d{0,2})?$/i.test(value);
+}, "You must include two decimal places");
+jQuery.validator.addMethod("lettersonly", function(value, element) {
+return this.optional(element) || /^[a-z\s]+$/i.test(value);
+}, "Only alphabetical characters");
+$(function () {
+   $.validator.setDefaults({
+	   errorClass: 'help-block',
+	   highlight: function (element) {
+		   // $(element)
+		   //     .closest('.form-group')
+		   //     .addClass('has-error');
+		   $(element).parent().removeClass('has-success').addClass('has-error');
+	   },
+	   unhighlight: function (element) {
+		   // $(element)
+		   //     .closest('.form-group')
+		   //     .removeClass('has-error');
+		   $(element).parent().removeClass('has-error').addClass('has-success');
+	   },
+	   errorPlacement: function (error, element) {
+		   if (element.prop('type') === 'checkbox') {
+			   error.insertAfter(element.parent());
+		   } else {
+			   error.insertAfter(element);
+		   }
+	   }
+   });
 
- <script  type="text/javascript"> 
 
 
+});
+
+$( "#Guardar" ).click(function( e ) {
+$("#frmCreaBanco").validate({
+        rules: {
+            nombre: {
+                required: true
+            }
+        }, messages: {
+            nombre: {
+                required: "Ingrese Nombre"
+            }
+        },
+        submitHandler: function (form) {
+            e.preventDefault();
+            insertar();
+        }
+	});
+});
 function validarDatos()
 {	var v_nombre=$("#nombre").val();
 	var Msg="";

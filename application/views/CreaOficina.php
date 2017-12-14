@@ -19,16 +19,16 @@
 		            </div>
 				    <form id="frmCreaOficina">
 					        <div class="form-group">
-						          <input id="nombre" type="text" class="form-control" placeholder="Nombre" >
+						          <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre" >
 						    </div>
 						   
 						    <div class="form-group">
-						         <input id="domicilio" type="text" class="form-control" placeholder="Domicilio">
+						         <input id="domicilio" name="domicilio" type="text" class="form-control" placeholder="Domicilio">
 						    </div>
 						   
 						    <div class="form-group">
 						       <select  id="empresa" name="empresa"  class="form-control">
-								    <option value="0">
+								    <option value="">
 											SELECCIONAR EMPRESA
 								     </option>
 								     
@@ -41,19 +41,19 @@
 						   </div>
 						    
 						   <div class="form-group">
-						         <input id="tlfn" type="text" class="form-control" placeholder="Tel&eacute;fono">
+						         <input id="tlfn" name="tlfn" type="text" class="form-control" placeholder="Tel&eacute;fono">
 						    </div>
 						    
 						    <div class="form-group">
-						        <input id="correo" type="text" class="form-control" placeholder="Correo">
+						        <input id="correo" name="correo" type="text" class="form-control" placeholder="Correo">
 						    </div>
 						    
 						    <div class="form-group">
 							 
-							   <a class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" onclick="guardar();" >
-							   				Guardar
-							        	<img src="<?php echo base_url()?>public/images/GUARDAR.png">
-							   </a>
+							<button class="btn btn-primary" type="submit"  id="Guardar" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);">
+							Guardar
+						 <img src="<?php echo base_url()?>public/images/GUARDAR.png">
+								</button>
 							     
 							   <a href="<?php echo base_url()?>ConsOficina_c/" class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);">
 							        Cancelar
@@ -124,11 +124,86 @@
    </div>
 </div>
 
+<script type="text/javascript" src="/public/jquery/jquery.validate.js"></script>
+<script  type="text/javascript"> 
+jQuery.validator.addMethod("lettersonly", function(value, element) {
+return this.optional(element) || /^[a-z\s]+$/i.test(value);
+}, "Only alphabetical characters");
+$(function () {
+   $.validator.setDefaults({
+	   errorClass: 'help-block',
+	   highlight: function (element) {
+		   // $(element)
+		   //     .closest('.form-group')
+		   //     .addClass('has-error');
+		   $(element).parent().removeClass('has-success').addClass('has-error');
+	   },
+	   unhighlight: function (element) {
+		   // $(element)
+		   //     .closest('.form-group')
+		   //     .removeClass('has-error');
+		   $(element).parent().removeClass('has-error').addClass('has-success');
+	   },
+	   errorPlacement: function (error, element) {
+		   if (element.prop('type') === 'checkbox') {
+			   error.insertAfter(element.parent());
+		   } else {
+			   error.insertAfter(element);
+		   }
+	   }
+   });
 
 
 
- <script  type="text/javascript"> 
+});
 
+$( "#Guardar" ).click(function( e ) {
+$("#frmCreaOficina").validate({
+        rules: {
+            nombre: {
+                required: true,
+                lettersonly: true
+            },
+            domicilio: {
+                required: true
+            },
+            empresa: {
+                required: true
+            },
+            tlfn: {
+                required: true,
+                number: true
+            },
+            correo: {
+                required: true,
+                email: true
+            }
+        }, messages: {
+            nombre: {
+                required: "Seleccione un usuario",
+                lettersonly:"Ingrese Letras"
+            },
+            domicilio: {
+                required: "Ingrese Domicilio"
+            },
+            empresa: {
+                required: "Ingrese Empresa"
+            },
+            tlfn: {
+                required: "Ingrese Telef",
+                number: "Ingrese Digitos"
+            },
+            correo: {
+                required: "Ingrese Correo",
+                email: "Ingrese Correo"
+            }
+        },
+        submitHandler: function (form) {
+            e.preventDefault();
+            insertar();
+        }
+	});
+});
 
 function validarDatos()
 {

@@ -19,12 +19,12 @@
 		            </div>
 				    <form id="frmCreaProducto"  action="<?php echo base_url()?>mantProducto_c/insertar" method="POST">
 					        <div class="form-group">
-						          <input id="descripcion" type="text" class="form-control" placeholder="Descripcion" >
+						          <input id="descripcion" name="descripcion" type="text" class="form-control" placeholder="Descripcion" >
 						    </div>
 						   
 						    <div class="form-group">
 						       <select  id="tipo" name="tipo"  class="form-control">
-								    <option value="0">
+								    <option value="">
 											SELECCIONAR TIPO	
 								     </option>
 								      
@@ -37,15 +37,15 @@
 						   </div>
 						    
 						   <div class="form-group">
-						         <input id="precio" type="text" class="form-control" placeholder="Precio">
+						         <input id="precio" name="precio" type="text" class="form-control" placeholder="Precio">
 						   </div>
 						    
 						   
 						   <div class="form-group">
-							   <a class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" onclick="guardar();" >
-							 			Guardar
-							        	<img src="<?php echo base_url()?>public/images/GUARDAR.png">
-							   </a>
+						   <button class="btn btn-primary" type="submit"  id="Guardar" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);">
+						   Guardar
+						<img src="<?php echo base_url()?>public/images/GUARDAR.png">
+							   </button>
 							     
 							   <a href="<?php echo base_url()?>ConsProducto_c/" class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);">
 							           Cancelar
@@ -118,9 +118,73 @@
 
 
 
+<script type="text/javascript" src="/public/jquery/jquery.validate.js"></script>
+<script  type="text/javascript"> 
+jQuery.validator.addMethod("decimal", function(value, element) {
+    return this.optional(element) || /^\d{0,10}(\.\d{0,2})?$/i.test(value);
+}, "You must include two decimal places");
+jQuery.validator.addMethod("lettersonly", function(value, element) {
+return this.optional(element) || /^[a-z\s]+$/i.test(value);
+}, "Only alphabetical characters");
+$(function () {
+   $.validator.setDefaults({
+	   errorClass: 'help-block',
+	   highlight: function (element) {
+		   // $(element)
+		   //     .closest('.form-group')
+		   //     .addClass('has-error');
+		   $(element).parent().removeClass('has-success').addClass('has-error');
+	   },
+	   unhighlight: function (element) {
+		   // $(element)
+		   //     .closest('.form-group')
+		   //     .removeClass('has-error');
+		   $(element).parent().removeClass('has-error').addClass('has-success');
+	   },
+	   errorPlacement: function (error, element) {
+		   if (element.prop('type') === 'checkbox') {
+			   error.insertAfter(element.parent());
+		   } else {
+			   error.insertAfter(element);
+		   }
+	   }
+   });
 
- <script  type="text/javascript"> 
 
+
+});
+
+$( "#Guardar" ).click(function( e ) {
+$("#frmCreaProducto").validate({
+        rules: {
+            descripcion: {
+                required: true
+            },
+            tipo: {
+                required: true
+            },
+            precio: {
+                required: true,
+				decimal:true
+            }
+        }, messages: {
+            descripcion: {
+                required: "Ingrese Descripcion"
+            },
+            tipo: {
+                required: "Seleccione Tipo"
+            },
+            precio: {
+                required: "Ingrese Precio",
+				decimal: "Decimal hasta 2 Digitos "
+            }
+        },
+        submitHandler: function (form) {
+            e.preventDefault();
+            insertar();
+        }
+	});
+});
 
 function validarDatos()
 {
