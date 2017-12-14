@@ -87,7 +87,7 @@ class ConsGestionPago_m extends CI_Model {
 		$this->db->join('producto p', 'osd.COD_PROD = p.COD_PROD');
 		$this->db->join('Tipo_Producto tp', 'p.cod_tip_prod = tp.cod_tip_prod');
 		$this->db->join('doc_pago dp', 'dpd.COD_DOC_PAGO = dp.COD_DOC_PAGO');
-		$this->db->join('tipo_cobro tc', 'dp.COD_TIPOPAGO = tc.COD_TIPOPAGO');
+		$this->db->join('tipo_pago tpa', 'dp.COD_TIPOPAGO = tpa.COD_TIPOPAGO');
 		$this->db->where("dpd.COD_DOC_PAGO",$COD_DOC_PAGO);
 		//$string = $this->db->get_compiled_select();
 		$query  = $this->db->get();
@@ -106,10 +106,10 @@ class ConsGestionPago_m extends CI_Model {
 		return $result;
 	}
 
-	public function obt_TipoCobro()
+	public function obt_TipoPago()
 	{	
 		$this->db->select('*');
-		$this->db->from('tipo_cobro');
+		$this->db->from('tipo_pago');
 
 		$query  = $this->db->get();
 		$result = $query->result();

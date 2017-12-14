@@ -22,7 +22,6 @@ function fn_eliminar(COD_DOC_COBRO)
 	  return false;
 }
 
-
 $(function(){
 $("#txt_fecha").keypress(function(e) {
    if(e.which == 13) {
@@ -103,7 +102,7 @@ function bus_OrdenEntrada()
     Filtros.COD_OFI= $("#COD_OFI").val();
     Filtros.COD_USU= $("#COD_USU").val();
     Filtros.COD_CLI= $("#COD_CLI").val();
-    Filtros.COD_TIPOCOBRO= $("#COD_TIPOCOBRO").val();
+    Filtros.COD_TIPOPAGO= $("#COD_TIPOPAGO").val();
     Filtros.Pagina = -1;
     $('#processing-modal').modal('show');
     $.ajax({
@@ -130,9 +129,7 @@ function bus_OrdenEntrada()
       		    $("#tpagina").val(tpaginas);
       		    $("#pactual").val(npagina);
       		
-
-      		    
-            
+          
       			if (tpaginas >0)
           		  { var contendiopag="";
         			contendiopag="<span>Resultado:</span>";
@@ -248,7 +245,7 @@ function fn_mostrar_pagina(npagina)
     Filtros.DOC_COBRO_FECHA= $("#DOC_COBRO_FECHA").val();
     Filtros.COD_OFI= $("#COD_OFI").val();
     Filtros.COD_USU= $("#COD_USU").val();
-    Filtros.COD_TIPOCOBRO= $("#COD_TIPOCOBRO").val();
+    Filtros.COD_TIPOPAGO= $("#COD_TIPOPAGO").val();
     Filtros.Pagina = npagina;
 
    $.ajax({
@@ -385,7 +382,6 @@ function fn_mostrar_pagina(npagina)
 
 
 }
-
 
 function fn_retroceder(){
    var pactual=$("#pactual").val();

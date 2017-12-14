@@ -38,7 +38,7 @@
          <br/>
     	<div class="well" style="background-color:rgb(255,255,255); border: 1px solid rgb(0,128,255);">    	     
 		     
-		    <form   id="frmGestOrdenEntrada"  action="/MantGestionCobros_c/CreaDocumentoCobro/0" method="POST" > 
+		    <form   id="frmGestOrdenEntrada"  action="/MantGestionPagos_c/CreaDocumentoPago/0" method="POST" > 
 		          <input type="hidden" name="codigo"> 
 		    	  <input type="hidden" id="tpagina">
 		    	  <input type="hidden" id="pactual">
