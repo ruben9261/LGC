@@ -31,7 +31,51 @@ class MantGestionPagos_c  extends CI_Controller{
 	}
 
 	public function DocCobroPdf($COD_DOC_COBRO){
-		$codigo = $COD_DOC_COBRO;
+
+		$this->load->library('session');
+		$datos= $this->session->cod_usu;
+		// $this->session->unset_userdata('cod_usu');
+			//  print_r($datos);kol,.
+		foreach ($datos as $campos) 
+			{	$codusu=$campos->COD_USU;}
+		
+		$this->load->model('consGestionPago_m');
+		$listdatosPago=$this->consGestionPago_m->obt_DatosPago($codusu);
+		mysqli_next_result($this->db->conn_id);
+
+		foreach ($listdatosPago as $campos)
+		{	$COD_USU=$campos->COD_USU;
+			$Nom_Usu=$campos->Nom_Usu;
+			$Desc_Caja=$campos->Desc_Caja;
+			$Nomb_Oficina=$campos->Nomb_Oficina;
+			$Nomb_Empresa=$campos->Nomb_Empresa;
+			$COD_CAJA=$campos->COD_CAJA;
+			$COD_OFI=$campos->COD_OFI;
+		}
+
+		$docPago=$this->consGestionPago_m->obt_DocPago($COD_DOC_PAGO);
+		$docPagoDet=$this->consGestionPago_m->obt_DocPagoDet($COD_DOC_PAGO);
+		$listTipoPago=$this->consGestionPago_m->obt_TipoPago();
+
+		date_default_timezone_set("America/Bogota");
+		$data['COD_USU'] = $COD_USU;
+		$data['Nom_Usu']=$Nom_Usu;
+		$data['Desc_Caja']=$Desc_Caja;
+		$data['Nomb_Oficina']=$Nomb_Oficina;
+		$data['Nomb_Empresa']=$Nomb_Empresa;
+		$data['COD_CAJA']=$COD_CAJA;
+		$data['COD_OFI']=$COD_OFI;
+		$data['COD_DOC_PAGO']=$COD_DOC_PAGO;
+		
+		$data['docPago']=$docPago;
+		$data['docPagoDet']=$docPagoDet;
+		$data['listTipoPago']=$listTipoPago;
+
+		if($COD_DOC_PAGO!=0){
+			$data['TIPO_TRANSACCION'] = 2;
+		}else{
+			$data['TIPO_TRANSACCION'] = 1;
+		}
 
 		$this->load->view("DocCobroPdf");
 	}

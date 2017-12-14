@@ -6,7 +6,7 @@
     <link rel="stylesheet" type ="text/css" href="<?php echo base_url()?>public/bootstrap-3.3.7-dist/css/bootstrap.min.css"> 
     <script type="text/javascript" src="<?php echo base_url()?>public/jquery/jquery-3.1.1.min.js"></script>
     <script  type="text/javascript"  src="<?php echo base_url()?>public/bootstrap-3.3.7-dist/js/bootstrap.min.js"> </script>
-    <<script type="text/javascript" src="<?php echo base_url()?>public/jquery.validate"></script>
+
 </head>
 <body>
     <br/>
@@ -17,33 +17,33 @@
 		            </div>
 				    <form id="frmCreaEmpresa"  action="<?php echo base_url()?>mantEmpresa_c/insertar" method="POST">
 					        <div class="form-group">
-						          <input id="nombre" type="text" class="form-control" placeholder="Nombre" >
+						          <input id="nombre"  name="nombre" type="text" class="form-control" placeholder="Nombre" >
 						    </div>
 						   
 						    <div class="form-group">
-						         <input id="domicilio" type="text" class="form-control" placeholder="Domicilio Fiscal">
+						         <input id="domicilio" name="domicilio" type="text" class="form-control" placeholder="Domicilio Fiscal">
 						    </div>
 						   
 						   <div class="form-group">
-						         <input id="ruc" type="text" class="form-control" placeholder="Ruc">
+						         <input id="ruc" name="ruc" type="text" class="form-control" placeholder="Ruc">
 						    </div>
 						   
 						    
 						   <div class="form-group">
-						         <input id="tlfn" type="text" class="form-control" placeholder="Tele&acute;fono">
+						         <input id="tlfn" name="tlfn" type="text" class="form-control" placeholder="Tele&acute;fono">
 						    </div>
 						    
 						    <div class="form-group">
-						        <input id="correo" type="text" class="form-control" placeholder="Correo">
+						        <input id="correo" name="correo" type="text" class="form-control" placeholder="Correo">
 						    </div>
 						    
 						    
 						   <div class="form-group">
 							 
-							   <a class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" onclick="guardar();" >
-							   				Guardar
-							        	<img src="<?php echo base_url()?>public/images/GUARDAR.png">
-							   </a>
+                           <button class="btn btn-primary" type="submit"  id="Guardar" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);">
+                           Guardar
+                        <img src="<?php echo base_url()?>public/images/GUARDAR.png">
+                               </button>
 							     
 							   <a href="<?php echo base_url()?>ConsEmpresa_c/" class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);">
 							        Cancelar
@@ -114,9 +114,86 @@
 </div>
 
 
+<script type="text/javascript" src="/public/jquery/jquery.validate.js"></script>
+<script  type="text/javascript"> 
+jQuery.validator.addMethod("lettersonly", function(value, element) {
+return this.optional(element) || /^[a-z\s]+$/i.test(value);
+}, "Only alphabetical characters");
+$(function () {
+   $.validator.setDefaults({
+	   errorClass: 'help-block',
+	   highlight: function (element) {
+		   // $(element)
+		   //     .closest('.form-group')
+		   //     .addClass('has-error');
+		   $(element).parent().removeClass('has-success').addClass('has-error');
+	   },
+	   unhighlight: function (element) {
+		   // $(element)
+		   //     .closest('.form-group')
+		   //     .removeClass('has-error');
+		   $(element).parent().removeClass('has-error').addClass('has-success');
+	   },
+	   errorPlacement: function (error, element) {
+		   if (element.prop('type') === 'checkbox') {
+			   error.insertAfter(element.parent());
+		   } else {
+			   error.insertAfter(element);
+		   }
+	   }
+   });
 
 
- <script  type="text/javascript"> 
+
+});
+
+$( "#Guardar" ).click(function( e ) {
+$("#frmCreaEmpresa").validate({
+        rules: {
+            nombre: {
+                required: true,
+                lettersonly: true
+            },
+            domicilio: {
+                required: true
+            },
+            ruc: {
+                required: true,
+                number: true
+            },
+            tlfn: {
+                required: true
+            },
+            correo: {
+                required: true,
+                email: true
+            }
+        }, messages: {
+            nombre: {
+                required: "Seleccione un usuario",
+                lettersonly:"Ingrese Letras"
+            },
+            domicilio: {
+                required: "Seleccione un menú"
+            },
+            ruc: {
+                required: "Ingrese RUC",
+                number: "Ingrese Digitos"
+            },
+            tlfn: {
+                required: "Ingrese Telef"
+            },
+            correo: {
+                required: "Ingrese Correo",
+                email: "Ingrese Correo"
+            }
+        },
+        submitHandler: function (form) {
+            e.preventDefault();
+            insertar();
+        }
+	});
+});
 
 
 function validarDatos()
