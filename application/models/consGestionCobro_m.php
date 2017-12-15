@@ -42,6 +42,7 @@ class ConsGestionCobro_m extends CI_Model {
 		$this->db->select('*');
 		$this->db->from('doc_cobro dc');
 		$this->db->join('cliente c', 'dc.COD_CLI = c.COD_CLI');
+		$this->db->join('oficina o', 'dc.COD_OFI = o.COD_OFI');
 		$this->db->where("COD_DOC_COBRO",$COD_DOC_COBRO);
 		//$string = $this->db->get_compiled_select();
 		$query  = $this->db->get();
