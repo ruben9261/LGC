@@ -214,13 +214,13 @@ function bus_OrdenEntrada()
 					          sb=sb+"  <div class='col-xs-1'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:11px;'>";
    	                          sb=sb+"	<a href='/mantGestionCobros_c/mostrar_Editar/"+fila['COD_DOC_COBRO'].toString()+"'>";
       	  			    	  sb=sb+"	   Editar&nbsp";
-      	  					  sb=sb+"	   <img src='<?php echo base_url()?>public/images/EDITAR.png'>";
+      	  					  sb=sb+"	   <img src='/public/images/EDITAR.png'>";
       	  					  sb=sb+"	</a>"; 
 	   	  			 	      sb=sb+"  </div>";
 	   	  			 	      sb=sb+"  <div class='col-xs-1'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:11px;'>";
 	   	  			 	      sb=sb+"	    <a href='#' onclick=fn_eliminar('"+fila["COD_DOC_COBRO"].toString()+"')>";
 	   	  			    	  sb=sb+"	       Anular&nbsp";
-	   	  					  sb=sb+"	      <img src='<?php echo base_url()?>public/images/ELIMINAR.png'>";
+	   	  					  sb=sb+"	      <img src='/public/images/ELIMINAR.png'>";
 	   	  					  sb=sb+"	    </a>"; 
      			 	          sb=sb+"  </div>";
       	  			          sb=sb+"</div> ";
@@ -245,6 +245,7 @@ function bus_OrdenEntrada()
 
 function fn_mostrar_pagina(npagina)
 { 	var Filtros = new Object();
+	debugger;
 	Filtros.COD_DOC_COBRO= $("#COD_DOC_COBRO").val();
     Filtros.DOC_COBRO_FECHA= $("#DOC_COBRO_FECHA").val();
     Filtros.COD_OFI= $("#COD_OFI").val();

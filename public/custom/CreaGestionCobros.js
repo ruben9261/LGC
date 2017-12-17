@@ -384,8 +384,12 @@ function fn_GuardarDocCobro(){
 			var response = JSON.parse(response);
 			if(response.respuesta){
 				AlertNotify('', 'Éxito', 'El registro se guardo correctamente', 'success');
-				("#COD_DOC_COBRO").val(response.COD_DOC_COBRO);
-				("#TIPO_TRANSACCION").val(2);
+				$("#COD_DOC_COBRO").val(response.COD_DOC_COBRO);
+				$("#lblCOD_DOC_COBRO").html(response.COD_DOC_COBRO);
+				$("#TIPO_TRANSACCION").val(2);
+				$("#ImprimirPdf").show();
+				var ImprimirPdf = '<a class="btn btn-success" href="/mantGestionCobros_c/docCobroPdf/'+response.COD_DOC_COBRO+'">Imprimir</a>';
+				$("#ImprimirPdf").html(ImprimirPdf);
 			}else{
 				AlertNotify('', 'Error', 'No se pudo guardar el registro', 'danger');
 			}

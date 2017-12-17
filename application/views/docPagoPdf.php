@@ -20,8 +20,8 @@
                 <span>LAZARO GESTIÓN CONTABLE</span>
                 </div>
                 <div class="contentRight">
-                <span>FECHA: </span><?php echo $FECHA_COBRO; ?></br>
-                <span>HORA: </span> <?php echo $HORA_COBRO; ?>
+                <span>FECHA: </span><?php echo $FECHA_PAGO; ?></br>
+                <span>HORA: </span> <?php echo $HORA_PAGO; ?>
                 </div>
             </div>
             <br/>
@@ -39,7 +39,7 @@
             <br/>
             <div class="">
                 <div class="contentLeftDefault">
-                <span>BOUCHER DE PAGO N°: </span><?php echo $COD_DOC_COBRO; ?></br>
+                <span>BOUCHER DE PAGO N°: </span><?php echo $COD_DOC_PAGO; ?></br>
                 <span>ORDEN N°: </span> 
                 <?php
                         echo $Ordenes;
@@ -51,7 +51,7 @@
             <span>--------------------------------------------------------------</span>
             <div class="row">
                 <div class="col-md-8">
-                <span>CLIENTE: </span><?php echo $CLIENTE;?></br>
+                <span>PROVEEDOR: </span><?php echo $PROVEEDOR;?></br>
                 <span>N° DOC: </span> <?php echo $DOCUMENTO;?>
                 </div>
             </div>
@@ -68,13 +68,13 @@
                         </thead>
                         <tbody>
                         <?php
-                        if(count($docCobroDet)){
+                        if(count($docPagoDet)){
                             $fil = "";
-                            foreach($docCobroDet as $item){
+                            foreach($docPagoDet as $item){
                                 $fil .= "<tr>";
-                                $fil .= '<td class="col-md-1">'.$item->Cantidad.'</td>';
-                                $fil .= '<td class="col-md-10">'.$item->Producto.'</td>';
-                                $fil .= '<td class="col-md-1">'.$item->Precio.'</td>';
+                                $fil .= '<td class="col-md-1">'.$item->CANTIDAD.'</td>';
+                                $fil .= '<td class="col-md-10">'.$item->PRODUCTO.'</td>';
+                                $fil .= '<td class="col-md-1">'.$item->PRECIO.'</td>';
                                 $fil .= "</tr>";
                             }
                             echo $fil;
@@ -124,7 +124,7 @@
             </div>
         </div>
     <br/>
-        <p class="centrado">¡GRACIAS POR SU COMPRA!
+        <p class="centrado">¡GRACIAS POR SU VENTA!
         <br>crixusbusiness.com</p>
     </div>
     </div>

@@ -42,8 +42,8 @@ $NUMERO_OPERACION = "";
 $NRO_DOCUMENTO = "";
 $COD_PROV = "";
 $NOMBRE = "";
-$Total = 0;
-$COD_TIPOCOBRO = 0;
+$TOTAL = 0;
+$COD_TIPOPAGO = 1;
 $COD_TIPO_DOC = 0;
 if(count($docPago)>0){
 	foreach($docPago as $item){
@@ -53,16 +53,22 @@ if(count($docPago)>0){
 		$NRO_DOCUMENTO = $item->NRO_DOCUMENTO;
 		$COD_PROV = $item->COD_PROV;
 		$NOMBRE = $item->NOMBRE;
-		$COD_TIPOCOBRO = $item->COD_TIPOCOBRO;
+		$COD_TIPOPAGO = $item->COD_TIPOPAGO;
 		$COD_TIPO_DOC = $item->COD_TIPO_DOC;
 	}
 }
 $display = "";
 
-if($COD_TIPOCOBRO==1){
+if($COD_TIPOPAGO==1){
 	$display = "none";
 }else{
 	$display = "block";
+}
+
+if($TIPO_TRANSACCION==1){
+	$displayPdf = "none";
+}else{
+	$displayPdf = "true";
 }
 
 ?>
@@ -71,8 +77,8 @@ if($COD_TIPOCOBRO==1){
 		           <br/>
 		            <div class="modal-header" style="color:rgb(0,128,255);"> 
 		                 <STRONG>Registrar Orden de Entrada </STRONG>
-						 <div>
-						 	<a class="btn btn-success" href="/mantGestionCobros_c/docPagoPdf/1">Imprimir</a>
+						 <div id="ImprimirPdf" class="" style="display:<?php echo $displayPdf;?>;">
+						 	<a class="btn btn-success" href='/mantGestionPagos_c/docPagoPdf/<?php echo $COD_DOC_PAGO;?>'>Imprimir</a>
 						 </div>
 		            </div>
 					<br/>
@@ -83,8 +89,8 @@ if($COD_TIPOCOBRO==1){
 						 <input type="hidden" name="COD_OFI" id="COD_OFI" value="<?php echo $COD_OFI?>">
 						 <input type="hidden" name="COD_CAJA" id="COD_CAJA" value="<?php echo $COD_CAJA?>">
 						 <input type="hidden" name="COD_USU" id="COD_USU" value="<?php echo $COD_USU?>">
-						 <input type="hidden" name="MONTO_TOTAL" id="MONTO_TOTAL" value="<?php echo $Total;?>">
-						 <input type="hidden" name="MONTO_NETO" id="MONTO_NETO" value="<?php echo $Total;?>">
+						 <input type="hidden" name="MONTO_TOTAL" id="MONTO_TOTAL" value="<?php echo $TOTAL;?>">
+						 <input type="hidden" name="MONTO_NETO" id="MONTO_NETO" value="<?php echo $TOTAL;?>">
 						 <input type="hidden" id="tpagina">
 		    	         <input type="hidden" id="pactual">
 						 <input type="hidden" id="TIPO_TRANSACCION" value="<?php echo $TIPO_TRANSACCION; ?>">
@@ -173,9 +179,9 @@ if($COD_TIPOCOBRO==1){
 									</div>
 								</div>
 								<div class='col-md-4 col-md-offset-3 container-style'>
-										<label class="control-label col-md-6">Serie:</label>
+										<label class="control-label col-md-6">SERIE:</label>
 										<div class="col-md-6">
-											<label class=" control-label"><?php echo $COD_DOC_PAGO;?></label>
+											<label class=" control-label" id="lblCOD_DOC_PAGO"><?php echo $COD_DOC_PAGO;?></label>
 										</div>
 								</div>
 							</div>
@@ -197,7 +203,7 @@ if($COD_TIPOCOBRO==1){
 							<div class="form-group">
 								<div  class='col-md-4 col-md-offset-1 container-style'>
 									<div class="col-md-6 input-group">
-										<button type="button" class="btn btn-primary" onclick="fn_ObtenerOrdenEntrada();">
+										<button type="button" class="btn btn-primary" onclick="fn_ObtenerOrdenSalida();">
 											Orden Salida
 											<img src="/public/images/add.png">
 										</button>
@@ -208,7 +214,7 @@ if($COD_TIPOCOBRO==1){
 							<br/>
 							<div class="container">		
 								<div id="tabla"> 
-									<table id="TablaOrdenEntradaDet">
+									<table id="TablaOrdenSalidaDet">
 										<thead>
 											<tr>
 											<th class='col-md-1 thead-style'>
@@ -230,7 +236,7 @@ if($COD_TIPOCOBRO==1){
 													PRECIO
 											</th>
 											<th class='col-md-1 thead-style'>
-													IMPORTE
+													SUB_TOTAL
 											</th>
 											<th class='col-md-1 thead-style'>
 													Acciones
@@ -243,20 +249,20 @@ if($COD_TIPOCOBRO==1){
 												
 												foreach($docPagoDet as $item){
 													$cols = "";
-													$cols .= '<tr class="fila'.$item->CodOrdenE.'">';
-													$cols .= '<input type="hidden" class="CodOrdenE" value="'.$item->CodOrdenE.'">';
-													$cols .= '<input type="hidden" class="SUB_TOTAL" value="'.$item->Importe.'">';
-													$cols .= '<td class="col-md-3 input-sm">'.$item->CodOrdenE.'-'.$item->Serie.'-'.$item->Numero.'</td>';
-													$cols .= '<td class="col-md-1 input-sm" >'.$item->Cantidad.'</td>';
-													$cols .= '<td class="col-md-1 input-sm" >'.$item->Producto.'</td>';
-													$cols .= '<td class="col-md-3 input-sm" >'.$item->TipoProducto.'</td>';
-													$cols .= '<td class="col-md-2 input-sm" >'.$item->ObsProd.'</td>';
-													$cols .= '<td class="col-md-3 input-sm" >'.$item->Precio.'</td>';
-													$cols .= '<td class="col-md-2 input-sm" >'.$item->Importe.'</td>';
-													$cols .= '<td class="col-md-1 input-sm" ><i class="btn glyphicon glyphicon-remove" onclick="fn_EliminarOrdenEntradaDetalle('."'fila".$item->CodOrdenE."'".');"></i></td>';
+													$cols .= '<tr class="fila'.$item->COD_ORDEN_S.'">';
+													$cols .= '<input type="hidden" class="COD_ORDEN_S" value="'.$item->COD_ORDEN_S.'">';
+													$cols .= '<input type="hidden" class="SUB_TOTAL" value="'.$item->IMPORTE.'">';
+													$cols .= '<td class="col-md-3 input-sm">'.$item->COD_ORDEN_S.'-'.$item->SERIE.'-'.$item->NUMERO.'</td>';
+													$cols .= '<td class="col-md-1 input-sm" >'.$item->CANTIDAD.'</td>';
+													$cols .= '<td class="col-md-1 input-sm" >'.$item->PRODUCTO.'</td>';
+													$cols .= '<td class="col-md-3 input-sm" >'.$item->TIPOPRODUCTO.'</td>';
+													$cols .= '<td class="col-md-2 input-sm" >'.$item->DESCRIPCION.'</td>';
+													$cols .= '<td class="col-md-3 input-sm" >'.$item->PRECIO.'</td>';
+													$cols .= '<td class="col-md-2 input-sm" >'.$item->IMPORTE.'</td>';
+													$cols .= '<td class="col-md-1 input-sm" ><i class="btn glyphicon glyphicon-remove" onclick="fn_EliminarOrdenSalidaDetalle('."'fila".$item->COD_ORDEN_S."'".');"></i></td>';
 													$cols .= '</tr>';
-													$importe = intval($item->Importe);
-													$Total = $Total + $importe;
+													$IMPORTE = intval($item->IMPORTE);
+													$TOTAL = $TOTAL + $IMPORTE;
 													echo $cols;
 												}
 											}
@@ -269,8 +275,8 @@ if($COD_TIPOCOBRO==1){
 											<th class='col-md-3'></th>
 											<th class='col-md-1'></th>
 											<th class='col-md-3'></th>
-											<th class='col-md-1'>Total:</th>
-											<th class='col-md-1'><span id="Total"><?php echo $Total; ?></span></th>
+											<th class='col-md-1'>TOTAL:</th>
+											<th class='col-md-1'><span id="TOTAL"><?php echo $TOTAL; ?></span></th>
 											<th class='col-md-1'></th>
 										</tr>
 									</tfoot>
@@ -305,7 +311,7 @@ if($COD_TIPOCOBRO==1){
    </div>
 
 
-  <div class="modal fade" id="OrdenEntModal" data-backdrop="static" data-keyboard="false" role="dialog">
+  <div class="modal fade" id="OrdenSalModal" data-backdrop="static" data-keyboard="false" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content">
@@ -314,10 +320,10 @@ if($COD_TIPOCOBRO==1){
           <h4 style="color:red;"><span class="glyphicon glyphicon-lock"></span> Login</h4>
         </div>
         <div class="modal-body">
-		<table id="TablaOrdenEntrada" class="table table-striped table-bordered" cellspacing="0" width="100%">
+		<table id="TablaOrdenSalida" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <tr>
-                <th>Serie</th>
+                <th>SERIE</th>
                 <th>Cliente</th>
                 <th>Documento</th>
 				<th>Seleccionar</th>
@@ -395,7 +401,7 @@ if($COD_TIPOCOBRO==1){
 	<script>
 		$(document).ready(function() {
 
-			$("#COD_TIPOCOBRO").val("<?php echo $docPago->COD_TIPOCOBRO; ?>");
+			$("#COD_TIPOPAGO").val("<?php echo $docPago->COD_TIPOPAGO; ?>");
 		});
 	</script>
 </body>

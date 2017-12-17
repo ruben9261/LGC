@@ -55,8 +55,8 @@
 		    	  </div>
 		    	  <br/>
 		    	  <div class="form_group">
-				  	   <input type="text" name="btnbuscar" id="COD_DOC_COBRO"  class="form-control"  placeholder="fecha">
-				       <input type="text" name="btnbuscar" id="DOC_COBRO_FECHA" class="form-control"  placeholder="fecha"> 
+				  	   <input type="text" name="btnbuscar" id="COD_DOC_PAGO"  class="form-control"  placeholder="fecha">
+				       <input type="text" name="btnbuscar" id="DOC_PAGO_FECHA" class="form-control"  placeholder="fecha"> 
 					   <select name="btnbuscar" class="form-control" id="COD_OFI">
 					   		<option value="0">--TODAS LAS OFICINAS--</option>
 						   <?php
@@ -73,19 +73,19 @@
 								}  
 						   ?>
 					   </select>
-					   <select name="btnbuscar" class="form-control" id="COD_TIPOCOBRO">
-					   		<option value="0">--TODOS LOS TIPO DE COBRO--</option>
+					   <select name="btnbuscar" class="form-control" id="COD_TIPOPAGO">
+					   		<option value="0">--TODOS LOS TIPO DE PAGO--</option>
 						   <?php
-								foreach($listTipoCobro as $item){
-									echo "<option value='".$item->COD_TIPOCOBRO."'>".$item->NOM_TIPOCOBRO."</option>";
+								foreach($listTipoPago as $item){
+									echo "<option value='".$item->COD_TIPOPAGO."'>".$item->NOM_TIPOPAGO."</option>";
 								}  
 						   ?>
 					   </select>	
-					   <select name="btnbuscar" class="form-control" id="COD_CLI">
+					   <select name="btnbuscar" class="form-control" id="COD_PROV">
 					   		<option value="0">--TODOS LOS CLIENTES--</option>
 						   <?php
-								foreach($listClientes as $item){	
-									echo "<option value='".$item->COD_CLI."'>".$item->NOMBRE."</option>";
+								foreach($listProveedores as $item){	
+									echo "<option value='".$item->COD_PROV."'>".$item->NOMBRE."</option>";
 								}  
 						   ?>
 					   </select>				    
@@ -132,7 +132,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
            <div class="modal-header">
-               <a  class="close" data-dismiss="modal"  onclick="bus_OrdenEntrada();">&times;</a>
+               <a  class="close" data-dismiss="modal"  onclick="bus_OrdenPago();">&times;</a>
                <h4 class="modal-title" >Eliminaci&oacute;n de Orden de Entrada</h4>
            </div>
            <div class="modal-body">

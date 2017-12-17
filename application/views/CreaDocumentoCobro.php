@@ -92,14 +92,20 @@ if($COD_TIPOCOBRO==1){
 	$display = "block";
 }
 
+if($TIPO_TRANSACCION==1){
+	$displayPdf = "none";
+}else{
+	$displayPdf = "true";
+}
+
 ?>
 	<input type="hidden" Id="CodCli" name="" value="">
 	<div class="container" id="contenedor">
 		           <br/>
 		            <div class="modal-header" style="color:rgb(0,128,255);"> 
 		                 <STRONG>Registrar Orden de Entrada </STRONG>
-						 <div class="">
-						 	<a class="btn btn-success" href="/mantGestionCobros_c/DocCobroPdf/1">Imprimir <i class="fa fa-file-pdf-o"> </i>  </a>
+						 <div id="ImprimirPdf" class="" style="display:<?php echo $displayPdf;?>;">
+						 	<a class="btn btn-success" href='/mantGestionCobros_c/DocCobroPdf/<?php echo $COD_DOC_COBRO;?>'>Imprimir <i class="fa fa-file-pdf-o"> </i>  </a>
 						 </div>
 		            </div>
 					<br/>
@@ -200,7 +206,7 @@ if($COD_TIPOCOBRO==1){
 								<div class='col-md-4 col-md-offset-3 container-style'>
 										<label class="control-label col-md-6">Serie:</label>
 										<div class="col-md-6">
-											<label class=" control-label"><?php echo $COD_DOC_COBRO;?></label>
+											<label class=" control-label" id="lblCOD_DOC_COBRO"><?php echo $COD_DOC_COBRO;?></label>
 										</div>
 								</div>
 							</div>

@@ -28,13 +28,13 @@ $(document).ready(function() {
       language: 'es'
 	});
 
-	$("#TablaOrdenEntrada").DataTable({
+	$("#TablaOrdenSalida").DataTable({
 		"pageLength": 5,
 			//  data: myData,
 		aoColumns: [
-			{ mData: 'Serie' },
-			{ mData: 'Cliente' },
-			{ mData: 'Documento' },
+			{ mData: 'SERIE' },
+			{ mData: 'PROVEEDOR' },
+			{ mData: 'DOCUMENTO' },
 			{ mData: 'Acciones'}
 		]
 	});
@@ -66,9 +66,9 @@ function QuitarValidacion (element) {
 
 function fn_eliminar(cod) 
 {  $.ajax({
-		    url:  "/mantOrdenEntrada_c/eliminar",
+		    url:  "/mantOrdenSalida_c/eliminar",
 	    	type: 'post',//metodo
-	    	data: { codOrdenEntrada:  cod
+	    	data: { COD_ORDEN_Salida:  cod
 	    		  }, //parametros
 	    	success: function(respuesta) { 
        		if(respuesta==1)
@@ -91,7 +91,6 @@ function fn_ObtenerProveedores(){
 		type:"POST",
 		data: null,
 		success:function(response){
-			debugger;
 			$("#processing-modal").modal("toggle");
 			$("#ProveedoresModal").modal("show");
 			var respuesta=JSON.parse(response);
@@ -101,7 +100,7 @@ function fn_ObtenerProveedores(){
 			if(listProveedores.length>0){
 				$.each(listProveedores, function(index, value){
 					var cols = "";
-					// cols += '<tr><td class="CodCli" data-value="">'+value.COD_CLI+'</td>';
+					// cols += '<tr><td class="COD_PROV" data-value="">'+value.COD_CLI+'</td>';
 					// cols += '<td class="NomCli" >'+value.NOMBRE+'</td>';
 					// cols += '<td>'+value.NRO_DOCUMENTO+'</td>';
 					// cols += '<td><i class="btn glyphicon glyphicon-ok" onclick="fn_SeleccionarProveedor('+"'"+value.COD_CLI+"','"+value.NOMBRE+"','"+value.NRO_DOCUMENTO+"'"+');"></i></td></tr>';
@@ -129,37 +128,38 @@ function fn_ObtenerProveedores(){
 	});
 }
 
-function fn_ObtenerOrdenEntrada(){
-	$('#TablaOrdenEntrada').dataTable().fnClearTable();
+function fn_ObtenerOrdenSalida(){
+	$('#TablaOrdenSalida').dataTable().fnClearTable();
 	$("#processing-modal").modal("show");
 	$.ajax({
-		url:"/mantGestionCobros_c/ObtenerOrdenEntrada",
+		url:"/mantGestionPagos_c/ObtenerOrdenSalida",
 		type:"POST",
 		data: null,
 		success:function(response){
+			debugger;
 			$("#processing-modal").modal("toggle");
-			$("#OrdenEntModal").modal("show");
+			$("#OrdenSalModal").modal("show");
 			var respuesta=JSON.parse(response);
-			var listOrdenEntrada = respuesta.listOrdenEntrada;
+			var listOrdenSalida = respuesta.listOrdenSalida;
 			var TableData = new Array();
-			var OrdenEntrada = null;
-			if(listOrdenEntrada.length>0){
-				$.each(listOrdenEntrada, function(index, value){
+			var OrdenSalida = null;
+			if(listOrdenSalida.length>0){
+				$.each(listOrdenSalida, function(index, value){
 					//var cols = "";
-					// cols += '<tr><td class="CodCli" data-value="">'+value.cod_orden_e+'-'+value.serie+'-'+value.numero+'</td>';
+					// cols += '<tr><td class="COD_PROV" data-value="">'+value.COD_ORDEN_S+'-'+value.SERIE+'-'+value.NUMERO+'</td>';
 					// cols += '<td class="NomCli" >'+value.cliente+'</td>';
 					// cols += '<td>'+value.documento+'</td>';
-					// cols += '<td><i class="btn glyphicon glyphicon-ok" onclick="fn_SeleccionarOrdenEntrada('+"'"+value.cod_orden_e+"'"+');"></i></td></tr>';
-					//$("#TablaOrdenEntrada tbody").append(cols);
-					OrdenEntrada = new Object();
-					OrdenEntrada.Serie = value.cod_orden_e+'-'+value.serie+'-'+value.numero;
-					OrdenEntrada.Cliente = value.cliente;
-					OrdenEntrada.Documento = value.documento;
-					OrdenEntrada.Acciones = '<i class="btn glyphicon glyphicon-ok" onclick="fn_SeleccionarOrdenEntrada('+"'"+value.cod_orden_e+"'"+');"></i>';
-					TableData.push(OrdenEntrada);
+					// cols += '<td><i class="btn glyphicon glyphicon-ok" onclick="fn_SeleccionarOrdenSalida('+"'"+value.COD_ORDEN_S+"'"+');"></i></td></tr>';
+					//$("#TablaOrdenSalida tbody").append(cols);
+					OrdenSalida = new Object();
+					OrdenSalida.SERIE = value.COD_ORDEN_S+'-'+value.SERIE+'-'+value.NUMERO;
+					OrdenSalida.PROVEEDOR = value.PROVEEDOR;
+					OrdenSalida.DOCUMENTO = value.DOCUMENTO;
+					OrdenSalida.Acciones = '<i class="btn glyphicon glyphicon-ok" onclick="fn_SeleccionarOrdenSalida('+"'"+value.COD_ORDEN_S+"'"+');"></i>';
+					TableData.push(OrdenSalida);
 				});
 			}
-			$('#TablaOrdenEntrada').dataTable().fnAddData(TableData);
+			$('#TablaOrdenSalida').dataTable().fnAddData(TableData);
 		},
 		error: function(e){
 			$("#processing-modal").modal("toggle");
@@ -171,7 +171,7 @@ function fn_ObtenerOrdenEntrada(){
 function fn_ObtenerTipoCobro(){
 	$.ajax({
 		type: "POST",
-		url: "/mantGestionCobros_c/ObtenerTipoCobro",
+		url: "/mantGestionPagos_c/ObtenerTipoCobro",
 		data:null,
 		success:function(response){
 			var respuesta = JSON.parse(response);
@@ -188,20 +188,20 @@ function fn_ObtenerTipoCobro(){
 	});
 }
 
-function fn_ValidarSiExisteOrdenEntrada(NewCodOrdenE){
+function fn_ValidarSiExisteOrdenSalida(NewCOD_ORDEN_S){
 	var YaExiste = false;
-	var CodOrdenE = null;
-	$("#TablaOrdenEntradaDet tbody tr").each(function(){
-		CodOrdenE = $(".CodOrdenE",this).val();
-		if(CodOrdenE == NewCodOrdenE){
+	var COD_ORDEN_S = null;
+	$("#TablaOrdenSalidaDet tbody tr").each(function(){
+		COD_ORDEN_S = $(".COD_ORDEN_S",this).val();
+		if(COD_ORDEN_S == NewCOD_ORDEN_S){
 			YaExiste = true;
 			
 		}
 	});
 	return YaExiste;
 }
-function fn_SeleccionarProveedor(CodCli,NomCli,NroDocumento,CodTipoDoc){
-	$("#COD_CLI").val(CodCli);
+function fn_SeleccionarProveedor(COD_PROV,NomCli,NroDocumento,CodTipoDoc){
+	$("#COD_PROV").val(COD_PROV);
 	var NomCli = NomCli;
 	$("#Proveedor").val(NomCli);
 	$("#NRO_DOCUMENTO").val(NroDocumento);
@@ -211,44 +211,43 @@ function fn_SeleccionarProveedor(CodCli,NomCli,NroDocumento,CodTipoDoc){
 	QuitarValidacion("#NRO_DOCUMENTO");
 }
 
-function fn_SeleccionarOrdenEntrada(CodOrdenE){
-	$('#OrdenEntModal').modal('toggle');
+function fn_SeleccionarOrdenSalida(COD_ORDEN_S){
+	$('#OrdenSalModal').modal('toggle');
 	
-	var Existe = fn_ValidarSiExisteOrdenEntrada(CodOrdenE);
+	var Existe = fn_ValidarSiExisteOrdenSalida(COD_ORDEN_S);
 	if(!Existe){
 			$("#processing-modal").modal("show");
 			$.ajax({
 					type:"POST",
-					url:"/mantGestionCobros_c/ObtenerOrdenEntradaDet",
-					data:{CodOrdenE:CodOrdenE},
+					url:"/mantGestionPagos_c/ObtenerOrdenSalidaDet",
+					data:{COD_ORDEN_S:COD_ORDEN_S},
 					success: function(response){
 						$("#processing-modal").modal("toggle");
 						var respuesta=JSON.parse(response);
-						var listOrdenEntradaDet = respuesta.listOrdenEntradaDet;
-						var Total = 0;
-						debugger;
-						Total = parseInt($("#Total").html());
-						if(listOrdenEntradaDet.length>0){
-							$.each(listOrdenEntradaDet, function(index, value){
+						var listOrdenSalidaDet = respuesta.listOrdenSalidaDet;
+						var TOTAL = 0;
+						TOTAL = parseInt($("#TOTAL").html());
+						if(listOrdenSalidaDet.length>0){
+							$.each(listOrdenSalidaDet, function(index, value){
 								var cols = "";
-								cols += '<tr class="FILA'+value.CodOrdenE+'">';
-								cols += '<input type="hidden" class="COD_DOC_COBRO_DET" value="'+value.COD_DET_ORDEN_E+'">';
-								cols += '<input type="hidden" class="CodOrdenE" value="'+value.CodOrdenE+'">';
-								cols += '<input type="hidden" class="SUB_TOTAL" value="'+value.Importe+'">'
-								cols += '<td class="col-md-3 input-sm">'+value.CodOrdenE+'-'+value.Serie+'-'+value.Numero+'</td>';
-								cols += '<td class="col-md-1 input-sm" >'+value.Cantidad+'</td>';
-								cols += '<td class="col-md-1 input-sm" >'+value.Producto+'</td>';
-								cols += '<td class="col-md-3 input-sm" >'+value.TipoProducto+'</td>';
-								cols += '<td class="col-md-2 input-sm" >'+value.ObsProd+'</td>';
-								cols += '<td class="col-md-3 input-sm" >'+value.Precio+'</td>';
-								cols += '<td class="col-md-2 input-sm" >'+value.Importe+'</td>';
-								cols += '<td class="col-md-1 input-sm" ><i class="btn glyphicon glyphicon-remove" onclick="fn_EliminarOrdenEntradaDetalle('+"'FILA"+value.CodOrdenE+"'"+');"></i></td>';
+								cols += '<tr class="FILA'+value.COD_ORDEN_S+'">';
+								cols += '<input type="hidden" class="COD_DET_ORDEN_S" value="'+value.COD_DET_ORDEN_S+'">';
+								cols += '<input type="hidden" class="COD_ORDEN_S" value="'+value.COD_ORDEN_S+'">';
+								cols += '<input type="hidden" class="SUB_TOTAL" value="'+value.IMPORTE+'">'
+								cols += '<td class="col-md-3 input-sm">'+value.COD_ORDEN_S+'-'+value.SERIE+'-'+value.NUMERO+'</td>';
+								cols += '<td class="col-md-1 input-sm" >'+value.CANTIDAD+'</td>';
+								cols += '<td class="col-md-1 input-sm" >'+value.PRODUCTO+'</td>';
+								cols += '<td class="col-md-3 input-sm" >'+value.TIPOPRODUCTO+'</td>';
+								cols += '<td class="col-md-2 input-sm" >'+value.DESCRIPCION+'</td>';
+								cols += '<td class="col-md-3 input-sm" >'+value.PRECIO+'</td>';
+								cols += '<td class="col-md-2 input-sm" >'+value.IMPORTE+'</td>';
+								cols += '<td class="col-md-1 input-sm" ><i class="btn glyphicon glyphicon-remove" onclick="fn_EliminarOrdenSalidaDetalle('+"'FILA"+value.COD_ORDEN_S+"'"+');"></i></td>';
 								
-								$("#TablaOrdenEntradaDet tbody").append(cols);
-								Total = Total + parseInt(value.Importe);
-								$("#Total").html(Total);
-								$("#MONTO_TOTAL").val(Total);
-								$("#MONTO_NETO").val(Total);
+								$("#TablaOrdenSalidaDet tbody").append(cols);
+								TOTAL = TOTAL + parseInt(value.IMPORTE);
+								$("#TOTAL").html(TOTAL);
+								$("#MONTO_TOTAL").val(TOTAL);
+								$("#MONTO_NETO").val(TOTAL);
 							});
 						}
 					},
@@ -258,7 +257,7 @@ function fn_SeleccionarOrdenEntrada(CodOrdenE){
 					}
 				});
 	}else{
-			AlertNotify('', 'Alerta', 'La orden de entrada ya fue agregada', 'danger');
+			AlertNotify('', 'Alerta', 'La orden de salida ya fue agregada', 'danger');
 	}
 	
 }
@@ -303,88 +302,94 @@ $( "#Guardar" ).click(function( e ) {
 
 });
 
-function fn_ActualizarDetalleDocCobro(listDocCobroDet){
-	if(listDocCobroDet.length>0){
-		$.each(listDocCobroDet, function(index, value){
+function fn_ActualizarDetalleDocPago(listDocPagoDet){
+	if(listDocPagoDet.length>0){
+		$.each(listDocPagoDet, function(index, value){
 			var cols = "";
 			cols += '<tr>';
-			cols += '<input type="hidden" class="COD_DOC_COBRO_DET" value="'+value.COD_DOC_COBRO_DET+'">';
-			cols += '<input type="hidden" class="CodOrdenE" value="'+value.CodOrdenE+'">';
-			cols += '<input type="hidden" class="SUB_TOTAL" value="'+value.Importe+'">'
-			cols += '<td class="col-md-3 input-sm">'+value.CodOrdenE+'-'+value.Serie+'-'+value.Numero+'</td>';
-			cols += '<td class="col-md-1 input-sm" >'+value.Cantidad+'</td>';
+			cols += '<input type="hidden" class="COD_DOC_PAGO_DET" value="'+value.COD_DOC_PAGO_DET+'">';
+			cols += '<input type="hidden" class="COD_ORDEN_S" value="'+value.COD_ORDEN_S+'">';
+			cols += '<input type="hidden" class="SUB_TOTAL" value="'+value.IMPORTE+'">'
+			cols += '<td class="col-md-3 input-sm">'+value.COD_ORDEN_S+'-'+value.SERIE+'-'+value.NUMERO+'</td>';
+			cols += '<td class="col-md-1 input-sm" >'+value.CANTIDAD+'</td>';
 			cols += '<td class="col-md-1 input-sm" >'+value.Producto+'</td>';
 			cols += '<td class="col-md-3 input-sm" >'+value.TipoProducto+'</td>';
 			cols += '<td class="col-md-2 input-sm" >'+value.ObsProd+'</td>';
 			cols += '<td class="col-md-3 input-sm" >'+value.Precio+'</td>';
-			cols += '<td class="col-md-2 input-sm" >'+value.Importe+'</td>';
-			$("#TablaOrdenEntradaDet tbody").append(cols);
-			Total = Total + parseInt(value.Importe);
-			$("#Total").html(Total);
-			$("#MONTO_TOTAL").val(Total);
-			$("#MONTO_NETO").val(Total);
+			cols += '<td class="col-md-2 input-sm" >'+value.IMPORTE+'</td>';
+			$("#TablaOrdenSalidaDet tbody").append(cols);
+			TOTAL = TOTAL + parseInt(value.IMPORTE);
+			$("#TOTAL").html(TOTAL);
+			$("#MONTO_TOTAL").val(TOTAL);
+			$("#MONTO_NETO").val(TOTAL);
 		});
 	}
 }
 function fn_GuardarDocPago(){
-	var DocCobro = new Object();
-	DocCobro.COD_DOC_COBRO = $("#COD_DOC_COBRO").val();
-	DocCobro.COD_OFI = $("#COD_OFI").val();
-	DocCobro.COD_CAJA = $("#COD_CAJA").val();
-	DocCobro.COD_USU = $("#COD_USU").val();
-	DocCobro.NRO_DOCUMENTO = $("#NRO_DOCUMENTO").val();
-	DocCobro.NUMERO_CUENTA = $("#NUMERO_CUENTA").val();
-	DocCobro.COD_TIPO_DOC = $("#COD_TIPO_DOC").val();
-	DocCobro.COD_CLI = $("#COD_CLI").val();
-	DocCobro.FECHA_OPERACION = $("#FECHA_OPERACION").val();
-	DocCobro.NUMERO_OPERACION = $("#NUMERO_OPERACION").val();
-	DocCobro.OBSERVACION = $("#OBSERVACION").val();
-	DocCobro.MONTO_TOTAL = $("#MONTO_TOTAL").val();
-	DocCobro.MONTO_NETO = $("#MONTO_NETO").val();
-	DocCobro.COD_TIPOPAGO = $("#COD_TIPOPAGO").val();
+	debugger;
+	var DocPago = new Object();
+	DocPago.COD_DOC_PAGO = $("#COD_DOC_PAGO").val();
+	DocPago.COD_OFI = $("#COD_OFI").val();
+	DocPago.DOC_PAGO_FECHA = $("#DOC_PAGO_FECHA").val();
+	DocPago.COD_CAJA = $("#COD_CAJA").val();
+	DocPago.COD_PROV = $("#COD_PROV").val();
+	DocPago.NRO_DOCUMENTO = $("#NRO_DOCUMENTO").val();
+	DocPago.NUMERO_CUENTA = $("#NUMERO_CUENTA").val();
+	DocPago.COD_TIPO_DOC = $("#COD_TIPO_DOC").val();
+	DocPago.FECHA_OPERACION = $("#FECHA_OPERACION").val();
+	DocPago.NUMERO_OPERACION = $("#NUMERO_OPERACION").val();
+	DocPago.OBSERVACION = $("#OBSERVACION").val();
+	DocPago.COD_USU = $("#COD_USU").val();
+	DocPago.MONTO_TOTAL = $("#MONTO_TOTAL").val();
+	DocPago.MONTO_NETO = $("#MONTO_NETO").val();
+	DocPago.COD_TIPOPAGO = $("#COD_TIPOPAGO").val();
 
-	DocCobro.TIPO_TRANSACCION = $("#TIPO_TRANSACCION").val();
+	DocPago.TIPO_TRANSACCION = $("#TIPO_TRANSACCION").val();
 
-	var listDocCobroDet = new Array();
-	var DocCobroDet = null;
-	$("#TablaOrdenEntradaDet tbody tr").each(function(){
-		DocCobroDet = new Object();
-		var CodOrdenE = $(".CodOrdenE",this).val();
-		DocCobroDet.COD_ORDEN_E = $(".CodOrdenE",this).val();
-		DocCobroDet.SUB_TOTAL = parseInt($(".SUB_TOTAL",this).val());
+	var listDocPagoDet = new Array();
+	var DocPagoDet = null;
+	$("#TablaOrdenSalidaDet tbody tr").each(function(){
+		DocPagoDet = new Object();
+		var COD_ORDEN_S = $(".COD_ORDEN_S",this).val();
+		DocPagoDet.COD_ORDEN_S = $(".COD_ORDEN_S",this).val();
+		DocPagoDet.SUB_TOTAL = parseInt($(".SUB_TOTAL",this).val());
 		
-		listDocCobroDet.push(DocCobroDet);
+		listDocPagoDet.push(DocPagoDet);
 	});
 	debugger;
 
 	var result = [];
-	listDocCobroDet = listDocCobroDet.reduce(function (res, value) {
-		if (!res[value.COD_ORDEN_E]) {
-			res[value.COD_ORDEN_E] = {
+	listDocPagoDet = listDocPagoDet.reduce(function (res, value) {
+		if (!res[value.COD_ORDEN_S]) {
+			res[value.COD_ORDEN_S] = {
 				SUB_TOTAL: 0,
-				COD_ORDEN_E: value.COD_ORDEN_E
+				COD_ORDEN_S: value.COD_ORDEN_S
 			};
-			result.push(res[value.COD_ORDEN_E])
+			result.push(res[value.COD_ORDEN_S])
 		}
-		res[value.COD_ORDEN_E].SUB_TOTAL += value.SUB_TOTAL
+		res[value.COD_ORDEN_S].SUB_TOTAL += value.SUB_TOTAL
 		return res;
 	}, {});
 
-	DocCobro.listDocCobroDet = listDocCobroDet;
+	DocPago.listDocPagoDet = listDocPagoDet;
 	var valor  = 1;
 	$.ajax({
 		type: "post",
-		url: "/mantGestionCobros_c/GuardarDocCobro",
+		url: "/mantGestionPagos_c/GuardarDocPago",
 		// dataType : "json",
 		// contentType:"application/json",
-		data: {DocCobro: DocCobro},
+		data: {DocPago: DocPago},
 		success: function(response){
 			debugger;
 			var response = JSON.parse(response);
 			if(response.respuesta){
 				AlertNotify('', 'Éxito', 'El registro se guardo correctamente', 'success');
-				("#COD_DOC_COBRO").val(response.COD_DOC_COBRO);
-				("#TIPO_TRANSACCION").val(2);
+				$("#COD_DOC_PAGO").val(response.COD_DOC_PAGO);
+				$("#lblCOD_DOC_PAGO").html(response.COD_DOC_PAGO);
+				$("#TIPO_TRANSACCION").val(2);
+				$("#ImprimirPdf").show();
+				var ImprimirPdf = '<a class="btn btn-success" href="/mantGestionPagos_c/docPagoPdf/'+response.COD_DOC_PAGO+'">Imprimir</a>';
+				$("#ImprimirPdf").html(ImprimirPdf);
 			}else{
 				AlertNotify('', 'Error', 'No se pudo guardar el registro', 'danger');
 			}
@@ -471,17 +476,17 @@ function LoadingPage() {
 
 }
 
-function fn_EliminarOrdenEntradaDetalle(elemento){
+function fn_EliminarOrdenSalidaDetalle(elemento){
 	debugger;
 	var elemento2 = '.'+elemento.trim();
 	$(elemento2).remove();
 
 	var SUB_TOTAL = 0;
-	$("#TablaOrdenEntradaDet tbody tr").each(function(){
+	$("#TablaOrdenSalidaDet tbody tr").each(function(){
 		SUB_TOTAL += parseInt($(".SUB_TOTAL",this).val());
 	});
 
-	$("#Total").html(SUB_TOTAL);
+	$("#TOTAL").html(SUB_TOTAL);
 	$("#MONTO_TOTAL").val(SUB_TOTAL);
 	$("#MONTO_NETO").val(SUB_TOTAL);
 }

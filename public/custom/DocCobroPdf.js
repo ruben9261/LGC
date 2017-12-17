@@ -1,10 +1,10 @@
-// function imprimir() {
-//     if (window.print) {
-//         window.print();
-//     } else {
-//         alert("La función de impresion no esta soportada por su navegador.");
-//     }
-// }
+    function imprimir() {
+        if (window.print) {
+            window.print();
+        } else {
+            alert("La función de impresion no esta soportada por su navegador.");
+        }
+    }
 
     var specialElementHandlers = {
         '#editor': function (element, renderer) {
@@ -26,22 +26,26 @@ function clickBoton(){
     
 };
 
-function genPDF(){
-    debugger;
-    // html2canvas(
-    //     document.body,{
-    //         onredered: function(canvas){
-                
-    //             var img = canvas.toDataURL("image/png");
-    //             var doc = new jsPDF();
-    //             doc.addImage(img,'JPEG',300,300);
-    //             doc.save('test.pdf');
-    //         }
-    //     }
-    // );
-    var pdf = new jsPDF('p','pt','a4');
+function getPDFFileButton () {
     
-    pdf.addHTML(document.body,function() {
-        pdf.output('datauri');
+    // Select which div with id that need to be printed
+    // to print body $('body')
+    // here printing div with content id $("#content")
+    // using html canvas to save as required pdf to image to preserve css
+    return html2canvas($('body'), {
+        background: "#ffffff",
+        onrendered: function(canvas) {
+            var myImage = canvas.toDataURL("image/jpeg,1.0");
+            // Adjust width and height
+            var imgWidth = (canvas.width * 20) / 240;
+            var imgHeight = (canvas.height * 20) / 240; 
+            // jspdf changes
+            var pdf = new jsPDF('p', 'mm', 'a4');
+            pdf.addImage(myImage, 'JPEG', 15, 2, imgWidth, imgHeight); // 2: 19
+            pdf.save('Download.pdf');
+        }
     });
-};
+}       
+
+// C:/xampp/htdocs/Proyectos/WS_SLGC_20171116/SLGC
+// C:/xampp/htdocs/Proyectos/PDF

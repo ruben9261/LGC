@@ -16,21 +16,19 @@ class MantGestionPagos_c  extends CI_Controller{
 
 	   	$listUsuarios=$this->consGestionPago_m->obt_Usuarios();
 		   
-		$listTipoCobro=$this->consGestionPago_m->obt_TipoCobro();
-		mysqli_next_result($this->db->conn_id);
+		$listTipoPago=$this->consGestionPago_m->obt_TipoPago();
 
-		$listClientes=$this->consGestionPago_m->obt_OrdenEntraClientes();
-		mysqli_next_result($this->db->conn_id);
+		$listProveedores=$this->consGestionPago_m->obt_OrdenSalidaProveedores();
 
 		$data['listOficina'] = $listOficina;
 		$data['listUsuarios'] = $listUsuarios;
-		$data['listTipoCobro'] = $listTipoCobro;
-		$data['listClientes'] = $listClientes;
+		$data['listTipoPago'] = $listTipoPago;
+		$data['listProveedores'] = $listProveedores;
 
 		$this->load->view("GestionDePagos",$data);
 	}
 
-	public function DocCobroPdf($COD_DOC_COBRO){
+	public function DocPagoPdf($COD_DOC_PAGO){
 
 		$this->load->library('session');
 		$datos= $this->session->cod_usu;
@@ -42,7 +40,6 @@ class MantGestionPagos_c  extends CI_Controller{
 		$this->load->model('consGestionPago_m');
 		$listdatosPago=$this->consGestionPago_m->obt_DatosPago($codusu);
 		mysqli_next_result($this->db->conn_id);
-
 		foreach ($listdatosPago as $campos)
 		{	$COD_USU=$campos->COD_USU;
 			$Nom_Usu=$campos->Nom_Usu;
@@ -55,8 +52,15 @@ class MantGestionPagos_c  extends CI_Controller{
 
 		$docPago=$this->consGestionPago_m->obt_DocPago($COD_DOC_PAGO);
 		$docPagoDet=$this->consGestionPago_m->obt_DocPagoDet($COD_DOC_PAGO);
-		$listTipoPago=$this->consGestionPago_m->obt_TipoPago();
 
+		$importeTotal = 0;
+		foreach($docPago as $item){
+			$importeTotal = round($item->MONTO_NETO, 2);
+		}
+		
+		$this->load->model('utilities_m');
+		$importeEnLetras=$this->utilities_m->numtoletras($importeTotal);
+		
 		date_default_timezone_set("America/Bogota");
 		$data['COD_USU'] = $COD_USU;
 		$data['Nom_Usu']=$Nom_Usu;
@@ -69,15 +73,61 @@ class MantGestionPagos_c  extends CI_Controller{
 		
 		$data['docPago']=$docPago;
 		$data['docPagoDet']=$docPagoDet;
-		$data['listTipoPago']=$listTipoPago;
+		$data['importeEnLetras']=$importeEnLetras;
+		$data['importeTotal']=$importeTotal;
 
-		if($COD_DOC_PAGO!=0){
-			$data['TIPO_TRANSACCION'] = 2;
-		}else{
-			$data['TIPO_TRANSACCION'] = 1;
+		$NUMERO_CUENTA = "";
+		$NUMERO_OPERACION = "";
+		$FECHA_OPERACION = "";
+		$FECHA_PAGO = "";
+		$HORA_PAGO = "";
+		$CLIENTE  = "";
+		$DOCUMENTO = "";
+		$NOMB_OFICINA = "";
+		
+		foreach($docPago as $item){
+			$NUMERO_CUENTA = $item->NUMERO_CUENTA;
+			$NUMERO_OPERACION = $item->NUMERO_OPERACION;
+			$HORA_PAGO = date("h:i:s a",strtotime($item->DOC_PAGO_FECHA));
+			$FECHA_PAGO = date("Y-m-d",strtotime($item->DOC_PAGO_FECHA));
+			$FECHA_OPERACION = date("Y-m-d", strtotime($item->FECHA_OPERACION));
+			$DOCUMENTO = $item->NRO_DOCUMENTO;
+			$PROVEEDOR = $item->NOMBRE;
+			$NOMB_OFICINA = $item->NOMB_OFICINA;
+		}
+		$data['NUMERO_CUENTA']=$NUMERO_CUENTA;
+		$data['NUMERO_OPERACION']=$NUMERO_OPERACION;
+		$data['FECHA_OPERACION']=$FECHA_OPERACION;
+		$data['HORA_PAGO']=$HORA_PAGO;
+		$data['FECHA_PAGO']=$FECHA_PAGO;
+		$data['PROVEEDOR']=$PROVEEDOR;
+		$data['DOCUMENTO']=$DOCUMENTO;
+		$data['NOMB_OFICINA']=$NOMB_OFICINA;
+
+		$Ordenes = "";
+		if(count($docPagoDet)>0){
+			
+			$listOrdenes = array();
+
+			foreach($docPagoDet as $item){
+				array_push($listOrdenes, $item->COD_ORDEN_S);
+			}
+
+			$listOrdenes = array_unique($listOrdenes);
+			$x=0;
+			
+			foreach($listOrdenes as $item){
+				if($x==0){
+					$Ordenes .= $item;
+				}else{
+					$Ordenes .= ','.$item;
+				}
+			}
 		}
 
-		$this->load->view("DocCobroPdf");
+		$data['Ordenes']=$Ordenes;
+
+		$this->load->view("docPagoPdf",$data);
 	}
 
 	public function CreaDocumentoPago($COD_DOC_PAGO)
@@ -143,12 +193,37 @@ class MantGestionPagos_c  extends CI_Controller{
 		echo $jsonResponse;
 	}
 
-	public function ObtenerOrdenEntrada(){
+	public function ObtenerOrdenSalida(){
 		$this->load->model('consGestionPago_m');
-	    $listOrdenEntrada=$this->consGestionPago_m->obt_OrdenEntrada(0);
+	    $listOrdenSalida=$this->consGestionPago_m->obt_OrdenSalida();
+
+		$array = array( 'listOrdenSalida'=>$listOrdenSalida
+	        				   );
+		$jsonResponse = json_encode($array);
+
+		echo $jsonResponse;
+	}
+
+	public function ObtenerOrdenSalidaDet(){
+
+		$COD_ORDEN_S = $_POST["COD_ORDEN_S"];
+		$this->load->model('consGestionPago_m');
+	    $listOrdenSalidaDet=$this->consGestionPago_m->obt_OrdenSalidaDet($COD_ORDEN_S);
+
+		$array = array( 'listOrdenSalidaDet'=> $listOrdenSalidaDet );
+
+		$jsonResponse = json_encode($array);
+
+		echo $jsonResponse;
+	}
+
+	public function ObtenerTipoPago(){
+
+		$this->load->model('consGestionPago_m');
+	    $listTipoPago=$this->consGestionPago_m->obt_TipoPago();
 		mysqli_next_result($this->db->conn_id);
 
-		$array = array( 'listOrdenEntrada'=>$listOrdenEntrada
+		$array = array( 'listTipoPago'=>$listTipoPago
 	        				   );
 
 		$jsonResponse = json_encode($array);
@@ -156,42 +231,14 @@ class MantGestionPagos_c  extends CI_Controller{
 		echo $jsonResponse;
 	}
 
-	public function ObtenerOrdenEntradaDet(){
-
-		$CodOrdenE = $_POST["CodOrdenE"];
-		$this->load->model('consGestionPago_m');
-	    $listOrdenEntradaDet=$this->consGestionPago_m->obt_OrdenEntradaDet($CodOrdenE);
-		mysqli_next_result($this->db->conn_id);
-
-		$array = array( 'listOrdenEntradaDet'=> $listOrdenEntradaDet );
-
-		$jsonResponse = json_encode($array);
-
-		echo $jsonResponse;
-	}
-
-	public function ObtenerTipoCobro(){
-
-		$this->load->model('consGestionPago_m');
-	    $listTipoCobro=$this->consGestionPago_m->obt_TipoCobro();
-		mysqli_next_result($this->db->conn_id);
-
-		$array = array( 'listTipoCobro'=>$listTipoCobro
-	        				   );
-
-		$jsonResponse = json_encode($array);
-
-		echo $jsonResponse;
-	}
-
-	public function GuardarDocCobro(){
-		$DocCobro = $_POST["DocCobro"];
-		$TIPO_TRANSACCION = $DocCobro["TIPO_TRANSACCION"];
+	public function GuardarDocPago(){
+		$DocPago = $_POST["DocPago"];
+		$TIPO_TRANSACCION = $DocPago["TIPO_TRANSACCION"];
 		$this->load->model('consGestionPago_m');
 		if($TIPO_TRANSACCION==1){
-			$respuesta=$this->consGestionPago_m->insertDocCobro($DocCobro);
+			$respuesta=$this->consGestionPago_m->GuardarDocPago($DocPago);
 		}else{
-			$respuesta=$this->consGestionPago_m->updateDocCobro($DocCobro);
+			$respuesta=$this->consGestionPago_m->updateDocPago($DocPago);
 		}
 		$jsonResponse = json_encode($respuesta);
 		
@@ -225,14 +272,13 @@ class MantGestionPagos_c  extends CI_Controller{
 	}
 
 	function eliminar(){
-		$COD_DOC_COBRO = $_POST["COD_DOC_COBRO"];
+		$COD_DOC_PAGO = $_POST["COD_DOC_PAGO"];
 		$this->load->model('consGestionPago_m');
-		$respuesta=$this->consGestionPago_m->eliminar($COD_DOC_COBRO);
+		$respuesta=$this->consGestionPago_m->eliminar($COD_DOC_PAGO);
 		
 		$array = array( 'respuesta'=>$respuesta,
 		);
 		$response =json_encode($array);
 		echo $response;
 	}
-
 }
