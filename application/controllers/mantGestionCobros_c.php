@@ -31,9 +31,104 @@ class MantGestionCobros_c  extends CI_Controller{
 	}
 
 	public function DocCobroPdf($COD_DOC_COBRO){
-		$codigo = $COD_DOC_COBRO;
+		$this->load->library('session');
+		$datos= $this->session->cod_usu;
+		// $this->session->unset_userdata('cod_usu');
+			//  print_r($datos);kol,.
+		foreach ($datos as $campos) 
+			{	$codusu=$campos->COD_USU;}
+		
+		$this->load->model('consGestionCobro_m');
+		$listdatosCobro=$this->consGestionCobro_m->obt_DatosCobro($codusu);
+		mysqli_next_result($this->db->conn_id);
+		foreach ($listdatosCobro as $campos)
+		{	$COD_USU=$campos->COD_USU;
+			$Nom_Usu=$campos->Nom_Usu;
+			$Desc_Caja=$campos->Desc_Caja;
+			$Nomb_Oficina=$campos->Nomb_Oficina;
+			$Nomb_Empresa=$campos->Nomb_Empresa;
+			$COD_CAJA=$campos->COD_CAJA;
+			$COD_OFI=$campos->COD_OFI;
+		}
 
-		$this->load->view("DocCobroPdf");
+		$docCobro=$this->consGestionCobro_m->obt_DocCobro($COD_DOC_COBRO);
+		$docCobroDet=$this->consGestionCobro_m->obt_DocCobroDet($COD_DOC_COBRO);
+
+		$importeTotal = 0;
+		foreach($docCobro as $item){
+			$importeTotal = round($item->MONTO_NETO, 2);
+		}
+		
+		$this->load->model('utilities_m');
+		$importeEnLetras=$this->utilities_m->numtoletras($importeTotal);
+		
+		date_default_timezone_set("America/Bogota");
+		$data['COD_USU'] = $COD_USU;
+		$data['Nom_Usu']=$Nom_Usu;
+		$data['Desc_Caja']=$Desc_Caja;
+		$data['Nomb_Oficina']=$Nomb_Oficina;
+		$data['Nomb_Empresa']=$Nomb_Empresa;
+		$data['COD_CAJA']=$COD_CAJA;
+		$data['COD_OFI']=$COD_OFI;
+		$data['COD_DOC_COBRO']=$COD_DOC_COBRO;
+		
+		$data['docCobro']=$docCobro;
+		$data['docCobroDet']=$docCobroDet;
+		$data['importeEnLetras']=$importeEnLetras;
+		$data['importeTotal']=$importeTotal;
+
+		$NUMERO_CUENTA = "";
+		$NUMERO_OPERACION = "";
+		$FECHA_OPERACION = "";
+		$FECHA_COBRO = "";
+		$HORA_COBRO = "";
+		$CLIENTE  = "";
+		$DOCUMENTO = "";
+		$NOMB_OFICINA = "";
+		
+		foreach($docCobro as $item){
+			$NUMERO_CUENTA = $item->NUMERO_CUENTA;
+			$NUMERO_OPERACION = $item->NUMERO_OPERACION;
+			$HORA_COBRO = date("h:i:s a",strtotime($item->DOC_COBRO_FECHA));
+			$FECHA_COBRO = date("Y-m-d",strtotime($item->DOC_COBRO_FECHA));
+			$FECHA_OPERACION = date("Y-m-d", strtotime($item->FECHA_OPERACION));
+			$DOCUMENTO = $item->NRO_DOCUMENTO;
+			$CLIENTE = $item->NOMBRE;
+			$NOMB_OFICINA = $item->NOMB_OFICINA;
+		}
+		$data['NUMERO_CUENTA']=$NUMERO_CUENTA;
+		$data['NUMERO_OPERACION']=$NUMERO_OPERACION;
+		$data['FECHA_OPERACION']=$FECHA_OPERACION;
+		$data['HORA_COBRO']=$HORA_COBRO;
+		$data['FECHA_COBRO']=$FECHA_COBRO;
+		$data['CLIENTE']=$CLIENTE;
+		$data['DOCUMENTO']=$DOCUMENTO;
+		$data['NOMB_OFICINA']=$NOMB_OFICINA;
+
+		$Ordenes = "";
+		if(count($docCobroDet)>0){
+			
+			$listOrdenes = array();
+
+			foreach($docCobroDet as $item){
+				array_push($listOrdenes, $item->CodOrdenE);
+			}
+
+			$listOrdenes = array_unique($listOrdenes);
+			$x=0;
+			
+			foreach($listOrdenes as $item){
+				if($x==0){
+					$Ordenes .= $item;
+				}else{
+					$Ordenes .= ','.$item;
+				}
+			}
+		}
+
+		$data['Ordenes']=$Ordenes;
+
+		$this->load->view("DocCobroPdf",$data);
 	}
 
 	public function CreaDocumentoCobro($COD_DOC_COBRO)

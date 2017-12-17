@@ -1,8 +1,8 @@
-function fn_eliminar(COD_DOC_COBRO) 
+function fn_eliminar(COD_DOC_PAGO) 
 {  $.ajax({
-		    url:  "/mantGestionCobros_c/eliminar",
+		    url:  "/mantGestionPagos_c/eliminar",
 	    	type: 'post',//metodo
-	    	data: { COD_DOC_COBRO:  COD_DOC_COBRO
+	    	data: { COD_DOC_PAGO:  COD_DOC_PAGO
 	    		  }, //parametros
 	    	success: function(respuesta) {
                 debugger;
@@ -26,7 +26,7 @@ $(function(){
 $("#txt_fecha").keypress(function(e) {
    if(e.which == 13) {
          // Acciones a realizar, por ej: enviar formulario.
-	    bus_OrdenEntrada();
+	    bus_OrdenPago();
 	   return false;
      }
    
@@ -38,7 +38,7 @@ $(function(){
 	$("#txt_serie").keypress(function(e) {
 	   if(e.which == 13) {
 	         // Acciones a realizar, por ej: enviar formulario.
-		    bus_OrdenEntrada();
+		    bus_OrdenPago();
 		   return false;
 	     }
 	   
@@ -50,7 +50,7 @@ $(function(){
 	$("#txt_numero").keypress(function(e) {
 	   if(e.which == 13) {
 	         // Acciones a realizar, por ej: enviar formulario.
-		    bus_OrdenEntrada();
+		    bus_OrdenPago();
 		   return false;
 	     }
 	   
@@ -62,7 +62,7 @@ $(function(){
 	$("#txt_cliente").keypress(function(e) {
 	   if(e.which == 13) {
 	         // Acciones a realizar, por ej: enviar formulario.
-		    bus_OrdenEntrada();
+		    bus_OrdenPago();
 		   return false;
 	     }
 	   
@@ -74,7 +74,7 @@ $(function(){
 	$("#txt_documento").keypress(function(e) {
 	   if(e.which == 13) {
 	         // Acciones a realizar, por ej: enviar formulario.
-		    bus_OrdenEntrada();
+		    bus_OrdenPago();
 		   return false;
 	     }
 	   
@@ -85,7 +85,7 @@ $(function(){
 
 $(function(){
   $("#btnbuscar").click(function(){
-	   bus_OrdenEntrada();
+	   bus_OrdenPago();
 	return false;
   });
 });
@@ -94,14 +94,15 @@ $(function(){
 
 
 /*-alinear para que todo el mantenimiento sea por ajax*/
-function bus_OrdenEntrada()
+function bus_OrdenPago()
 {   
+	debugger;
     var Filtros = new Object();
-	Filtros.COD_DOC_COBRO= $("#COD_DOC_COBRO").val();
-    Filtros.DOC_COBRO_FECHA= $("#DOC_COBRO_FECHA").val();
+	Filtros.COD_DOC_PAGO= $("#COD_DOC_PAGO").val();
+    Filtros.DOC_PAGO_FECHA= $("#DOC_PAGO_FECHA").val();
     Filtros.COD_OFI= $("#COD_OFI").val();
     Filtros.COD_USU= $("#COD_USU").val();
-    Filtros.COD_CLI= $("#COD_CLI").val();
+    Filtros.COD_PROV= $("#COD_PROV").val();
     Filtros.COD_TIPOPAGO= $("#COD_TIPOPAGO").val();
     Filtros.Pagina = -1;
     $('#processing-modal').modal('show');
@@ -109,7 +110,7 @@ function bus_OrdenEntrada()
   		type: "POST",
   		data:{ Filtros:Filtros
 			 },
-  		url: "/mantGestionCobros_c/obt_datos",
+  		url: "/mantGestionPagos_c/obt_datos",
   		success: function(objJson){
               debugger;
               $('#processing-modal').modal('hide');
@@ -171,7 +172,7 @@ function bus_OrdenEntrada()
               	  	   var sb="";
    					   sb=sb+" <div class='row'>";
    					   sb=sb+"   <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-   					   sb=sb+"     COD_DOC_COBRO";  
+   					   sb=sb+"     COD_DOC_PAGO";  
    					   sb=sb+" 	  </div>"; 
    					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
  					   sb=sb+" 	   USU";
@@ -180,10 +181,10 @@ function bus_OrdenEntrada()
    					   sb=sb+" 	    DESC_CAJA";
    					   sb=sb+" 	  </div>";
    				       sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-					   sb=sb+" 	    NOM_TIPOCOBRO";
+					   sb=sb+" 	    NOM_TIPOPAGO";
 					   sb=sb+" 	  </div>";
 					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-   					   sb=sb+" 	    NOMBRE CLIENTE";
+   					   sb=sb+" 	    NOMBRE PROVEEDOR";
    					   sb=sb+" 	  </div>";			   
    					   sb=sb+" </div>";	
 
@@ -193,7 +194,7 @@ function bus_OrdenEntrada()
                           {  var fila=lista[i];
                              sb=sb+"<div class='row'>";   
                              sb=sb+"   <div class='col-xs-2'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:10px;'> ";
-          	  	          	  sb=sb+fila["COD_DOC_COBRO"].toString();
+          	  	          	  sb=sb+fila["COD_DOC_PAGO"].toString();
           	  	         	  sb=sb+"  </div>";
           	  	          	  sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:10px;'>";
       	  	    	 	 	  sb=sb+fila["USU"].toString();
@@ -202,21 +203,21 @@ function bus_OrdenEntrada()
           	  	    	 	  sb=sb+fila["DESC_CAJA"].toString();
           	  	    	      sb=sb+"   </div>";
           	  	    	  	  sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
-      	  	    	 	  	  sb=sb+fila["NOM_TIPOCOBRO"].toString();
+      	  	    	 	  	  sb=sb+fila["NOM_TIPOPAGO"].toString();
       	  	    	          sb=sb+"   </div>";
       	  	    	      	  sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
   	  	    	 	  	  	  sb=sb+fila["NOMBRE"].toString();
                               sb=sb+"   </div>";
 					          sb=sb+"  <div class='col-xs-1'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:11px;'>";
-   	                          sb=sb+"	<a href='/mantGestionCobros_c/mostrar_Editar/"+fila['COD_DOC_COBRO'].toString()+"'>";
+   	                          sb=sb+"	<a href='/mantGestionPagos_c/CreaDocumentoPago/"+fila['COD_DOC_PAGO'].toString()+"'>";
       	  			    	  sb=sb+"	   Editar&nbsp";
-      	  					  sb=sb+"	   <img src='<?php echo base_url()?>public/images/EDITAR.png'>";
+      	  					  sb=sb+"	   <img src='/public/images/EDITAR.png'>";
       	  					  sb=sb+"	</a>"; 
 	   	  			 	      sb=sb+"  </div>";
 	   	  			 	      sb=sb+"  <div class='col-xs-1'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:11px;'>";
-	   	  			 	      sb=sb+"	    <a href='#' onclick=fn_eliminar('"+fila["COD_DOC_COBRO"].toString()+"')>";
+	   	  			 	      sb=sb+"	    <a href='#' onclick=fn_eliminar('"+fila["COD_DOC_PAGO"].toString()+"')>";
 	   	  			    	  sb=sb+"	       Anular&nbsp";
-	   	  					  sb=sb+"	      <img src='<?php echo base_url()?>public/images/ELIMINAR.png'>";
+	   	  					  sb=sb+"	      <img src='/public/images/ELIMINAR.png'>";
 	   	  					  sb=sb+"	    </a>"; 
      			 	          sb=sb+"  </div>";
       	  			          sb=sb+"</div> ";
@@ -241,8 +242,8 @@ function bus_OrdenEntrada()
 
 function fn_mostrar_pagina(npagina)
 { 	var Filtros = new Object();
-	Filtros.COD_DOC_COBRO= $("#COD_DOC_COBRO").val();
-    Filtros.DOC_COBRO_FECHA= $("#DOC_COBRO_FECHA").val();
+	Filtros.COD_DOC_PAGO= $("#COD_DOC_PAGO").val();
+    Filtros.DOC_PAGO_FECHA= $("#DOC_PAGO_FECHA").val();
     Filtros.COD_OFI= $("#COD_OFI").val();
     Filtros.COD_USU= $("#COD_USU").val();
     Filtros.COD_TIPOPAGO= $("#COD_TIPOPAGO").val();
@@ -253,7 +254,7 @@ function fn_mostrar_pagina(npagina)
 		 data:{  Filtros:Filtros
 			    },
   		async: true,
-  		url: "/mantGestionCobros_c/obt_datos",
+  		url: "/mantGestionPagos_c/obt_datos",
   		beforeSend: function(msg){
   		// AQUI TIENE QUE IR TU POPUP DONDE INICIARIA LA IMAGEN "CARGANDO ..."
   			$('#processing-modal').modal('show');      
@@ -310,7 +311,7 @@ function fn_mostrar_pagina(npagina)
                     var sb="";
                     sb=sb+" <div class='row'>";
                     sb=sb+"   <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-                    sb=sb+"     COD_DOC_COBRO";  
+                    sb=sb+"     COD_DOC_PAGO";  
                     sb=sb+" 	  </div>"; 
                     sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
                     sb=sb+" 	   USU";
@@ -319,10 +320,10 @@ function fn_mostrar_pagina(npagina)
                     sb=sb+" 	    DESC_CAJA";
                     sb=sb+" 	  </div>";
                     sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-                    sb=sb+" 	    NOM_TIPOCOBRO";
+                    sb=sb+" 	    NOM_TIPOPAGO";
                     sb=sb+" 	  </div>";
                     sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-                    sb=sb+" 	    NOMBRE CLIENTE";
+                    sb=sb+" 	    NOMBRE PROVEEDOR";
                     sb=sb+" 	  </div>";			   
                     sb=sb+" </div>";		
 
@@ -332,7 +333,7 @@ function fn_mostrar_pagina(npagina)
                     {  var fila=lista[i];
                             sb=sb+"<div class='row'>";   
                             sb=sb+"   <div class='col-xs-2'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:10px;'> ";
-                            sb=sb+fila["COD_DOC_COBRO"].toString();
+                            sb=sb+fila["COD_DOC_PAGO"].toString();
                             sb=sb+"  </div>";
                             sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:10px;'>";
                             sb=sb+fila["USU"].toString();
@@ -341,19 +342,19 @@ function fn_mostrar_pagina(npagina)
                             sb=sb+fila["DESC_CAJA"].toString();
                             sb=sb+"   </div>";
                             sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
-                            sb=sb+fila["NOM_TIPOCOBRO"].toString();
+                            sb=sb+fila["NOM_TIPOPAGO"].toString();
                             sb=sb+"   </div>";
                             sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
                             sb=sb+fila["NOMBRE"].toString();
                             sb=sb+"   </div>";
                             sb=sb+"  <div class='col-xs-1'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:11px;'>";
-                            sb=sb+"	<a href='/mantGestionCobros_c/mostrar_Editar/"+fila['COD_DOC_COBRO'].toString()+"'>";
+                            sb=sb+"	<a href='/mantGestionPagos_c/mostrar_Editar/"+fila['COD_DOC_PAGO'].toString()+"'>";
                             sb=sb+"	   Editar&nbsp";
                             sb=sb+"	   <img src='/public/images/EDITAR.png'>";
                             sb=sb+"	</a>"; 
                             sb=sb+"  </div>";
                             sb=sb+"  <div class='col-xs-1'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:11px;'>";
-                            sb=sb+"	    <a href='#' onclick=fn_eliminar('"+fila["COD_DOC_COBRO"].toString()+"')>";
+                            sb=sb+"	    <a href='#' onclick=fn_eliminar('"+fila["COD_DOC_PAGO"].toString()+"')>";
                             sb=sb+"	       Anular&nbsp";
                             sb=sb+"	      <img src='/public/images/ELIMINAR.png'>";
                             sb=sb+"	    </a>"; 

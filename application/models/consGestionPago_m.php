@@ -18,16 +18,15 @@ class ConsGestionPago_m extends CI_Model {
 		}
 	}
 
-	public function obt_OrdenSalida($P_COD_ORDENS)
+	public function obt_OrdenSalida()
 	{	
 		$this->db->select('os.COD_ORDEN_S');
 		$this->db->select('os.SERIE');
 		$this->db->select('os.NUMERO');
-		$this->db->select('c.nombre as CLIENTE');
-		$this->db->select('c.NRO_DOCUMENTO as DOCUMENTO');
+		$this->db->select('p.nombre as PROVEEDOR');
+		$this->db->select('p.NRO_DOCUMENTO as DOCUMENTO');
 		$this->db->from('orden_s os');
-		$this->db->join('proveedor p', 'os.COD_PROVEEDOR = c.COD_PROV');
-		$this->db->where("COD_ORDEN_S",$P_COD_ORDENS);
+		$this->db->join('proveedor p', 'os.COD_PROVEEDOR = p.COD_PROV');
 		//$string = $this->db->get_compiled_select();
 		$query  = $this->db->get();
 		$result = $query->result();
@@ -41,15 +40,17 @@ class ConsGestionPago_m extends CI_Model {
 		$this->db->select('os.COD_ORDEN_S');
 		$this->db->select('os.SERIE');
 		$this->db->select('os.NUMERO');
-		$this->db->select('p.DESCRIPCION');
 		$this->db->select('osd.PRECIO');
+		$this->db->select('osd.CANTIDAD');
+		$this->db->select('tp.DESC_TIPO as TIPOPRODUCTO');
+		$this->db->select('osd.DESCRIPCION');
+		$this->db->select('p.DESCRIPCION as PRODUCTO');
 		$this->db->select('(osd.CANTIDAD * osd.PRECIO) as IMPORTE');
-		$this->db->select('tp.desc_tipo as TIPOPRODUCTO');
 		$this->db->from('orden_s os');
 		$this->db->join('orden_s_det osd', 'os.COD_ORDEN_S = osd.COD_ORDEN_S');
 		$this->db->join('producto p', 'osd.COD_PROD = p.COD_PROD');
 		$this->db->join('Tipo_Producto tp', 'p.cod_tip_prod = tp.cod_tip_prod');
-		$this->db->where("COD_ORDEN_S",$P_COD_ORDENS);
+		$this->db->where("os.COD_ORDEN_S",$P_COD_ORDENS);
 		//$string = $this->db->get_compiled_select();
 		$query  = $this->db->get();
 		$result = $query->result();
@@ -62,6 +63,7 @@ class ConsGestionPago_m extends CI_Model {
 		$this->db->select('*');
 		$this->db->from('doc_pago dp');
 		$this->db->join('Proveedor p', 'dp.COD_PROV = p.COD_PROV');
+		$this->db->join('oficina o', 'dp.COD_OFI = o.COD_OFI');
 		$this->db->where("COD_DOC_PAGO",$COD_DOC_PAGO);
 		//$string = $this->db->get_compiled_select();
 		$query  = $this->db->get();
@@ -119,17 +121,17 @@ class ConsGestionPago_m extends CI_Model {
 
 	public function obt_totpaginas($Filtros){
 		$TotalPaginas = 0;
-		$this->db->select('dc.COD_DOC_COBRO,cli.NOMBRE, cli.NRO_DOCUMENTO, u.COD_USU, u.USU,c.DESC_CAJA,tc.NOM_TIPOCOBRO');
-		$this->db->from('doc_cobro dc');
-		$this->db->join('cliente cli', 'dc.COD_CLI = cli.COD_CLI');
+		$this->db->select('dc.COD_DOC_PAGO,prov.NOMBRE, prov.NRO_DOCUMENTO, u.COD_USU, u.USU,c.DESC_CAJA,tp.NOM_TIPOPAGO');
+		$this->db->from('doc_pago dc');
+		$this->db->join('Proveedor prov', 'dc.COD_PROV = prov.COD_PROV');
 		$this->db->join('usuario u', 'dc.COD_USU = u.COD_USU');
 		$this->db->join('caja c', 'dc.COD_CAJA = c.COD_CAJA');
-		$this->db->join('tipo_cobro tc', 'dc.COD_TIPOCOBRO = tc.COD_TIPOCOBRO');
-		$this->db->where("((".$Filtros["COD_CLI"]."=0) or(dc.COD_CLI=".$Filtros["COD_CLI"]."))");
+		$this->db->join('tipo_pago tp', 'dc.COD_TIPOPAGO = tp.COD_TIPOPAGO');
+		$this->db->where("((".$Filtros["COD_PROV"]."=0) or(dc.COD_PROV=".$Filtros["COD_PROV"]."))");
 		$this->db->where("((".$Filtros["COD_USU"]."=0) or(u.COD_USU=".$Filtros["COD_USU"]."))");
-		$this->db->where("((".$Filtros["COD_TIPOCOBRO"]."=0) or(dc.COD_TIPOCOBRO=".$Filtros["COD_TIPOCOBRO"]."))");
-		$this->db->where("(('".$Filtros["COD_DOC_COBRO"]."'='') or(dc.COD_DOC_COBRO='".$Filtros["COD_DOC_COBRO"]."'))");
-		$this->db->where("(('".$Filtros["DOC_COBRO_FECHA"]."'='') or(date(dc.DOC_COBRO_FECHA)='".$Filtros["DOC_COBRO_FECHA"]."'))");
+		$this->db->where("((".$Filtros["COD_TIPOPAGO"]."=0) or(dc.COD_TIPOPAGO=".$Filtros["COD_TIPOPAGO"]."))");
+		$this->db->where("(('".$Filtros["COD_DOC_PAGO"]."'='') or(dc.COD_DOC_PAGO='".$Filtros["COD_DOC_PAGO"]."'))");
+		$this->db->where("(('".$Filtros["DOC_PAGO_FECHA"]."'='') or(date(dc.DOC_PAGO_FECHA)='".$Filtros["DOC_PAGO_FECHA"]."'))");
 		//$string = $this->db->get_compiled_select();
 		$query  = $this->db->get();
 		$result = $query->result();
@@ -157,17 +159,17 @@ class ConsGestionPago_m extends CI_Model {
 		$filasxpagina = 10;
 		$inicio = round($P_numpagina/$filasxpagina);
 
-				$this->db->select('dc.COD_DOC_COBRO,cli.NOMBRE, cli.NRO_DOCUMENTO, u.COD_USU, u.USU,c.DESC_CAJA,tc.NOM_TIPOCOBRO');
-				$this->db->from('doc_cobro dc');
-				$this->db->join('cliente cli', 'dc.COD_CLI = cli.COD_CLI');
+				$this->db->select('dc.COD_DOC_PAGO,prov.NOMBRE, prov.NRO_DOCUMENTO, u.COD_USU, u.USU,c.DESC_CAJA,tp.NOM_TIPOPAGO');
+				$this->db->from('doc_pago dc');
+				$this->db->join('Proveedor prov', 'dc.COD_PROV = prov.COD_PROV');
 				$this->db->join('usuario u', 'dc.COD_USU = u.COD_USU');
 				$this->db->join('caja c', 'dc.COD_CAJA = c.COD_CAJA');
-				$this->db->join('tipo_cobro tc', 'dc.COD_TIPOCOBRO = tc.COD_TIPOCOBRO');
-				$this->db->where("((".$Filtros["COD_CLI"]."=0) or(dc.COD_CLI=".$Filtros["COD_CLI"]."))");
+				$this->db->join('tipo_pago tp', 'dc.COD_TIPOPAGO = tp.COD_TIPOPAGO');
+				$this->db->where("((".$Filtros["COD_PROV"]."=0) or(dc.COD_PROV=".$Filtros["COD_PROV"]."))");
 				$this->db->where("((".$Filtros["COD_USU"]."=0) or(u.COD_USU=".$Filtros["COD_USU"]."))");
-				$this->db->where("((".$Filtros["COD_TIPOCOBRO"]."=0) or(dc.COD_TIPOCOBRO=".$Filtros["COD_TIPOCOBRO"]."))");
-				$this->db->where("(('".$Filtros["COD_DOC_COBRO"]."'='') or(dc.COD_DOC_COBRO='".$Filtros["COD_DOC_COBRO"]."'))");
-				$this->db->where("(('".$Filtros["DOC_COBRO_FECHA"]."'='') or(date(dc.DOC_COBRO_FECHA)='".$Filtros["DOC_COBRO_FECHA"]."'))");
+				$this->db->where("((".$Filtros["COD_TIPOPAGO"]."=0) or(dc.COD_TIPOPAGO=".$Filtros["COD_TIPOPAGO"]."))");
+				$this->db->where("(('".$Filtros["COD_DOC_PAGO"]."'='') or(dc.COD_DOC_PAGO='".$Filtros["COD_DOC_PAGO"]."'))");
+				$this->db->where("(('".$Filtros["DOC_PAGO_FECHA"]."'='') or(date(dc.DOC_PAGO_FECHA)='".$Filtros["DOC_PAGO_FECHA"]."'))");
 				$this->db->limit($filasxpagina,$inicio);
 				//$string = $this->db->get_compiled_select();
 				$query  = $this->db->get();
@@ -176,43 +178,43 @@ class ConsGestionPago_m extends CI_Model {
 		return $result;
 	}
 
-	public function insertDocCobro($DocCobro)
+	public function GuardarDocPago($DocPago)
 	{	
 		$this->db->trans_start();
-		$DOC_PAGO_FECHA = "1900-10-10";
 		$FECHA_OPERACION = "1900-10-10";
 		date_default_timezone_set('America/Lima');
-		$DOC_COBRO_FECHA = date('Y/m/d h:i:s', time());
-		$COD_DOC_COBRO = 0;
+		$DOC_PAGO_FECHA = date('Y/m/d h:i:s', time());
+		$COD_DOC_PAGO = 0;
 
-		$doc_cobro = array(
-				'COD_OFI' => $DocCobro["COD_OFI"],
-				'DOC_COBRO_FECHA' => $DOC_COBRO_FECHA,
-				'COD_CAJA' => $DocCobro["COD_CAJA"],
-				'COD_CLI' => $DocCobro["COD_CLI"],
-				'NRO_DOCUMENTO' => $DocCobro["NRO_DOCUMENTO"],
-				'NUMERO_CUENTA' => $DocCobro["NUMERO_CUENTA"],
-				'COD_TIPO_DOC' => $DocCobro["COD_TIPO_DOC"],
-				'FECHA_OPERACION' => $DocCobro["FECHA_OPERACION"] == ""?"1900-10-10":$DocCobro["FECHA_OPERACION"],
-				'NUMERO_OPERACION' => $DocCobro["NUMERO_OPERACION"],
-				'OBSERVACION' => $DocCobro["OBSERVACION"],
-				'COD_USU' => $DocCobro["COD_USU"],
+		$doc_pago = array(
+				'COD_OFI' => $DocPago["COD_OFI"],
+				'DOC_PAGO_FECHA' => $DOC_PAGO_FECHA,
+				'COD_CAJA' => $DocPago["COD_CAJA"],
+				'COD_PROV' => $DocPago["COD_PROV"],
+				'NRO_DOCUMENTO' => $DocPago["NRO_DOCUMENTO"],
+				'NUMERO_CUENTA' => $DocPago["NUMERO_CUENTA"],
+				'COD_TIPO_DOC' => $DocPago["COD_TIPO_DOC"],
+				'FECHA_OPERACION' => $DocPago["FECHA_OPERACION"] == ""?"1900-10-10":$DocPago["FECHA_OPERACION"],
+				'NUMERO_OPERACION' => $DocPago["NUMERO_OPERACION"],
+				'OBSERVACION' => $DocPago["OBSERVACION"],
+				'COD_USU' => $DocPago["COD_USU"],
 				'IGV' => 0,
-				'MONTO_TOTAL' => $DocCobro["MONTO_TOTAL"],
-				'MONTO_NETO' => $DocCobro["MONTO_NETO"],
-				'COD_TIPOCOBRO' => $DocCobro["COD_TIPOCOBRO"]
+				'MONTO_TOTAL' => $DocPago["MONTO_TOTAL"],
+				'MONTO_NETO' => $DocPago["MONTO_NETO"],
+				'COD_TIPOPAGO' => $DocPago["COD_TIPOPAGO"]
 		);
 		
-		$this->db->insert('doc_cobro', $doc_cobro);
-		$COD_DOC_COBRO = $this->db->insert_id();
+		$this->db->insert('doc_pago', $doc_pago);
+		//$string = $this->db->get_compiled_select();
+		$COD_DOC_PAGO = $this->db->insert_id();
 		
-		foreach($DocCobro["listDocCobroDet"] as $item){
-			$doc_cobro_detalle = array(
-				'COD_DOC_COBRO' => $COD_DOC_COBRO,
-				'COD_ORDEN_E' => $item["COD_ORDEN_E"],
+		foreach($DocPago["listDocPagoDet"] as $item){
+			$doc_pago_detalle = array(
+				'COD_DOC_PAGO' => $COD_DOC_PAGO,
+				'COD_ORDEN_S' => $item["COD_ORDEN_S"],
 				'SUB_TOTAL' => $item["SUB_TOTAL"]
 			);
-			$this->db->insert('doc_cobro_detalle',$doc_cobro_detalle);
+			$this->db->insert('doc_pago_detalle',$doc_pago_detalle);
 		}
 		
 		$respuesta = FALSE;
@@ -229,48 +231,48 @@ class ConsGestionPago_m extends CI_Model {
 		
 		$response = array(
 			'respuesta' => $respuesta,
-			'COD_DOC_COBRO'=> $COD_DOC_COBRO
+			'COD_DOC_PAGO'=> $COD_DOC_PAGO
 		);
 
 		return $response;
 	}
 
-	public function updateDocCobro($DocCobro)
+	public function updateDocPago($DocPago)
 	{	
 		$this->db->trans_start();
 
 		date_default_timezone_set('America/Lima');
-		$DOC_COBRO_FECHA = date('Y/m/d h:i:s', time());
-		$COD_DOC_COBRO = $DocCobro['COD_DOC_COBRO'];
-		$doc_cobro = array(
-				'COD_OFI' => $DocCobro["COD_OFI"],
-				'DOC_COBRO_FECHA' => $DOC_COBRO_FECHA,
-				'COD_CAJA' => $DocCobro["COD_CAJA"],
-				'COD_CLI' => $DocCobro["COD_CLI"],
-				'NRO_DOCUMENTO' => $DocCobro["NRO_DOCUMENTO"],
-				'NUMERO_CUENTA' => $DocCobro["NUMERO_CUENTA"],
-				'COD_TIPO_DOC' => $DocCobro["COD_TIPO_DOC"],
-				'FECHA_OPERACION' => $DocCobro["FECHA_OPERACION"] == ""?"1900-10-10":$DocCobro["FECHA_OPERACION"],
-				'NUMERO_OPERACION' => $DocCobro["NUMERO_OPERACION"],
-				'OBSERVACION' => $DocCobro["OBSERVACION"],
-				'COD_USU' => $DocCobro["COD_USU"],
+		$doc_pago_FECHA = date('Y/m/d h:i:s', time());
+		$COD_DOC_PAGO = $DocPago['COD_DOC_PAGO'];
+		$doc_pago = array(
+				'COD_OFI' => $DocPago["COD_OFI"],
+				'doc_pago_FECHA' => $doc_pago_FECHA,
+				'COD_CAJA' => $DocPago["COD_CAJA"],
+				'COD_PROV' => $DocPago["COD_PROV"],
+				'NRO_DOCUMENTO' => $DocPago["NRO_DOCUMENTO"],
+				'NUMERO_CUENTA' => $DocPago["NUMERO_CUENTA"],
+				'COD_TIPO_DOC' => $DocPago["COD_TIPO_DOC"],
+				'FECHA_OPERACION' => $DocPago["FECHA_OPERACION"] == ""?"1900-10-10":$DocPago["FECHA_OPERACION"],
+				'NUMERO_OPERACION' => $DocPago["NUMERO_OPERACION"],
+				'OBSERVACION' => $DocPago["OBSERVACION"],
+				'COD_USU' => $DocPago["COD_USU"],
 				'IGV' => 0,
-				'MONTO_TOTAL' => $DocCobro["MONTO_TOTAL"],
-				'MONTO_NETO' => $DocCobro["MONTO_NETO"],
-				'COD_TIPOCOBRO' => $DocCobro["COD_TIPOCOBRO"]
+				'MONTO_TOTAL' => $DocPago["MONTO_TOTAL"],
+				'MONTO_NETO' => $DocPago["MONTO_NETO"],
+				'COD_TIPOPAGO' => $DocPago["COD_TIPOPAGO"]
 		);
 
-		$this->db->where('COD_DOC_COBRO', $COD_DOC_COBRO);
-		$this->db->update('doc_cobro', $doc_cobro);
-		$this->db->delete('doc_cobro_detalle', array('COD_DOC_COBRO' => $COD_DOC_COBRO));
+		$this->db->where('COD_DOC_PAGO', $COD_DOC_PAGO);
+		$this->db->update('doc_pago', $doc_pago);
+		$this->db->delete('doc_pago_detalle', array('COD_DOC_PAGO' => $COD_DOC_PAGO));
 
-		foreach($DocCobro["listDocCobroDet"] as $item){
-			$doc_cobro_detalle = array(
-				'COD_DOC_COBRO' => $COD_DOC_COBRO,
-				'COD_ORDEN_E' => $item["COD_ORDEN_E"],
+		foreach($DocPago["listDocPagoDet"] as $item){
+			$doc_pago_detalle = array(
+				'COD_DOC_PAGO' => $COD_DOC_PAGO,
+				'COD_ORDEN_S' => $item["COD_ORDEN_S"],
 				'SUB_TOTAL' => $item["SUB_TOTAL"]
 			);
-			$this->db->insert('doc_cobro_detalle',$doc_cobro_detalle);
+			$this->db->insert('doc_pago_detalle',$doc_pago_detalle);
 		}
 
 		$this->db->trans_complete();
@@ -287,18 +289,18 @@ class ConsGestionPago_m extends CI_Model {
 		
 		$response = array(
 			'respuesta' => $respuesta,
-			'COD_DOC_COBRO'=> $COD_DOC_COBRO,
+			'COD_DOC_PAGO'=> $COD_DOC_PAGO,
 			
 		);
 
 		return $response;
 	}
 
-	public function eliminar($COD_DOC_COBRO){
+	public function eliminar($COD_DOC_PAGO){
 		$this->db->trans_start();
 		
-		$this->db->delete('doc_cobro', array('COD_DOC_COBRO' => $COD_DOC_COBRO));
-		$this->db->delete('doc_cobro_detalle', array('COD_DOC_COBRO' => $COD_DOC_COBRO));
+		$this->db->delete('doc_pago', array('COD_DOC_PAGO' => $COD_DOC_PAGO));
+		$this->db->delete('doc_pago_detalle', array('COD_DOC_PAGO' => $COD_DOC_PAGO));
 
 		$this->db->trans_complete();
 		if ($this->db->trans_status() === FALSE) {

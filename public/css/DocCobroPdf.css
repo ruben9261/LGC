@@ -1,5 +1,5 @@
 * {
-    font-size: 12px;
+    font-size: 11px;
     font-family: 'Times New Roman';
   }
    
@@ -10,8 +10,24 @@
     border-top: 1px solid black;
     border-collapse: collapse;
   }
+
+  .contentRight{
+    display: inline-block;
+    margin-left: 10px;
+  }
+
+  .contentLeft{
+    display: inline-block;
+    width: 100px;
+    margin-left:13px;
+  }
+
+  .contentLeftDefault{
+    display: inline-block;
+    margin-left:13px;
+  }
    
-  td.producto,
+  /* td.producto,
   th.producto {
     width: 75px;
     max-width: 75px;
@@ -30,20 +46,21 @@
     max-width: 40px;
     word-break: break-all;
   }
-   
+    */
+    
   .centrado {
     text-align: center;
     align-content: center;
   }
    
   .ticket {
-    width: 155px;
-    max-width: 155px;
+    width: 300px;
+    max-width: 300px;
   }
    
   img {
-    max-width: inherit;
-    width: inherit;
+    max-width: 200px;
+    width: 200px;
   }
 
 @media print{
