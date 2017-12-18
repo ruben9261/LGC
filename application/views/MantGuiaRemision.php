@@ -179,7 +179,6 @@ i.btn.glyphicon.glyphicon-ok {
                                 </div>
 								
 							</div>
-							div class="form-group">
 								<div class="col-md-4 container-style">
 										<label for="" class="control-label col-md-6">Número Comprobante :</label>
 										<div class="col-md-6">

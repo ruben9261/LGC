@@ -348,7 +348,7 @@ function fn_mostrar_pagina(npagina)
                             sb=sb+fila["NOMBRE"].toString();
                             sb=sb+"   </div>";
                             sb=sb+"  <div class='col-xs-1'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:11px;'>";
-                            sb=sb+"	<a href='/mantGestionPagos_c/mostrar_Editar/"+fila['COD_DOC_PAGO'].toString()+"'>";
+                            sb=sb+"	<a href='/mantGestionPagos_c/CreaDocumentoCobro/"+fila['COD_DOC_PAGO'].toString()+"'>";
                             sb=sb+"	   Editar&nbsp";
                             sb=sb+"	   <img src='/public/images/EDITAR.png'>";
                             sb=sb+"	</a>"; 
