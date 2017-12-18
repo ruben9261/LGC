@@ -85,10 +85,10 @@ i.btn.glyphicon.glyphicon-ok {
 						 <input type="hidden" id="COD_DOC_COBRO" value="">
 							<div class="form-group">
                             <div class="col-md-4 container-style" style="" id="divFechaOperacion">
-									<label for="" class="control-label col-md-6" >Fecha Operación :</label>
+									<label for="" class="control-label col-md-6" >Fecha de Emisión :</label>
 									<div class="col-md-6">
 										<div class='input-group'>
-										<input type='text' name="FECHA_OPERACION" id="FECHA_OPERACION" class="form-control input-sm calendario" value="" placeholder="Fecha de Inicio" />
+										<input type='text' name="FECHA_EMISION" id="FECHA_EMISION" class="form-control input-sm FECHA_EMISION" value="" />
 										<!-- <div class="input-group-addon">
 										<span class="glyphicon glyphicon-calendar"></span>
 										</div> -->
@@ -96,10 +96,10 @@ i.btn.glyphicon.glyphicon-ok {
 									</div>
                                 </div> 
                                 <div class="col-md-4 container-style" style="" id="divFechaOperacion">
-									<label for="" class="control-label col-md-6" >Fecha de  Translado :</label>
+									<label for="" class="control-label col-md-6" >Fecha de Translado :</label>
 									<div class="col-md-6">
 										<div class='input-group'>
-										<input type='text' name="FECHA_OPERACION" id="FECHA_OPERACION" class="form-control input-sm calendario" value="" placeholder="Fecha de Inicio" />
+										<input type='text' name="FECHA_TRASLADO" id="FECHA_TRASLADO" class="form-control input-sm FECHA_TRASLADO" />
 										<!-- <div class="input-group-addon">
 										<span class="glyphicon glyphicon-calendar"></span>
 										</div> -->
@@ -112,62 +112,104 @@ i.btn.glyphicon.glyphicon-ok {
 								<div class="col-md-4 container-style">
 									<label for="" class="control-label col-md-6">Punto de Partida :</label>
 									<div class="col-md-6">
-										<input type="text" class="form-control input-sm" name="NUMERO_CUENTA" id="NUMERO_CUENTA" value="">
+										<input type="text" class="form-control input-sm PUNTO_PARTIDA" name="PUNTO_PARTIDA" id="PUNTO_PARTIDA" value="">
 									</div>
 								</div>
 								<div class="col-md-4 container-style" style="" id="divNroCuenta">
-									<label for="" class="control-label col-md-6"  >Nombre o Razon Social :</label>
+									<label for="" class="control-label col-md-6"  >Punto de Llegada :</label>
 									<div class="col-md-6">
-										<input type="text" class="form-control input-sm" name="NUMERO_CUENTA" id="NUMERO_CUENTA" value="">
+										<input type="text" class="form-control input-sm" name="PUNTO_LLEGADA" id="PUNTO_LLEGADA" value="">
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="col-md-4 container-style">
-										<label for="" class="control-label col-md-6">R.U.C :</label>
+										<label for="" class="control-label col-md-6">Razón Social :</label>
 										<div class="col-md-6">
-                                        <input type="text" class="form-control input-sm" name="NUMERO_CUENTA" id="NUMERO_CUENTA" value="">
+                                        <input type="text" class="form-control input-sm" name="RAZON_SOCIAL" id="RAZON_SOCIAL" value="">
 										</div>
 								</div>
 								<div class="col-md-4 container-style">
-                                  <label for="" class="control-label col-md-6">Tipo de Documento de Identidad:</label>
+                                  <label for="" class="control-label col-md-6">Nro Documento :</label>
                                    <div class="col-md-6">
-                                    <input type="text" class="form-control input-sm" name="NUMERO_CUENTA" id="NUMERO_CUENTA" value="">
-                                   </div>
-                                </div>
-								
-								
-							</div>
-							<div class="form-group">
-								<div class="col-md-4 container-style">
-										<label for="" class="control-label col-md-6">Marca y Numero de Placa:</label>
-										<div class="col-md-6">
-                                        <input type="text" class="form-control input-sm" name="NUMERO_CUENTA" id="NUMERO_CUENTA" value="">
-										</div>
-								</div>
-								<div class="col-md-4 container-style">
-                                  <label for="" class="control-label col-md-6">Constancia de Inscripcion:</label>
-                                   <div class="col-md-6">
-                                    <input type="text" class="form-control input-sm" name="NUMERO_CUENTA" id="NUMERO_CUENTA" value="">
-                                   </div>
-                                </div>
-								<div class="col-md-4 container-style">
-                                  <label for="" class="control-label col-md-6">Licencia de Conducir:</label>
-                                   <div class="col-md-6">
-                                    <input type="text" class="form-control input-sm" name="NUMERO_CUENTA" id="NUMERO_CUENTA" value="">
+                                    <input type="text" class="form-control input-sm" name="NRO_DOCUMENTO" id="NRO_DOCUMENTO" value="">
                                    </div>
                                 </div>
 								
 							</div>
 							<div class="form-group">
-                                <div class="col-md-12 container-style">
-                                  <label for="" class="control-label col-md-2">Punto de llegada:</label>
+								<div class="col-md-4 container-style">
+										<label for="" class="control-label col-md-6">Marca Placa :</label>
+										<div class="col-md-6">
+                                        <input type="text" class="form-control input-sm" name="MARCA_PLACA" id="MARCA_PLACA" value="">
+										</div>
+								</div>
+								<div class="col-md-4 container-style">
+                                  <label for="" class="control-label col-md-6">Nro Constancia Inscripción :</label>
                                    <div class="col-md-6">
-                                   <textarea id="OBSERVACION" rows="5" cols="80" class="form-control" placeholder="observaci&oacute;n"></textarea>
+                                    <input type="text" class="form-control input-sm" name="NROCONS_INSCRIPC" id="NROCONS_INSCRIPC" value="">
                                    </div>
                                 </div>
+								<div class="col-md-4 container-style">
+                                  <label for="" class="control-label col-md-6">Nro Licencia de Conducir :</label>
+                                   <div class="col-md-6">
+                                    <input type="text" class="form-control input-sm" name="NROLIC_CONDUCIR" id="NROLIC_CONDUCIR" value="">
+                                   </div>
+                                </div>
+								
 							</div>
-
+							<div class="form-group">
+								<div class="col-md-4 container-style">
+										<label for="" class="control-label col-md-6">Número Comprobante :</label>
+										<div class="col-md-6">
+                                        <input type="text" class="form-control input-sm" name="NRO_COMPROBANTE" id="NRO_COMPROBANTE" value="">
+										</div>
+								</div>
+								<div class="col-md-4 container-style">
+                                  <label for="" class="control-label col-md-6">Nro Orden de Compra :</label>
+                                   <div class="col-md-6">
+                                    <input type="text" class="form-control input-sm" name="ORDEN_COMPRA" id="ORDEN_COMPRA" value="">
+                                   </div>
+                                </div>
+								<div class="col-md-4 container-style">
+                                  <label for="" class="control-label col-md-6">Nro Pedido :</label>
+                                   <div class="col-md-6">
+                                    <input type="text" class="form-control input-sm" name="NRO_PEDIDO" id="NRO_PEDIDO" value="">
+                                   </div>
+                                </div>
+								
+							</div>
+							div class="form-group">
+								<div class="col-md-4 container-style">
+										<label for="" class="control-label col-md-6">Número Comprobante :</label>
+										<div class="col-md-6">
+                                        <input type="text" class="form-control input-sm" name="NRO_COMPROBANTE" id="NRO_COMPROBANTE" value="">
+										</div>
+								</div>
+								<div class="col-md-4 container-style">
+                                  <label for="" class="control-label col-md-6">Nro Orden de Compra :</label>
+                                   <div class="col-md-6">
+                                    <input type="text" class="form-control input-sm" name="ORDEN_COMPRA" id="ORDEN_COMPRA" value="">
+                                   </div>
+                                </div>
+								<div class="col-md-4 container-style">
+                                  <label for="" class="control-label col-md-6">Nro Pedido :</label>
+                                   <div class="col-md-6">
+                                    <input type="text" class="form-control input-sm" name="NRO_PEDIDO" id="NRO_PEDIDO" value="">
+                                   </div>
+                                </div>
+								
+							</div>
+							<div class="form-group">
+								<div  class='col-md-4 col-md-offset-1 container-style'>
+									<div class="col-md-6 input-group">
+										<button type="button" class="btn btn-primary" onclick="fn_AbrirModalProductos();">
+											Agregar Producto
+											<img src="/public/images/add.png">
+										</button>
+									</div>
+								</div>
+							</div>
 							<br/>
 							<div class="container">		
 								<div id="tabla"> 
@@ -175,28 +217,19 @@ i.btn.glyphicon.glyphicon-ok {
 										<thead>
 											<tr>
 											<th class='col-md-1 thead-style'>
-													SERIE 
+													CODIGO 
 											</th> 
 											<th class='col-md-1 thead-style'>
 													CANTIDAD 
 											</th> 
 											<th class='col-md-3 thead-style'>
-													PRODUCTO
+													UNIDAD
 											</th>
 											<th class='col-md-1 thead-style'>
-													TIPO
+													DESCRIPCION
 											</th>
 											<th class='col-md-3 thead-style'>
-													OBSERVACI&Oacute;N
-											</th>
-											<th class='col-md-1 thead-style'>
-													PRECIO
-											</th>
-											<th class='col-md-1 thead-style'>
-													IMPORTE
-											</th>
-											<th class='col-md-1 thead-style'>
-													Acciones
+													PESO
 											</th>
 											</tr>
 										</thead>
@@ -243,15 +276,78 @@ i.btn.glyphicon.glyphicon-ok {
 			   </form>
    </div>
 
+   
+   <div class="modal fade" id="ProductosModal" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
 
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 style="color:red;"> Buscar Cliente</h4>
+        </div>
+        <div class="modal-body">
+		<form>
+			<div class="form-horizontal">
+				<div class="form-group">
+					<label for="" class=" col-md-3 control-label">Producto :</label>
+					<div class="col-md-4">
+						<select name="" class="form-control input-sm" id="">
+							<option value="">--SELECCIONE--</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="" class=" col-md-3 control-label">Unidad :</label>
+					<div class="col-md-4">
+						<select name="" class="form-control input-sm" id="">
+							<option value="">--SELECCIONE--</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="" class=" col-md-3 control-label">Cantidad :</label>
+					<div class="col-md-4">
+						<input type="text" class="form-control input-sm">
+					</div>
+				</div>
+				<div class="form-group">
+				<button  type="submit" class="btn btn-primary col-md-2 col-md-offset-8" id="Guardar"  style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);">
+									   		   Agregar
+									           <img src="/public/images/GUARDAR.png">
+				</button>
+				</div>
+			</div>
+		</form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+          
+        </div>
+      </div>
+    </div>
+  </div> 
+
+	<div class="modal modal-static fade" id="processing-modal" data-backdrop="static" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="text-center">
+						<img src="/public/images/cargar2.gif">
+						<h4>            Procesando... <button type="button" class="close" style="float: none;" data-dismiss="modal" aria-hidden="true"></button></h4>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
  	<script type="text/javascript" src="/public/js/datatable.js" ></script>
  	<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 	<script type="text/javascript" src="/public/jquery/jquery.validate.js"></script>
 	<script type="text/javascript" src="/public/js/moment.min.js" charset="UTF-8"></script>
-	<script src="/public/js/bootstrap-datepicker.min.js"></script>   
-  	<script src="/public/js/bootstrap-datepicker.es.min.js"></script> 
-	<script src="/public/pnotify/pnotify.custom.min.js"></script>
-	
+	<script type="text/javascript" src="/public/js/bootstrap-datepicker.min.js"></script>   
+  	<script type="text/javascript" src="/public/js/bootstrap-datepicker.es.min.js"></script> 
+	<script type="text/javascript" src="/public/pnotify/pnotify.custom.min.js"></script>
+	<script type="text/javascript" src="/public/custom/CreaGuiaRemision.js"></script>
 </body>
 </html>
