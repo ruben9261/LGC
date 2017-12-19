@@ -344,7 +344,6 @@ $(document).ready(function() {
             GuiaRemisionDet.CANTIDAD = parseInt($(".CANTIDAD",this).val());
             GuiaRemisionDet.UNIDMED = parseInt($(".UNIDMED",this).val());
             GuiaRemisionDet.PRODUCTO = parseInt($(".PRODUCTO",this).val());
-
             listGuiaRemisionDet.push(GuiaRemisionDet);
         });
         debugger;
