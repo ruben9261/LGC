@@ -370,7 +370,7 @@ if($TIPO_TRANSACCION==1){
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 style="color:red;"><span class="glyphicon glyphicon-lock"></span> Login</h4>
+          <h4 style="color:red;"></span> Orden de salida</h4>
         </div>
         <div class="modal-body">
 		<table id="TablaOrdenSalida" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -388,9 +388,7 @@ if($TIPO_TRANSACCION==1){
     </table>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-          <p>Not a member? <a href="#">Sign Up</a></p>
-          <p>Forgot <a href="#">Password?</a></p>
+          
         </div>
       </div>
     </div>
@@ -404,7 +402,7 @@ if($TIPO_TRANSACCION==1){
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 style="color:red;"><span class="glyphicon glyphicon-lock"></span> Login</h4>
+          <h4 style="color:red;"></span>Proveedores</h4>
         </div>
         <div class="modal-body">
 		<table id="TablaProveedores" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -422,9 +420,6 @@ if($TIPO_TRANSACCION==1){
     </table>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-          <p>Not a member? <a href="#">Sign Up</a></p>
-          <p>Forgot <a href="#">Password?</a></p>
         </div>
       </div>
     </div>
@@ -445,7 +440,7 @@ if($TIPO_TRANSACCION==1){
 	</div>
 
 	<script type="text/javascript" src="/public/custom/CreaGestionPagos.js"></script>
- 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" ></script>
+	<script type="text/javascript" src="/public/js/datatable.js" ></script>
  	<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 	<script type="text/javascript" src="/public/jquery/jquery.validate.js"></script>
 	<script  type="text/javascript"  src="/public/js/moment.min.js"> </script>
