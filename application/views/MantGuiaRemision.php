@@ -80,7 +80,7 @@ i.btn.glyphicon.glyphicon-ok {
 			
 						 <input type="hidden" id="tpagina">
 		    	         <input type="hidden" id="pactual">
-						 <input type="hidden" id="TIPO_TRANSACCION" value="">
+						 <input type="hidden" id="TIPO_TRANSACCION" value="1">
 						 <input type="hidden" id="COD_GUIAREM" value="">
 							<div class="form-group">
                             <div class="col-md-4 container-style" style="" id="divFechaOperacion">
