@@ -177,28 +177,45 @@ i.btn.glyphicon.glyphicon-ok {
                                     <input type="text" class="form-control input-sm" name="NRO_PEDIDO" id="NRO_PEDIDO" value="">
                                    </div>
                                 </div>
-								
 							</div>
-								<div class="col-md-4 container-style">
-										<label for="" class="control-label col-md-6">Número Comprobante :</label>
+							<div class="form-group">
+							    <div class="col-md-4 container-style">
+										<label for="" class="control-label col-md-6">Costo :</label>
 										<div class="col-md-6">
-                                        <input type="text" class="form-control input-sm" name="NRO_COMPROBANTE" id="NRO_COMPROBANTE" value="">
+                                        <input type="text" class="form-control input-sm" name="COSTO_MINIMO" id="COSTO_MINIMO" value="">
+										</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-4 container-style">
+										<label for="" class="control-label col-md-6">Transportista :</label>
+										<div class="col-md-6">
+                                        <input type="text" class="form-control input-sm" name="TRANSPORTISTA" id="TRANSPORTISTA" value="">
 										</div>
 								</div>
 								<div class="col-md-4 container-style">
-                                  <label for="" class="control-label col-md-6">Nro Orden de Compra :</label>
+                                  <label for="" class="control-label col-md-6">Transportista RUC :</label>
                                    <div class="col-md-6">
-                                    <input type="text" class="form-control input-sm" name="ORDEN_COMPRA" id="ORDEN_COMPRA" value="">
+                                    <input type="text" class="form-control input-sm" name="TRANSPORTISTA_RUC" id="TRANSPORTISTA_RUC" value="">
                                    </div>
                                 </div>
 								<div class="col-md-4 container-style">
-                                  <label for="" class="control-label col-md-6">Nro Pedido :</label>
+                                  <label for="" class="control-label col-md-6">Motivo de Traslado :</label>
                                    <div class="col-md-6">
-                                    <input type="text" class="form-control input-sm" name="NRO_PEDIDO" id="NRO_PEDIDO" value="">
+                                    <select name="" id="" class="form-control input-sm">
+									    <option value="">--SELECCIONE--</option>
+										<?php
+										 if(count($listMotivoTraslado)>0){
+											 foreach($listMotivoTraslado as $item){
+                                                echo '<option value="'.$item->COD_MOT_TRAS.'">'.$item->DESC_MOT_TRAS.'</option>';
+											 }
+										 }
+										?>
+									</select>
                                    </div>
                                 </div>
-								
 							</div>
+							<br/>
 							<div class="form-group">
 								<div  class='col-md-4 col-md-offset-1 container-style'>
 									<div class="col-md-6 input-group">
@@ -209,10 +226,11 @@ i.btn.glyphicon.glyphicon-ok {
 									</div>
 								</div>
 							</div>
-							<br/>
+							<br/><br/>
+							
 							<div class="container">		
 								<div id="tabla"> 
-									<table id="TablaOrdenEntradaDet">
+									<table id="TablaGuiaRemision">
 										<thead>
 											<tr>
 											<th class='col-md-1 thead-style'>
@@ -228,12 +246,12 @@ i.btn.glyphicon.glyphicon-ok {
 													DESCRIPCION
 											</th>
 											<th class='col-md-3 thead-style'>
-													PESO
+													ACCIONES
 											</th>
 											</tr>
 										</thead>
 									<tbody>
-									
+									   
 									</tbody>
 									<tfoot>
 										<tr>
@@ -252,8 +270,6 @@ i.btn.glyphicon.glyphicon-ok {
 								</div> 
 								
 							</div>
-							<br><br>
-							<p class="pull-rigth">Total: <span id="Total"></span></p>
 									
 						    <br/>
 
@@ -286,32 +302,46 @@ i.btn.glyphicon.glyphicon-ok {
           <h4 style="color:red;"> Buscar Cliente</h4>
         </div>
         <div class="modal-body">
-		<form>
+		<form id="formAgregarProducto" method="POST">
 			<div class="form-horizontal">
 				<div class="form-group">
 					<label for="" class=" col-md-3 control-label">Producto :</label>
 					<div class="col-md-4">
-						<select name="" class="form-control input-sm" id="">
+						<select name="COD_PROD" class="form-control input-sm" id="COD_PROD">
 							<option value="">--SELECCIONE--</option>
+							<?php
+							   if(count($listProducto)>0){
+								   foreach($listProducto as $item){
+									   echo '<option value="'.$item->COD_PROD.'">'.$item->DESCRIPCION.'</option>';
+								   }
+							   }
+							?>
 						</select>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="" class=" col-md-3 control-label">Unidad :</label>
 					<div class="col-md-4">
-						<select name="" class="form-control input-sm" id="">
+						<select name="COD_UM" class="form-control input-sm" id="COD_UM">
 							<option value="">--SELECCIONE--</option>
+							<?php
+							   if(count($listUnidadMedida)>0){
+								   foreach($listUnidadMedida as $item){
+									   echo '<option value="'.$item->COD_UM.'">'.$item->DESC_UM.'</option>';
+								   }
+							   }
+							?>
 						</select>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="" class=" col-md-3 control-label">Cantidad :</label>
 					<div class="col-md-4">
-						<input type="text" class="form-control input-sm">
+						<input type="text" class="form-control input-sm" name="CANTIDAD" id="CANTIDAD">
 					</div>
 				</div>
 				<div class="form-group">
-				<button  type="submit" class="btn btn-primary col-md-2 col-md-offset-8" id="Guardar"  style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);">
+				<button  type="submit" class="btn btn-primary col-md-2 col-md-offset-8" id="AgregarProducto"  style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);">
 									   		   Agregar
 									           <img src="/public/images/GUARDAR.png">
 				</button>

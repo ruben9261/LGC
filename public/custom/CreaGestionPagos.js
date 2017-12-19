@@ -303,7 +303,10 @@ $( "#Guardar" ).click(function( e ) {
 });
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8456419163b065613a7395c651d652937cb33b31
 function fn_ActualizarDetalleDocPago(listDocPagoDet){
 	if(listDocPagoDet.length>0){
 		$.each(listDocPagoDet, function(index, value){
