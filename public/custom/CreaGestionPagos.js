@@ -302,6 +302,7 @@ $( "#Guardar" ).click(function( e ) {
 
 });
 
+
 function fn_ActualizarDetalleDocPago(listDocPagoDet){
 	if(listDocPagoDet.length>0){
 		$.each(listDocPagoDet, function(index, value){

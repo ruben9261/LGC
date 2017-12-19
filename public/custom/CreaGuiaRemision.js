@@ -94,7 +94,7 @@ $(document).ready(function() {
         //$('#TablaProveedores').dataTable().fnDestroy();
             $("#processing-modal").modal("show");
         $.ajax({
-            url:"/mantGestionPagos_c/ObtenerProveedores",
+            url:"/mantGuiaRemision_c/ObtenerProveedores",
             type:"POST",
             data: null,
             success:function(response){
@@ -139,7 +139,7 @@ $(document).ready(function() {
         $('#TablaOrdenSalida').dataTable().fnClearTable();
         $("#processing-modal").modal("show");
         $.ajax({
-            url:"/mantGestionPagos_c/ObtenerOrdenSalida",
+            url:"/mantGuiaRemision_c/ObtenerOrdenSalida",
             type:"POST",
             data: null,
             success:function(response){
@@ -178,7 +178,7 @@ $(document).ready(function() {
     function fn_ObtenerTipoCobro(){
         $.ajax({
             type: "POST",
-            url: "/mantGestionPagos_c/ObtenerTipoCobro",
+            url: "/mantGuiaRemision_c/ObtenerTipoCobro",
             data:null,
             success:function(response){
                 var respuesta = JSON.parse(response);
@@ -226,7 +226,7 @@ $(document).ready(function() {
                 $("#processing-modal").modal("show");
                 $.ajax({
                         type:"POST",
-                        url:"/mantGestionPagos_c/ObtenerOrdenSalidaDet",
+                        url:"/mantGuiaRemision_c/ObtenerOrdenSalidaDet",
                         data:{COD_ORDEN_S:COD_ORDEN_S},
                         success: function(response){
                             $("#processing-modal").modal("toggle");
@@ -308,84 +308,52 @@ $(document).ready(function() {
                 });
     
     });
-    
-    function fn_ActualizarDetalleDocPago(listDocPagoDet){
-        if(listDocPagoDet.length>0){
-            $.each(listDocPagoDet, function(index, value){
-                var cols = "";
-                cols += '<tr>';
-                cols += '<input type="hidden" class="COD_DOC_PAGO_DET" value="'+value.COD_DOC_PAGO_DET+'">';
-                cols += '<input type="hidden" class="COD_ORDEN_S" value="'+value.COD_ORDEN_S+'">';
-                cols += '<input type="hidden" class="SUB_TOTAL" value="'+value.IMPORTE+'">'
-                cols += '<td class="col-md-3 input-sm">'+value.COD_ORDEN_S+'-'+value.SERIE+'-'+value.NUMERO+'</td>';
-                cols += '<td class="col-md-1 input-sm" >'+value.CANTIDAD+'</td>';
-                cols += '<td class="col-md-1 input-sm" >'+value.Producto+'</td>';
-                cols += '<td class="col-md-3 input-sm" >'+value.TipoProducto+'</td>';
-                cols += '<td class="col-md-2 input-sm" >'+value.ObsProd+'</td>';
-                cols += '<td class="col-md-3 input-sm" >'+value.Precio+'</td>';
-                cols += '<td class="col-md-2 input-sm" >'+value.IMPORTE+'</td>';
-                $("#TablaOrdenSalidaDet tbody").append(cols);
-                TOTAL = TOTAL + parseInt(value.IMPORTE);
-                $("#TOTAL").html(TOTAL);
-                $("#MONTO_TOTAL").val(TOTAL);
-                $("#MONTO_NETO").val(TOTAL);
-            });
-        }
-    }
+
     function fn_GuardarDocPago(){
         debugger;
-        var DocPago = new Object();
-        DocPago.COD_DOC_PAGO = $("#COD_DOC_PAGO").val();
-        DocPago.COD_OFI = $("#COD_OFI").val();
-        DocPago.DOC_PAGO_FECHA = $("#DOC_PAGO_FECHA").val();
-        DocPago.COD_CAJA = $("#COD_CAJA").val();
-        DocPago.COD_PROV = $("#COD_PROV").val();
-        DocPago.NRO_DOCUMENTO = $("#NRO_DOCUMENTO").val();
-        DocPago.NUMERO_CUENTA = $("#NUMERO_CUENTA").val();
-        DocPago.COD_TIPO_DOC = $("#COD_TIPO_DOC").val();
-        DocPago.FECHA_OPERACION = $("#FECHA_OPERACION").val();
-        DocPago.NUMERO_OPERACION = $("#NUMERO_OPERACION").val();
-        DocPago.OBSERVACION = $("#OBSERVACION").val();
-        DocPago.COD_USU = $("#COD_USU").val();
-        DocPago.MONTO_TOTAL = $("#MONTO_TOTAL").val();
-        DocPago.MONTO_NETO = $("#MONTO_NETO").val();
-        DocPago.COD_TIPOPAGO = $("#COD_TIPOPAGO").val();
+        var GuiaRemision = new Object();
+        GuiaRemision.FECHA_EMISION = $("#FECHA_EMISION").val();
+        GuiaRemision.FECHA_TRASLADO = $("#FECHA_TRASLADO").val();
+        GuiaRemision.PUNTO_PARTIDA = $("#PUNTO_PARTIDA").val();
+        GuiaRemision.PUNTO_LLEGADA = $("#PUNTO_LLEGADA").val();
+        GuiaRemision.COD_PROV = $("#COD_PROV").val();
+        GuiaRemision.RAZON_SOCIAL = $("#RAZON_SOCIAL").val();
+        GuiaRemision.NRO_DOCUMENTO = $("#NRO_DOCUMENTO").val();
+        GuiaRemision.MARCA_PLACA = $("#MARCA_PLACA").val();
+        GuiaRemision.NROCONS_INSCRIPC = $("#NROCONS_INSCRIPC").val();
+        GuiaRemision.NROLIC_CONDUCIR = $("#NROLIC_CONDUCIR").val();
+        GuiaRemision.ORDEN_COMPRA = $("#ORDEN_COMPRA").val();
+        GuiaRemision.NRO_PEDIDO = $("#NRO_PEDIDO").val();
+        GuiaRemision.NRO_COMPROBANTE = $("#NRO_COMPROBANTE").val();
+        GuiaRemision.TIPO_COMPROBANTE = $("#TIPO_COMPROBANTE").val();
+        GuiaRemision.TRANSPORTISTA = $("#TRANSPORTISTA").val();
+        GuiaRemision.TRANSPORTISTA_RUC = $("#TRANSPORTISTA_RUC").val();
+        GuiaRemision.COSTO_MINIMO = $("#COSTO_MINIMO").val();
     
-        DocPago.TIPO_TRANSACCION = $("#TIPO_TRANSACCION").val();
+        GuiaRemision.TIPO_TRANSACCION = $("#TIPO_TRANSACCION").val();
     
-        var listDocPagoDet = new Array();
-        var DocPagoDet = null;
-        $("#TablaOrdenSalidaDet tbody tr").each(function(){
-            DocPagoDet = new Object();
-            var COD_ORDEN_S = $(".COD_ORDEN_S",this).val();
-            DocPagoDet.COD_ORDEN_S = $(".COD_ORDEN_S",this).val();
-            DocPagoDet.SUB_TOTAL = parseInt($(".SUB_TOTAL",this).val());
-            
-            listDocPagoDet.push(DocPagoDet);
+        var listGuiaRemisionDet = new Array();
+        var GuiaRemisionDet = null;
+        $("#TablaGuiaRemision tbody tr").each(function(){
+            GuiaRemisionDet = new Object();
+            GuiaRemisionDet.COD_PROD = $(".COD_PROD",this).val();
+            GuiaRemisionDet.COD_UM = parseInt($(".COD_UM",this).val());
+            GuiaRemisionDet.CANTIDAD = parseInt($(".CANTIDAD",this).val());
+
+
+            listGuiaRemisionDet.push(GuiaRemisionDet);
         });
         debugger;
     
-        var result = [];
-        listDocPagoDet = listDocPagoDet.reduce(function (res, value) {
-            if (!res[value.COD_ORDEN_S]) {
-                res[value.COD_ORDEN_S] = {
-                    SUB_TOTAL: 0,
-                    COD_ORDEN_S: value.COD_ORDEN_S
-                };
-                result.push(res[value.COD_ORDEN_S])
-            }
-            res[value.COD_ORDEN_S].SUB_TOTAL += value.SUB_TOTAL
-            return res;
-        }, {});
     
-        DocPago.listDocPagoDet = listDocPagoDet;
+        GuiaRemision.listGuiaRemisionDet = listGuiaRemisionDet;
         var valor  = 1;
         $.ajax({
             type: "post",
-            url: "/mantGestionPagos_c/GuardarDocPago",
+            url: "/mantGuiaRemision_c/GuardarGuiaRemision",
             // dataType : "json",
             // contentType:"application/json",
-            data: {DocPago: DocPago},
+            data: {GuiaRemision: GuiaRemision},
             success: function(response){
                 debugger;
                 var response = JSON.parse(response);
@@ -395,7 +363,7 @@ $(document).ready(function() {
                     $("#lblCOD_DOC_PAGO").html(response.COD_DOC_PAGO);
                     $("#TIPO_TRANSACCION").val(2);
                     $("#ImprimirPdf").show();
-                    var ImprimirPdf = '<a class="btn btn-success" href="/mantGestionPagos_c/docPagoPdf/'+response.COD_DOC_PAGO+'">Imprimir</a>';
+                    var ImprimirPdf = '<a class="btn btn-success" href="/mantGuiaRemision_c/docPagoPdf/'+response.COD_DOC_PAGO+'">Imprimir</a>';
                     $("#ImprimirPdf").html(ImprimirPdf);
                 }else{
                     AlertNotify('', 'Error', 'No se pudo guardar el registro', 'danger');
@@ -546,4 +514,65 @@ $(document).ready(function() {
     function fn_AbrirModalProductos(){
         $("#ProductosModal").modal("show");
         
+    }
+
+    $( "#AgregarProducto" ).click(function(e) {
+        // var TipoCobro = $("#COD_TIPOPAGO").val();
+        // debugger;
+        $("#formAgregarProducto").validate({
+                    rules: {
+                        COD_PROD: {
+                            required: true
+                        },
+                        COD_UM: {
+                            required: true
+                        },
+                        CANTIDAD: {
+                            required: true,
+                        }
+                    }, messages: {
+                        COD_PROD: {
+                            required: "Seleccione un producto"
+                        },
+                        COD_UM: {
+                            required: "Seleccione una unidad de medida"
+                        },
+                        CANTIDAD: {
+                            required: "Ingrese una cantidad"
+                        }
+                    },
+                    submitHandler: function (form) {
+                        debugger;
+                        e.preventDefault();
+                        fn_AgregarProducto();
+                    }
+                });
+
+    });
+    
+    function fn_AgregarProducto(){
+        debugger;
+        var COD_PROD = $("#COD_PROD").val();
+        var COD_UM = $("#COD_UM").val();
+        var CANTIDAD = $("#CANTIDAD").val();
+        var PRODUCTO = $("#COD_PROD").find(":selected").text();
+        var UNIDMED = $("#COD_UM").find(":selected").text();
+        
+        var cols = "";
+        cols += '<tr class="FILA'+COD_PROD+'">';
+        cols += '<input type="hidden" class="COD_PROD" value="'+COD_PROD+'">';
+        cols += '<input type="hidden" class="COD_UM" value="'+COD_UM+'">';
+        cols += '<input type="hidden" class="CANTIDAD" value="'+CANTIDAD+'">'
+        cols += '<td class="col-md-3 input-sm">'+COD_PROD+'</td>';
+        cols += '<td class="col-md-1 input-sm" >'+CANTIDAD+'</td>';
+        cols += '<td class="col-md-1 input-sm" >'+UNIDMED+'</td>';
+        cols += '<td class="col-md-3 input-sm" >'+PRODUCTO+'</td>';
+        cols += '<td class="col-md-1 input-sm" ><i class="btn glyphicon glyphicon-remove" onclick="fn_EliminarOrdenSalidaDetalle('+"'FILA"+COD_PROD+"'"+');"></i></td>';
+        
+        $("#TablaGuiaRemision tbody").append(cols);
+        $("#ProductosModal").modal("toggle");
+
+        var COD_PROD = $("#COD_PROD").val("");
+        var COD_UM = $("#COD_UM").val("");
+        var CANTIDAD = $("#CANTIDAD").val("");
     }
