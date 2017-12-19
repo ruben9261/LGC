@@ -223,7 +223,7 @@ class ConsGuiaRemision_m extends CI_Model {
 				'ORDEN_COMPRA' => $GuiaRemision["ORDEN_COMPRA"],
 				'NRO_PEDIDO' => $GuiaRemision["NRO_PEDIDO"],
 				'NRO_COMPROBANTE' => $GuiaRemision["NRO_COMPROBANTE"],
-				'TIPO_COMPROBANTE' => $GuiaRemision["TIPO_COMPROBANTE"],
+				'TIPO_COMPROBANTE' => null,
                 'TRANSPORTISTA' => $GuiaRemision["TRANSPORTISTA"],
                 'TRANSPORTISTA_RUC' => $GuiaRemision["TRANSPORTISTA_RUC"],
                 'COSTO_MINIMO' => $GuiaRemision["COSTO_MINIMO"],

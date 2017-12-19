@@ -71,17 +71,11 @@ i.btn.glyphicon.glyphicon-ok {
 						 </div>
 		            </div>
 					<br/>
-				<form id="" rol="form" class="form-horizontal" method="POST">
-                         <input type="hidden" name="" id="" value="">
-                         <input type="hidden" name="" id="" value="">
-                         <input type="hidden" name="" id="" value="">
-                         <input type="hidden" name="" id="" value="">
-                         <input type="hidden" name="" id="" value="">
-			
-						 <input type="hidden" id="tpagina">
-		    	         <input type="hidden" id="pactual">
-						 <input type="hidden" id="TIPO_TRANSACCION" value="1">
+				<form id="frmGuiaRemision" rol="form" class="form-horizontal" method="POST">
 						 <input type="hidden" id="COD_GUIAREM" value="">
+						 <input type="hidden" id="SERIE" value="">
+		    	         <input type="hidden" id="RUC_EMPRESA" value="">
+						 <input type="hidden" id="TIPO_TRANSACCION" value="1">
 							<div class="form-group">
                             <div class="col-md-4 container-style" style="" id="divFechaOperacion">
 									<label for="" class="control-label col-md-6" >Fecha de Emisión :</label>
@@ -106,6 +100,11 @@ i.btn.glyphicon.glyphicon-ok {
 									</div>
 								</div>                            
                             </div>
+							<div class="form-group">
+								<div class="col-md-4 container-style">
+									<label for="" class=""></label>
+								</div>
+							</div>
                             
                               <div class="form-group">
 								<div class="col-md-4 container-style">
@@ -201,7 +200,7 @@ i.btn.glyphicon.glyphicon-ok {
 								<div class="col-md-4 container-style">
                                   <label for="" class="control-label col-md-6">Motivo de Traslado :</label>
                                    <div class="col-md-6">
-                                    <select name="" id="" class="form-control input-sm">
+                                    <select name="COD_MOT_TRAS" id="COD_MOT_TRAS" class="form-control input-sm">
 									    <option value="">--SELECCIONE--</option>
 										<?php
 										 if(count($listMotivoTraslado)>0){

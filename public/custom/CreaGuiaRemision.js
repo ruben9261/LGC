@@ -272,44 +272,110 @@ $(document).ready(function() {
     $( "#Guardar" ).click(function( e ) {
         // var TipoCobro = $("#COD_TIPOPAGO").val();
         // debugger;
-        $("#frmCreadocPago").validate({
+        $("#frmGuiaRemision").validate({
                     rules: {
-                        NRO_DOCUMENTO: {
+                        FECHA_EMISION: {
                             required: true
                         },
-                        NUMERO_OPERACION: {
+                        FECHA_TRASLADO: {
                             required: true
                         },
-                        NUMERO_CUENTA: {
+                        PUNTO_PARTIDA: {
                             required: true,
                         },
-                        FECHA_OPERACION: {
+                        PUNTO_LLEGADA: {
+                            required: true,
+                        },
+                        RAZON_SOCIAL: {
+                            required: true,
+                        },
+                        NRO_DOCUMENTO: {
+                            required: true,
+                        },
+                        MARCA_PLACA: {
+                            required: true,
+                        },
+                        NROLIC_CONDUCIR: {
+                            required: true,
+                        },
+                        NRO_COMPROBANTE: {
+                            required: true,
+                        },
+                        TIPO_COMPROBANTE: {
+                            required: true,
+                        },
+                        TRANSPORTISTA: {
+                            required: true,
+                        },
+                        TRANSPORTISTA_RUC: {
+                            required: true,
+                        },
+                        COSTO_MINIMO: {
+                            required: true,
+                        },
+                        COD_MOT_TRAS: {
+                            required: true,
+                        },
+                        RUC_EMPRESA: {
                             required: true,
                         }
                     }, messages: {
+                        FECHA_EMISION: {
+                            required: "Ingrese una fecha de emisión"
+                        },
+                        FECHA_TRASLADO: {
+                            required: "Ingrese una fecha de traslado"
+                        },
+                        PUNTO_PARTIDA: {
+                            required: "Ingrese un punto de partida",
+                        },
+                        PUNTO_LLEGADA: {
+                            required: "Ingrese un punto de llegada",
+                        },
+                        RAZON_SOCIAL: {
+                            required: "Ingrese una razón social",
+                        },
                         NRO_DOCUMENTO: {
-                            required: "Ingrese un número de documento"
+                            required: "Ingrese un número de documento",
                         },
-                        NUMERO_OPERACION: {
-                            required: "Ingrese un número de operación"
+                        MARCA_PLACA: {
+                            required: "Ingrese una marca de placa",
                         },
-                        NUMERO_CUENTA: {
-                            required: "Ingrese un número de cuenta"
+                        NROLIC_CONDUCIR: {
+                            required: "Ingrese un número de licencia de conducir",
                         },
-                        FECHA_OPERACION: {
-                            required: "Ingrese una fecha de operación"
+                        NRO_COMPROBANTE: {
+                            required: "Ingrese un número de comprobante",
+                        },
+                        TIPO_COMPROBANTE: {
+                            required: "Ingrese un tipo de comprobante",
+                        },
+                        TRANSPORTISTA: {
+                            required: "Ingrese un transportista",
+                        },
+                        TRANSPORTISTA_RUC: {
+                            required: "Ingrese un RUC para el transportista",
+                        },
+                        COSTO_MINIMO: {
+                            required: "Ingrese un costo mínimo",
+                        },
+                        COD_MOT_TRAS: {
+                            required: "Seleccione un motivo de traslado",
+                        },
+                        RUC_EMPRESA: {
+                            required: "Ingrese un ruc de empresa",
                         }
                     },
                     submitHandler: function (form) {
                         e.preventDefault();
-                        fn_GuardarDocPago();
+                        fn_GuardarGuiaRemision();
                     }
     
                 });
     
     });
 
-    function fn_GuardarDocPago(){
+    function fn_GuardarGuiaRemision(){
         debugger;
         var GuiaRemision = new Object();
         GuiaRemision.COD_GUIAREM = $("#COD_GUIAREM").val();
@@ -319,7 +385,7 @@ $(document).ready(function() {
         GuiaRemision.FECHA_TRASLADO = $("#FECHA_TRASLADO").val();
         GuiaRemision.PUNTO_PARTIDA = $("#PUNTO_PARTIDA").val();
         GuiaRemision.PUNTO_LLEGADA = $("#PUNTO_LLEGADA").val();
-        GuiaRemision.COD_PROV = $("#COD_PROV").val();
+        //GuiaRemision.COD_PROV = $("#COD_PROV").val();
         GuiaRemision.RAZON_SOCIAL = $("#RAZON_SOCIAL").val();
         GuiaRemision.NRO_DOCUMENTO = $("#NRO_DOCUMENTO").val();
         GuiaRemision.MARCA_PLACA = $("#MARCA_PLACA").val();
@@ -328,7 +394,7 @@ $(document).ready(function() {
         GuiaRemision.ORDEN_COMPRA = $("#ORDEN_COMPRA").val();
         GuiaRemision.NRO_PEDIDO = $("#NRO_PEDIDO").val();
         GuiaRemision.NRO_COMPROBANTE = $("#NRO_COMPROBANTE").val();
-        GuiaRemision.TIPO_COMPROBANTE = $("#TIPO_COMPROBANTE").val();
+        //GuiaRemision.TIPO_COMPROBANTE = $("#TIPO_COMPROBANTE").val();
         GuiaRemision.TRANSPORTISTA = $("#TRANSPORTISTA").val();
         GuiaRemision.TRANSPORTISTA_RUC = $("#TRANSPORTISTA_RUC").val();
         GuiaRemision.COSTO_MINIMO = $("#COSTO_MINIMO").val();
@@ -564,7 +630,9 @@ $(document).ready(function() {
         cols += '<tr class="FILA'+COD_PROD+'">';
         cols += '<input type="hidden" class="COD_PROD" value="'+COD_PROD+'">';
         cols += '<input type="hidden" class="COD_UM" value="'+COD_UM+'">';
-        cols += '<input type="hidden" class="CANTIDAD" value="'+CANTIDAD+'">'
+        cols += '<input type="hidden" class="CANTIDAD" value="'+CANTIDAD+'">';
+        cols += '<input type="hidden" class="UNIDMED" value="'+UNIDMED+'">';
+        cols += '<input type="hidden" class="PRODUCTO" value="'+PRODUCTO+'">';
         cols += '<td class="col-md-3 input-sm">'+COD_PROD+'</td>';
         cols += '<td class="col-md-1 input-sm" >'+CANTIDAD+'</td>';
         cols += '<td class="col-md-1 input-sm" >'+UNIDMED+'</td>';
