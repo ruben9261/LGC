@@ -1544,14 +1544,14 @@
     getDefaultFormat: function (type, field) {
       if (type === 'standard') {
         if (field === 'input')
-          return 'yyyy-mm-dd hh:ii';
+          return 'yyyy-mm-dd';
         else
-          return 'yyyy-mm-dd hh:ii:ss';
+          return 'yyyy-mm-dd';
       } else if (type === 'php') {
         if (field === 'input')
-          return 'Y-m-d H:i';
+          return 'Y-m-d';
         else
-          return 'Y-m-d H:i:s';
+          return 'Y-m-d';
       } else {
         throw new Error('Invalid format type.');
       }

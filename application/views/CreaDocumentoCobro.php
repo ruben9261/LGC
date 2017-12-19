@@ -76,6 +76,26 @@ if(count($docCobro)>0){
 	foreach($docCobro as $item){
 		$NUMERO_CUENTA = $item->NUMERO_CUENTA;
 		$FECHA_OPERACION = $item->FECHA_OPERACION;
+
+
+		$fechahora=explode(" ", $FECHA_OPERACION);
+ 
+		$fecha=$fechahora[0];
+		$hora = $fechahora[1];
+		 
+		$fecha=explode("-", $fecha);
+		$dia=$fecha[2];
+		$mes=$fecha[1];
+		$ano=$fecha[0];
+		 
+		$hora=explode(":", $hora);
+		 
+		$horas=$hora[0];
+		$minutos=$hora[1];
+		$segundos=$hora[2];
+		$FECHA_OPERACION_NEW = "$mes/$dia/$ano"; // join them together
+
+
 		$NUMERO_OPERACION = $item->NUMERO_OPERACION;
 		$NRO_DOCUMENTO = $item->NRO_DOCUMENTO;
 		$COD_CLI = $item->COD_CLI;
@@ -105,7 +125,7 @@ if($TIPO_TRANSACCION==1){
 		            <div class="modal-header" style="color:rgb(0,128,255);"> 
 		                 <STRONG>Registrar Orden de Entrada </STRONG>
 						 <div id="ImprimirPdf" class="" style="display:<?php echo $displayPdf;?>;">
-						 	<a class="btn btn-success" href='/mantGestionCobros_c/DocCobroPdf/<?php echo $COD_DOC_COBRO;?>'>Imprimir <i class="fa fa-file-pdf-o"> </i>  </a>
+						 	<a class="btn btn-success" target="_blank"  href='/mantGestionCobros_c/DocCobroPdf/<?php echo $COD_DOC_COBRO;?>'>Imprimir <i class="fa fa-file-pdf-o"> </i>  </a>
 						 </div>
 		            </div>
 					<br/>
@@ -183,7 +203,7 @@ if($TIPO_TRANSACCION==1){
 									<label for="" class="control-label col-md-6" >Fecha Operación :</label>
 									<div class="col-md-6">
 										<div class='input-group'>
-										<input type='text' name="FECHA_OPERACION" id="FECHA_OPERACION" class="form-control input-sm calendario" value="<?php echo $FECHA_OPERACION;?>" placeholder="Fecha de Inicio" />
+										<input type='text' name="FECHA_OPERACION" id="FECHA_OPERACION" class="form-control input-sm calendario" value="<?php echo $FECHA_OPERACION_NEW;?>" placeholder="Fecha de Inicio" />
 										<!-- <div class="input-group-addon">
 										<span class="glyphicon glyphicon-calendar"></span>
 										</div> -->

@@ -277,7 +277,7 @@ $( "#Guardar" ).click(function( e ) {
 						required: true,
 					},
 					FECHA_OPERACION: {
-						required: true,
+						required: true		
 					}
 				}, messages: {
 					NRO_DOCUMENTO: {
@@ -300,10 +300,7 @@ $( "#Guardar" ).click(function( e ) {
 
 			});
 
-});
-
-
-function fn_ActualizarDetalleDocPago(listDocPagoDet){
+});function fn_ActualizarDetalleDocPago(listDocPagoDet){
 	if(listDocPagoDet.length>0){
 		$.each(listDocPagoDet, function(index, value){
 			var cols = "";
@@ -321,13 +318,19 @@ function fn_ActualizarDetalleDocPago(listDocPagoDet){
 			$("#TablaOrdenSalidaDet tbody").append(cols);
 			TOTAL = TOTAL + parseInt(value.IMPORTE);
 			$("#TOTAL").html(TOTAL);
-			$("#MONTO_TOTAL").val(TOTAL);
+			$("#MONTO_TOTAL").val(TOTAL);			
 			$("#MONTO_NETO").val(TOTAL);
 		});
 	}
 }
 function fn_GuardarDocPago(){
 	debugger;
+	var fecha= $("#FECHA_OPERACION").val();
+
+	var new_date = moment(fecha).format('YYYY/MM/DD');
+
+
+	
 	var DocPago = new Object();
 	DocPago.COD_DOC_PAGO = $("#COD_DOC_PAGO").val();
 	DocPago.COD_OFI = $("#COD_OFI").val();
@@ -337,7 +340,7 @@ function fn_GuardarDocPago(){
 	DocPago.NRO_DOCUMENTO = $("#NRO_DOCUMENTO").val();
 	DocPago.NUMERO_CUENTA = $("#NUMERO_CUENTA").val();
 	DocPago.COD_TIPO_DOC = $("#COD_TIPO_DOC").val();
-	DocPago.FECHA_OPERACION = $("#FECHA_OPERACION").val();
+	DocPago.FECHA_OPERACION =new_date;
 	DocPago.NUMERO_OPERACION = $("#NUMERO_OPERACION").val();
 	DocPago.OBSERVACION = $("#OBSERVACION").val();
 	DocPago.COD_USU = $("#COD_USU").val();

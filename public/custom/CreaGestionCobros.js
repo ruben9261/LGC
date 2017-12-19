@@ -328,6 +328,10 @@ function fn_ActualizarDetalleDocCobro(listDocCobroDet){
 	}
 }
 function fn_GuardarDocCobro(){
+
+	var fecha= $("#FECHA_OPERACION").val();
+
+	var new_date = moment(fecha).format('YYYY/MM/DD');
 	var DocCobro = new Object();
 	DocCobro.COD_DOC_COBRO = $("#COD_DOC_COBRO").val();
 	DocCobro.COD_OFI = $("#COD_OFI").val();
@@ -337,7 +341,7 @@ function fn_GuardarDocCobro(){
 	DocCobro.NUMERO_CUENTA = $("#NUMERO_CUENTA").val();
 	DocCobro.COD_TIPO_DOC = $("#COD_TIPO_DOC").val();
 	DocCobro.COD_CLI = $("#COD_CLI").val();
-	DocCobro.FECHA_OPERACION = $("#FECHA_OPERACION").val();
+	DocCobro.FECHA_OPERACION = new_date;
 	DocCobro.NUMERO_OPERACION = $("#NUMERO_OPERACION").val();
 	DocCobro.OBSERVACION = $("#OBSERVACION").val();
 	DocCobro.MONTO_TOTAL = $("#MONTO_TOTAL").val();

@@ -157,6 +157,7 @@ class MantGestionPagos_c  extends CI_Controller{
 			$docPagoDet=$this->consGestionPago_m->obt_DocPagoDet($COD_DOC_PAGO);
 			$listTipoPago=$this->consGestionPago_m->obt_TipoPago();
 
+			
 			date_default_timezone_set("America/Bogota");
 			$data['COD_USU'] = $COD_USU;
 			$data['Nom_Usu']=$Nom_Usu;
