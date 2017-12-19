@@ -66,7 +66,7 @@ i.btn.glyphicon.glyphicon-ok {
 		           <br/>
 		            <div class="modal-header" style="color:rgb(0,128,255);"> 
 		                 <STRONG>Mantenimiento de Guia de Remision </STRONG>
-						 <div class="">
+						 <div id="ImprimirPdf" class="">
 						 	<a class="btn btn-success" href="">Imprimir <i class="fa fa-file-pdf-o"> </i>  </a>
 						 </div>
 		            </div>
