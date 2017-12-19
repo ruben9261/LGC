@@ -58,13 +58,11 @@ class ConsGuiaRemision_m extends CI_Model {
 		return $result;
 	}
 
-	public function obt_GuiaRemision($COD_DOC_PAGO)
+	public function obt_GuiaRemision($COD_GUIAREM)
 	{	
 		$this->db->select('*');
-		$this->db->from('doc_pago dp');
-		$this->db->join('Proveedor p', 'dp.COD_PROV = p.COD_PROV');
-		$this->db->join('oficina o', 'dp.COD_OFI = o.COD_OFI');
-		$this->db->where("COD_DOC_PAGO",$COD_DOC_PAGO);
+		$this->db->from('GuiaRemision');
+		$this->db->where("COD_GUIAREM",$COD_GUIAREM);
 		//$string = $this->db->get_compiled_select();
 		$query  = $this->db->get();
 		$result = $query->result();
@@ -72,25 +70,11 @@ class ConsGuiaRemision_m extends CI_Model {
 		return $result;
 	}
 
-	public function obt_GuiaRemisionDet($COD_DOC_PAGO)
+	public function obt_GuiaRemisionDet($COD_GUIAREM)
 	{	
-		$this->db->select('dpd.COD_DOC_PAGO_DET');
-		$this->db->select('osd.COD_DET_ORDEN_S');
-		$this->db->select('os.COD_ORDEN_S');
-		$this->db->select('os.SERIE,os.NUMERO');
-		$this->db->select('p.DESCRIPCION as PRODUCTO,osd.PRECIO');
-		$this->db->select('IFNULL(osd.DESCRIPCION,"NINGUNA") as DESCRIPCION');
-		$this->db->select('osd.CANTIDAD');
-		$this->db->select('(osd.CANTIDAD * osd.PRECIO) as IMPORTE');
-		$this->db->select('tp.desc_tipo as TIPOPRODUCTO');
-		$this->db->from('doc_pago_detalle dpd');
-		$this->db->join('orden_s os', 'dpd.COD_ORDEN_S = os.COD_ORDEN_S');
-		$this->db->join('orden_s_det osd', 'os.COD_ORDEN_S = osd.COD_ORDEN_S');
-		$this->db->join('producto p', 'osd.COD_PROD = p.COD_PROD');
-		$this->db->join('Tipo_Producto tp', 'p.cod_tip_prod = tp.cod_tip_prod');
-		$this->db->join('doc_pago dp', 'dpd.COD_DOC_PAGO = dp.COD_DOC_PAGO');
-		$this->db->join('tipo_pago tpa', 'dp.COD_TIPOPAGO = tpa.COD_TIPOPAGO');
-		$this->db->where("dpd.COD_DOC_PAGO",$COD_DOC_PAGO);
+		$this->db->select('*');
+		$this->db->from('GuiaRemision_Detalle');
+		$this->db->where("COD_GUIAREM",$COD_GUIAREM);
 		//$string = $this->db->get_compiled_select();
 		$query  = $this->db->get();
 		$result = $query->result();
@@ -292,7 +276,7 @@ class ConsGuiaRemision_m extends CI_Model {
             'TRANSPORTISTA_RUC' => $GuiaRemision["TRANSPORTISTA_RUC"],
             'COSTO_MINIMO' => $GuiaRemision["COSTO_MINIMO"],
             'COD_MOT_TRAS' => $GuiaRemision["COD_MOT_TRAS"]
-    );
+        );
 
 		$this->db->where('COD_GUIAREM', $COD_GUIAREM);
 		$this->db->update('GuiaRemision', $GUIA_REMISION);
