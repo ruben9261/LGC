@@ -18,11 +18,13 @@ define(['jspdf', 'jspdf-autotable'], function(jsPDF) {
 
  var listGuiaRemisionDet = new Array();
  var GuiaRemisionDet = null;
- $("#TablaGuiaRemision tbody tr").each(function(){
-     GuiaRemisionDet = new Object();
+
+ for (i = 0; i < listGuiaRemisionDet.length; i++) { 
+    GuiaRemisionDet = new Object();
        rows.push(GuiaRemisionDet.COD_PROD , GuiaRemisionDet.UNIDMED,GuiaRemisionDet.CANTIDAD,GuiaRemisionDet.PRODUCTO);
 data.push(rows);
- });
+}
+ 
 
 
 
