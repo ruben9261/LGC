@@ -66,7 +66,7 @@ i.btn.glyphicon.glyphicon-ok {
 		           <br/>
 		            <div class="modal-header" style="color:rgb(0,128,255);"> 
 		                 <STRONG>Mantenimiento de Guia de Remision </STRONG>
-						 <div class="">
+						 <div id="ImprimirPdf" class="">
 						 	<a class="btn btn-success" href="">Imprimir <i class="fa fa-file-pdf-o"> </i>  </a>
 						 </div>
 		            </div>
@@ -80,7 +80,7 @@ i.btn.glyphicon.glyphicon-ok {
 			
 						 <input type="hidden" id="tpagina">
 		    	         <input type="hidden" id="pactual">
-						 <input type="hidden" id="TIPO_TRANSACCION" value="">
+						 <input type="hidden" id="TIPO_TRANSACCION" value="1">
 						 <input type="hidden" id="COD_GUIAREM" value="">
 							<div class="form-group">
                             <div class="col-md-4 container-style" style="" id="divFechaOperacion">

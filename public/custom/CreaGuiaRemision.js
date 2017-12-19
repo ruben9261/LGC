@@ -313,7 +313,7 @@ $(document).ready(function() {
         debugger;
         var GuiaRemision = new Object();
         GuiaRemision.COD_GUIAREM = $("#COD_GUIAREM").val();
-        GuiaRemision.RUC_EMPRESA = $("#RUCEMPRESA").val();
+        GuiaRemision.RUC_EMPRESA = $("#RUC_EMPRESA").val();
         GuiaRemision.SERIE = $("#SERIE").val();
         GuiaRemision.FECHA_EMISION = $("#FECHA_EMISION").val();
         GuiaRemision.FECHA_TRASLADO = $("#FECHA_TRASLADO").val();
@@ -354,11 +354,9 @@ $(document).ready(function() {
             GuiaRemisionDet.CANTIDAD = parseInt($(".CANTIDAD",this).val());
             GuiaRemisionDet.UNIDMED = parseInt($(".UNIDMED",this).val());
             GuiaRemisionDet.PRODUCTO = parseInt($(".PRODUCTO",this).val());
-
             listGuiaRemisionDet.push(GuiaRemisionDet);
         });
         debugger;
-    
     
         GuiaRemision.listGuiaRemisionDet = listGuiaRemisionDet;
         var valor  = 1;
