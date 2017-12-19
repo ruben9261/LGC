@@ -61,27 +61,81 @@ i.btn.glyphicon.glyphicon-ok {
 	</style>
  </head>
 <body>
+<?php
+
+	$FECHA_EMISION = "";
+	$FECHA_TRASLADO = "";
+	$PUNTO_PARTIDA = "";
+	$PUNTO_LLEGADA = "";
+	$RAZON_SOCIAL = "";
+	$NRO_DOCUMENTO = "";
+	$MARCA_PLACA = "";
+	$NROCONS_INSCRIPC = "";
+	$NROLIC_CONDUCIR = "";
+	$ORDEN_COMPRA = "";
+	$NRO_PEDIDO = "";
+	$NRO_COMPROBANTE = "";
+	$TIPO_COMPROBANTE = "";
+	$TRANSPORTISTA = "";
+	$TRANSPORTISTA_RUC = "";
+	$COSTO_MINIMO = "";
+	$COD_MOT_TRAS = "";
+	$RUC_EMPRESA = "";
+
+	if(count($GuiaRemision)>0){
+
+		foreach($GuiaRemision as $item){
+			$FECHA_EMISION = $item->FECHA_EMISION;
+			$FECHA_TRASLADO = $item->FECHA_TRASLADO;
+			$PUNTO_PARTIDA = $item->PUNTO_PARTIDA;
+			$PUNTO_LLEGADA = $item->PUNTO_LLEGADA;
+			$RAZON_SOCIAL = $item->RAZON_SOCIAL;
+			$NRO_DOCUMENTO = $item->NRO_DOCUMENTO;
+			$MARCA_PLACA = $item->MARCA_PLACA;
+			$NROCONS_INSCRIPC = $item->NROCONS_INSCRIPC;
+			$NROLIC_CONDUCIR = $item->NROLIC_CONDUCIR;
+			$ORDEN_COMPRA = $item->ORDEN_COMPRA;
+			$NRO_PEDIDO = $item->NRO_PEDIDO;
+			$NRO_COMPROBANTE = $item->NRO_COMPROBANTE;
+			$TIPO_COMPROBANTE = $item->TIPO_COMPROBANTE;
+			$TRANSPORTISTA = $item->TRANSPORTISTA;
+			$TRANSPORTISTA_RUC = $item->TRANSPORTISTA_RUC;
+			$COSTO_MINIMO = $item->COSTO_MINIMO;
+			$COD_MOT_TRAS = $item->COD_MOT_TRAS;
+			$RUC_EMPRESA = $item->RUC_EMPRESA;
+		}
+	}
+
+	$displayPdf = "";
+
+	if($TIPO_TRANSACCION==1){
+		$displayPdf = "none";
+	}else{
+		$displayPdf = "true";
+	}
+
+?>
 	<input type="hidden" Id="CodCli" name="" value="">
 	<div class="container" id="contenedor">
 		           <br/>
 		            <div class="modal-header" style="color:rgb(0,128,255);"> 
 		                 <STRONG>Mantenimiento de Guia de Remision </STRONG>
-						 <div id="ImprimirPdf" class="">
+						 <div id="ImprimirPdf" class="" style="display:<?php echo $displayPdf;?>;">
 						 	<a class="btn btn-success" href="">Imprimir <i class="fa fa-file-pdf-o"> </i>  </a>
 						 </div>
 		            </div>
 					<br/>
 				<form id="frmGuiaRemision" rol="form" class="form-horizontal" method="POST">
-						 <input type="hidden" id="COD_GUIAREM" value="">
-						 <input type="hidden" id="SERIE" value="">
-		    	         <input type="hidden" id="RUC_EMPRESA" value="">
-						 <input type="hidden" id="TIPO_TRANSACCION" value="1">
+						 <input type="hidden" id="COD_GUIAREM" value="<?php echo $COD_GUIAREM; ?>">
+						 <input type="hidden" id="SERIE" value="<?php echo str_pad($COD_CAJA,3,"0",STR_PAD_LEFT);?>">
+		    	         <input type="hidden" id="RUC_EMPRESA" value="<?php echo $RUC_EMPRESA; ?>">
+						 <input type="hidden" id="TIPO_TRANSACCION" value="<?php echo $TIPO_TRANSACCION; ?>">
 							<div class="form-group">
                             <div class="col-md-4 container-style" style="" id="divFechaOperacion">
 									<label for="" class="control-label col-md-6" >Fecha de Emisión :</label>
 									<div class="col-md-6">
 										<div class='input-group'>
-										<input type='text' name="FECHA_EMISION" id="FECHA_EMISION" class="form-control input-sm FECHA_EMISION" value="" />
+										<input type='text' name="FECHA_EMISION" id="FECHA_EMISION" class="form-control input-sm FECHA_EMISION" value="<?php echo $FECHA_EMISION;?>" />
 										<!-- <div class="input-group-addon">
 										<span class="glyphicon glyphicon-calendar"></span>
 										</div> -->
@@ -92,7 +146,7 @@ i.btn.glyphicon.glyphicon-ok {
 									<label for="" class="control-label col-md-6" >Fecha de Translado :</label>
 									<div class="col-md-6">
 										<div class='input-group'>
-										<input type='text' name="FECHA_TRASLADO" id="FECHA_TRASLADO" class="form-control input-sm FECHA_TRASLADO" />
+										<input type='text' name="FECHA_TRASLADO" id="FECHA_TRASLADO" class="form-control input-sm FECHA_TRASLADO" value="<?php echo $FECHA_TRASLADO;?>"/>
 										<!-- <div class="input-group-addon">
 										<span class="glyphicon glyphicon-calendar"></span>
 										</div> -->
@@ -110,13 +164,13 @@ i.btn.glyphicon.glyphicon-ok {
 								<div class="col-md-4 container-style">
 									<label for="" class="control-label col-md-6">Punto de Partida :</label>
 									<div class="col-md-6">
-										<input type="text" class="form-control input-sm PUNTO_PARTIDA" name="PUNTO_PARTIDA" id="PUNTO_PARTIDA" value="">
+										<input type="text" class="form-control input-sm PUNTO_PARTIDA" name="PUNTO_PARTIDA" id="PUNTO_PARTIDA" value="<?php echo $PUNTO_PARTIDA;?>">
 									</div>
 								</div>
 								<div class="col-md-4 container-style" style="" id="divNroCuenta">
 									<label for="" class="control-label col-md-6"  >Punto de Llegada :</label>
 									<div class="col-md-6">
-										<input type="text" class="form-control input-sm" name="PUNTO_LLEGADA" id="PUNTO_LLEGADA" value="">
+										<input type="text" class="form-control input-sm" name="PUNTO_LLEGADA" id="PUNTO_LLEGADA" value="<?php echo $PUNTO_LLEGADA; ?>">
 									</div>
 								</div>
 							</div>
@@ -124,13 +178,13 @@ i.btn.glyphicon.glyphicon-ok {
 								<div class="col-md-4 container-style">
 										<label for="" class="control-label col-md-6">Razón Social :</label>
 										<div class="col-md-6">
-                                        <input type="text" class="form-control input-sm" name="RAZON_SOCIAL" id="RAZON_SOCIAL" value="">
+                                        <input type="text" class="form-control input-sm" name="RAZON_SOCIAL" id="RAZON_SOCIAL" value="<?php echo $RAZON_SOCIAL; ?>">
 										</div>
 								</div>
 								<div class="col-md-4 container-style">
                                   <label for="" class="control-label col-md-6">Nro Documento :</label>
                                    <div class="col-md-6">
-                                    <input type="text" class="form-control input-sm" name="NRO_DOCUMENTO" id="NRO_DOCUMENTO" value="">
+                                    <input type="text" class="form-control input-sm" name="NRO_DOCUMENTO" id="NRO_DOCUMENTO" value="<?php echo $NRO_DOCUMENTO; ?>">
                                    </div>
                                 </div>
 								
@@ -139,19 +193,19 @@ i.btn.glyphicon.glyphicon-ok {
 								<div class="col-md-4 container-style">
 										<label for="" class="control-label col-md-6">Marca Placa :</label>
 										<div class="col-md-6">
-                                        <input type="text" class="form-control input-sm" name="MARCA_PLACA" id="MARCA_PLACA" value="">
+                                        <input type="text" class="form-control input-sm" name="MARCA_PLACA" id="MARCA_PLACA" value="<?php echo $MARCA_PLACA; ?>">
 										</div>
 								</div>
 								<div class="col-md-4 container-style">
                                   <label for="" class="control-label col-md-6">Nro Constancia Inscripción :</label>
                                    <div class="col-md-6">
-                                    <input type="text" class="form-control input-sm" name="NROCONS_INSCRIPC" id="NROCONS_INSCRIPC" value="">
+                                    <input type="text" class="form-control input-sm" name="NROCONS_INSCRIPC" id="NROCONS_INSCRIPC" value="<?php echo $NROCONS_INSCRIPC;?>">
                                    </div>
                                 </div>
 								<div class="col-md-4 container-style">
                                   <label for="" class="control-label col-md-6">Nro Licencia de Conducir :</label>
                                    <div class="col-md-6">
-                                    <input type="text" class="form-control input-sm" name="NROLIC_CONDUCIR" id="NROLIC_CONDUCIR" value="">
+                                    <input type="text" class="form-control input-sm" name="NROLIC_CONDUCIR" id="NROLIC_CONDUCIR" value="<?php echo $NROLIC_CONDUCIR; ?>">
                                    </div>
                                 </div>
 								
@@ -160,19 +214,19 @@ i.btn.glyphicon.glyphicon-ok {
 								<div class="col-md-4 container-style">
 										<label for="" class="control-label col-md-6">Número Comprobante :</label>
 										<div class="col-md-6">
-                                        <input type="text" class="form-control input-sm" name="NRO_COMPROBANTE" id="NRO_COMPROBANTE" value="">
+                                        <input type="text" class="form-control input-sm" name="NRO_COMPROBANTE" id="NRO_COMPROBANTE" value="<?php echo $NRO_COMPROBANTE;?>">
 										</div>
 								</div>
 								<div class="col-md-4 container-style">
                                   <label for="" class="control-label col-md-6">Nro Orden de Compra :</label>
                                    <div class="col-md-6">
-                                    <input type="text" class="form-control input-sm" name="ORDEN_COMPRA" id="ORDEN_COMPRA" value="">
+                                    <input type="text" class="form-control input-sm" name="ORDEN_COMPRA" id="ORDEN_COMPRA" value="<?php echo $ORDEN_COMPRA; ?>">
                                    </div>
                                 </div>
 								<div class="col-md-4 container-style">
                                   <label for="" class="control-label col-md-6">Nro Pedido :</label>
                                    <div class="col-md-6">
-                                    <input type="text" class="form-control input-sm" name="NRO_PEDIDO" id="NRO_PEDIDO" value="">
+                                    <input type="text" class="form-control input-sm" name="NRO_PEDIDO" id="NRO_PEDIDO" value="<?php echo $NRO_PEDIDO; ?>">
                                    </div>
                                 </div>
 							</div>
@@ -180,7 +234,7 @@ i.btn.glyphicon.glyphicon-ok {
 							    <div class="col-md-4 container-style">
 										<label for="" class="control-label col-md-6">Costo :</label>
 										<div class="col-md-6">
-                                        <input type="text" class="form-control input-sm" name="COSTO_MINIMO" id="COSTO_MINIMO" value="">
+                                        <input type="text" class="form-control input-sm" name="COSTO_MINIMO" id="COSTO_MINIMO" value="<?php echo $COSTO_MINIMO; ?>">
 										</div>
 								</div>
 							</div>
@@ -188,13 +242,13 @@ i.btn.glyphicon.glyphicon-ok {
 								<div class="col-md-4 container-style">
 										<label for="" class="control-label col-md-6">Transportista :</label>
 										<div class="col-md-6">
-                                        <input type="text" class="form-control input-sm" name="TRANSPORTISTA" id="TRANSPORTISTA" value="">
+                                        <input type="text" class="form-control input-sm" name="TRANSPORTISTA" id="TRANSPORTISTA" value="<?php echo $TRANSPORTISTA;?>">
 										</div>
 								</div>
 								<div class="col-md-4 container-style">
                                   <label for="" class="control-label col-md-6">Transportista RUC :</label>
                                    <div class="col-md-6">
-                                    <input type="text" class="form-control input-sm" name="TRANSPORTISTA_RUC" id="TRANSPORTISTA_RUC" value="">
+                                    <input type="text" class="form-control input-sm" name="TRANSPORTISTA_RUC" id="TRANSPORTISTA_RUC" value="<?php echo $TRANSPORTISTA_RUC; ?>">
                                    </div>
                                 </div>
 								<div class="col-md-4 container-style">
@@ -249,7 +303,26 @@ i.btn.glyphicon.glyphicon-ok {
 											</tr>
 										</thead>
 									<tbody>
-									   
+									   <?php
+									 		if(count($GuiaRemisionDet)>0){
+												 foreach($GuiaRemisionDet as $item){
+													$cols = "";
+													$cols .= '<tr class="FILA'.$item->COD_PROD.'">';
+													$cols .= '<input type="hidden" class="COD_PROD" value="'.$item->COD_PROD.'">';
+													$cols .= '<input type="hidden" class="COD_UM" value="'.$item->COD_UM.'">';
+													$cols .= '<input type="hidden" class="CANTIDAD" value="'.round($item->CANTIDAD,2).'">';
+													$cols .= '<input type="hidden" class="UNIDMED" value="'.$item->DESC_UM.'">';
+													$cols .= '<input type="hidden" class="PRODUCTO" value="'.$item->DESCRIPCION.'">';
+													$cols .= '<td class="col-md-3 input-sm">'.$item->COD_PROD.'</td>';
+													$cols .= '<td class="col-md-1 input-sm" >'.round($item->CANTIDAD,2).'</td>';
+													$cols .= '<td class="col-md-1 input-sm" >'.$item->DESC_UM.'</td>';
+													$cols .= '<td class="col-md-3 input-sm" >'.$item->DESCRIPCION.'</td>';
+													$cols .= '<td class="col-md-1 input-sm" ><i class="btn glyphicon glyphicon-remove" onclick="fn_EliminarOrdenSalidaDetalle('."'FILA".$item->COD_PROD."'".');"></i></td>';
+													
+													echo $cols;
+												 }
+											}
+									   ?>
 									</tbody>
 									<tfoot>
 										<tr>
@@ -376,5 +449,11 @@ i.btn.glyphicon.glyphicon-ok {
   	<script type="text/javascript" src="/public/js/bootstrap-datepicker.es.min.js"></script> 
 	<script type="text/javascript" src="/public/pnotify/pnotify.custom.min.js"></script>
 	<script type="text/javascript" src="/public/custom/CreaGuiaRemision.js"></script>
+	<script>
+		$(document).ready(function() {
+
+			$("#COD_MOT_TRAS").val("<?php echo $COD_MOT_TRAS; ?>");
+		});
+	</script>
 </body>
 </html>

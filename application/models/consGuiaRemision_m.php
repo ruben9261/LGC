@@ -73,7 +73,9 @@ class ConsGuiaRemision_m extends CI_Model {
 	public function obt_GuiaRemisionDet($COD_GUIAREM)
 	{	
 		$this->db->select('*');
-		$this->db->from('GuiaRemision_Detalle');
+        $this->db->from('GuiaRemision_Detalle gd');
+        $this->db->join('producto p', 'gd.COD_PROD = p.COD_PROD');
+        $this->db->join('UnidadMedida um', 'gd.COD_UM = um.COD_UM');
 		$this->db->where("COD_GUIAREM",$COD_GUIAREM);
 		//$string = $this->db->get_compiled_select();
 		$query  = $this->db->get();
@@ -195,7 +197,7 @@ class ConsGuiaRemision_m extends CI_Model {
 		$GUIA_REMISION = array(
 				'SERIE' => $GuiaRemision["SERIE"],
                 'FECHA_EMISION' => $DOC_PAGO_FECHA,
-                'FECHA_TRASLADO' => $FECHA_TRASLADO,
+                'FECHA_TRASLADO' => $DOC_PAGO_FECHA,
 				'PUNTO_PARTIDA' => $GuiaRemision["PUNTO_PARTIDA"],
 				'PUNTO_LLEGADA' => $GuiaRemision["PUNTO_LLEGADA"],
 				'COD_PROV' => 0,
@@ -253,13 +255,13 @@ class ConsGuiaRemision_m extends CI_Model {
 		$this->db->trans_start();
 
 		date_default_timezone_set('America/Lima');
-		$doc_pago_FECHA = date('Y/m/d h:i:s', time());
+		$DOC_PAGO_FECHA = date('Y/m/d h:i:s', time());
         $COD_GUIAREM = $GuiaRemision['COD_GUIAREM'];
         
 		$GUIA_REMISION = array(
             'SERIE' => $GuiaRemision["SERIE"],
             'FECHA_EMISION' => $DOC_PAGO_FECHA,
-            'FECHA_TRASLADO' => $FECHA_TRASLADO,
+            'FECHA_TRASLADO' => $DOC_PAGO_FECHA,
             'PUNTO_PARTIDA' => $GuiaRemision["PUNTO_PARTIDA"],
             'PUNTO_LLEGADA' => $GuiaRemision["PUNTO_LLEGADA"],
             'COD_PROV' => 0,
@@ -271,7 +273,7 @@ class ConsGuiaRemision_m extends CI_Model {
             'ORDEN_COMPRA' => $GuiaRemision["ORDEN_COMPRA"],
             'NRO_PEDIDO' => $GuiaRemision["NRO_PEDIDO"],
             'NRO_COMPROBANTE' => $GuiaRemision["NRO_COMPROBANTE"],
-            'TIPO_COMPROBANTE' => $GuiaRemision["TIPO_COMPROBANTE"],
+            //'TIPO_COMPROBANTE' => $GuiaRemision["TIPO_COMPROBANTE"],
             'TRANSPORTISTA' => $GuiaRemision["TRANSPORTISTA"],
             'TRANSPORTISTA_RUC' => $GuiaRemision["TRANSPORTISTA_RUC"],
             'COSTO_MINIMO' => $GuiaRemision["COSTO_MINIMO"],

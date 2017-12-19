@@ -384,39 +384,27 @@ $(document).ready(function() {
         GuiaRemision.FECHA_EMISION = $("#FECHA_EMISION").val();
         GuiaRemision.FECHA_TRASLADO = $("#FECHA_TRASLADO").val();
         GuiaRemision.PUNTO_PARTIDA = $("#PUNTO_PARTIDA").val();
-        
+
         GuiaRemision.PUNTO_LLEGADA = $("#PUNTO_LLEGADA").val();
         //GuiaRemision.COD_PROV = $("#COD_PROV").val();
         GuiaRemision.RAZON_SOCIAL = $("#RAZON_SOCIAL").val();
-         GuiaRemision.NRO_DOCUMENTO = $("#NRO_DOCUMENTO").val();
+        GuiaRemision.NRO_DOCUMENTO = $("#NRO_DOCUMENTO").val();
         GuiaRemision.NRO_COMPROBANTE = $("#NRO_COMPROBANTE").val();
-
-
 
         GuiaRemision.PUNTO_LLEGADA = $("#PUNTO_LLEGADA").val();
         GuiaRemision.MARCA_PLACA = $("#MARCA_PLACA").val();
         GuiaRemision.NROCONS_INSCRIPC = $("#NROCONS_INSCRIPC").val();
         GuiaRemision.NROLIC_CONDUCIR = $("#NROLIC_CONDUCIR").val();
-
         GuiaRemision.COD_PROV = $("#COD_PROV").val();
-
         GuiaRemision.ORDEN_COMPRA = $("#ORDEN_COMPRA").val();
         GuiaRemision.NRO_PEDIDO = $("#NRO_PEDIDO").val();
-<<<<<<< HEAD
         GuiaRemision.NRO_COMPROBANTE = $("#NRO_COMPROBANTE").val();
         //GuiaRemision.TIPO_COMPROBANTE = $("#TIPO_COMPROBANTE").val();
         GuiaRemision.TRANSPORTISTA = $("#TRANSPORTISTA").val();
-=======
-        
-        GuiaRemision.TIPO_COMPROBANTE = $("#TIPO_COMPROBANTE").val();
-         GuiaRemision.TIPO_TRANSACCION = $("#TIPO_TRANSACCION").val();
-         
-         GuiaRemision.TRANSPORTISTA = $("#TRANSPORTISTA").val();
->>>>>>> 3bb9d9525e3387d66a464d1b99e52e3f59dcefbe
+        GuiaRemision.TIPO_TRANSACCION = $("#TIPO_TRANSACCION").val();
         GuiaRemision.TRANSPORTISTA_RUC = $("#TRANSPORTISTA_RUC").val();
-       
         GuiaRemision.COSTO_MINIMO = $("#COSTO_MINIMO").val();
-    
+        GuiaRemision.COD_MOT_TRAS = $("#COD_MOT_TRAS").val();
         
     
         var listGuiaRemisionDet = new Array();
@@ -449,7 +437,7 @@ $(document).ready(function() {
                     $("#lblCOD_GUIAREM").html(response.COD_GUIAREM);
                     $("#TIPO_TRANSACCION").val(2);
                     $("#ImprimirPdf").show();
-                    var ImprimirPdf = '<a class="btn btn-success" href="/mantGuiaRemision_c/docPagoPdf/'+response.COD_DOC_PAGO+'">Imprimir</a>';
+                    var ImprimirPdf = '<a class="btn btn-success" href="/mantGuiaRemision_c/docPagoPdf/'+response.COD_GUIAREM+'">Imprimir</a>';
                     $("#ImprimirPdf").html(ImprimirPdf);
                 }else{
                     AlertNotify('', 'Error', 'No se pudo guardar el registro', 'danger');
