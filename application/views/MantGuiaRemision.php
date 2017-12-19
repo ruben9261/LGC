@@ -61,7 +61,6 @@ i.btn.glyphicon.glyphicon-ok {
 	</style>
  </head>
 <body>
-
 	<input type="hidden" Id="CodCli" name="" value="">
 	<div class="container" id="contenedor">
 		           <br/>
@@ -82,7 +81,7 @@ i.btn.glyphicon.glyphicon-ok {
 						 <input type="hidden" id="tpagina">
 		    	         <input type="hidden" id="pactual">
 						 <input type="hidden" id="TIPO_TRANSACCION" value="">
-						 <input type="hidden" id="COD_DOC_COBRO" value="">
+						 <input type="hidden" id="COD_GUIAREM" value="">
 							<div class="form-group">
                             <div class="col-md-4 container-style" style="" id="divFechaOperacion">
 									<label for="" class="control-label col-md-6" >Fecha de Emisión :</label>

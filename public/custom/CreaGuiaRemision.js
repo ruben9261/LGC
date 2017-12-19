@@ -312,6 +312,9 @@ $(document).ready(function() {
     function fn_GuardarDocPago(){
         debugger;
         var GuiaRemision = new Object();
+        GuiaRemision.COD_GUIAREM = $("#COD_GUIAREM").val();
+        GuiaRemision.RUC_EMPRESA = $("#RUCEMPRESA").val();
+        GuiaRemision.SERIE = $("#SERIE").val();
         GuiaRemision.FECHA_EMISION = $("#FECHA_EMISION").val();
         GuiaRemision.FECHA_TRASLADO = $("#FECHA_TRASLADO").val();
         GuiaRemision.PUNTO_PARTIDA = $("#PUNTO_PARTIDA").val();
@@ -339,7 +342,8 @@ $(document).ready(function() {
             GuiaRemisionDet.COD_PROD = $(".COD_PROD",this).val();
             GuiaRemisionDet.COD_UM = parseInt($(".COD_UM",this).val());
             GuiaRemisionDet.CANTIDAD = parseInt($(".CANTIDAD",this).val());
-
+            GuiaRemisionDet.UNIDMED = parseInt($(".UNIDMED",this).val());
+            GuiaRemisionDet.PRODUCTO = parseInt($(".PRODUCTO",this).val());
 
             listGuiaRemisionDet.push(GuiaRemisionDet);
         });
@@ -359,8 +363,8 @@ $(document).ready(function() {
                 var response = JSON.parse(response);
                 if(response.respuesta){
                     AlertNotify('', 'Éxito', 'El registro se guardo correctamente', 'success');
-                    $("#COD_DOC_PAGO").val(response.COD_DOC_PAGO);
-                    $("#lblCOD_DOC_PAGO").html(response.COD_DOC_PAGO);
+                    $("#COD_GUIAREM").val(response.COD_GUIAREM);
+                    $("#lblCOD_GUIAREM").html(response.COD_GUIAREM);
                     $("#TIPO_TRANSACCION").val(2);
                     $("#ImprimirPdf").show();
                     var ImprimirPdf = '<a class="btn btn-success" href="/mantGuiaRemision_c/docPagoPdf/'+response.COD_DOC_PAGO+'">Imprimir</a>';
