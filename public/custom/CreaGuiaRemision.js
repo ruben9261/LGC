@@ -348,7 +348,6 @@ $(document).ready(function() {
         });
         debugger;
     
-    
         GuiaRemision.listGuiaRemisionDet = listGuiaRemisionDet;
         var valor  = 1;
         $.ajax({
