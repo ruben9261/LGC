@@ -181,9 +181,10 @@ class ConsGestionPago_m extends CI_Model {
 	public function GuardarDocPago($DocPago)
 	{	
 		$this->db->trans_start();
-		$FECHA_OPERACION = "1900-10-10";
+		//$FECHA_OPERACION = "1900-10-10";
 		date_default_timezone_set('America/Lima');
-		$DOC_PAGO_FECHA = date('Y/m/d h:i:s', time());
+		$DOC_PAGO_FECHA = date('Y/m/d', time());
+		
 		$COD_DOC_PAGO = 0;
 
 		$doc_pago = array(
@@ -194,7 +195,7 @@ class ConsGestionPago_m extends CI_Model {
 				'NRO_DOCUMENTO' => $DocPago["NRO_DOCUMENTO"],
 				'NUMERO_CUENTA' => $DocPago["NUMERO_CUENTA"],
 				'COD_TIPO_DOC' => $DocPago["COD_TIPO_DOC"],
-				'FECHA_OPERACION' => $DocPago["FECHA_OPERACION"] == ""?"1900-10-10":$DocPago["FECHA_OPERACION"],
+				'FECHA_OPERACION' => $DocPago["FECHA_OPERACION"] == ""?"1900/10/10":$DocPago["FECHA_OPERACION"],
 				'NUMERO_OPERACION' => $DocPago["NUMERO_OPERACION"],
 				'OBSERVACION' => $DocPago["OBSERVACION"],
 				'COD_USU' => $DocPago["COD_USU"],
@@ -242,7 +243,7 @@ class ConsGestionPago_m extends CI_Model {
 		$this->db->trans_start();
 
 		date_default_timezone_set('America/Lima');
-		$doc_pago_FECHA = date('Y/m/d h:i:s', time());
+		$doc_pago_FECHA = date('Y/m/d', time());
 		$COD_DOC_PAGO = $DocPago['COD_DOC_PAGO'];
 		$doc_pago = array(
 				'COD_OFI' => $DocPago["COD_OFI"],
@@ -252,7 +253,7 @@ class ConsGestionPago_m extends CI_Model {
 				'NRO_DOCUMENTO' => $DocPago["NRO_DOCUMENTO"],
 				'NUMERO_CUENTA' => $DocPago["NUMERO_CUENTA"],
 				'COD_TIPO_DOC' => $DocPago["COD_TIPO_DOC"],
-				'FECHA_OPERACION' => $DocPago["FECHA_OPERACION"] == ""?"1900-10-10":$DocPago["FECHA_OPERACION"],
+				'FECHA_OPERACION' => $DocPago["FECHA_OPERACION"] == ""?"1900/10/10":$DocPago["FECHA_OPERACION"],
 				'NUMERO_OPERACION' => $DocPago["NUMERO_OPERACION"],
 				'OBSERVACION' => $DocPago["OBSERVACION"],
 				'COD_USU' => $DocPago["COD_USU"],

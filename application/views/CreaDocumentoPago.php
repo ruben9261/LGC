@@ -10,6 +10,30 @@
 	<script type="text/javascript" src="/public/jquery/jquery-3.1.1.min.js"></script>
 	<script  type="text/javascript"  src="/public/bootstrap-3.3.7-dist/js/bootstrap.min.js"> </script>
 	<style>
+			p.pull-rigth {
+    float: right;
+    margin-right: 105px;
+	margin-top: 5px;
+}
+th.sorting_asc,th.sorting_desc,th.sorting {
+    background: #007ffd;
+    color: #ffffff;
+} a.btn.btn-success {
+    float: right !important;
+}
+i.btn.glyphicon.glyphicon-ok {
+    background: #00da08;
+    color: #ffffff;
+}.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}.fa-file-pdf-o:before {
+    content: "\f1c1";
+}
 		.container{
 			background-color:rgb(255,255,255);
 			border: 1px solid rgb(0,128,255); 
@@ -46,9 +70,39 @@ $TOTAL = 0;
 $COD_TIPOPAGO = 1;
 $COD_TIPO_DOC = 0;
 if(count($docPago)>0){
+
+
 	foreach($docPago as $item){
 		$NUMERO_CUENTA = $item->NUMERO_CUENTA;
+
+		// $fecha= $item->FECHA_OPERACION;
+
+		// $FECHA_OPERACION = moment($item->FECHA_OPERACION).format('YYYY/MM/DD');
 		$FECHA_OPERACION = $item->FECHA_OPERACION;
+		//$FECHA_OPERACION_NEW = date("y-m-d", strtotime($FECHA_OPERACION));
+		//$FECHA_OPERACION = date("Y-m-d"); 
+
+
+
+		$fechahora=explode(" ", $FECHA_OPERACION);
+ 
+		$fecha=$fechahora[0];
+		$hora = $fechahora[1];
+		 
+		$fecha=explode("-", $fecha);
+		$dia=$fecha[2];
+		$mes=$fecha[1];
+		$ano=$fecha[0];
+		 
+		$hora=explode(":", $hora);
+		 
+		$horas=$hora[0];
+		$minutos=$hora[1];
+		$segundos=$hora[2];
+		$FECHA_OPERACION_NEW = "$mes/$dia/$ano"; // join them together
+	
+		
+
 		$NUMERO_OPERACION = $item->NUMERO_OPERACION;
 		$NRO_DOCUMENTO = $item->NRO_DOCUMENTO;
 		$COD_PROV = $item->COD_PROV;
@@ -78,7 +132,7 @@ if($TIPO_TRANSACCION==1){
 		            <div class="modal-header" style="color:rgb(0,128,255);"> 
 		                 <STRONG>Registrar Orden de Entrada </STRONG>
 						 <div id="ImprimirPdf" class="" style="display:<?php echo $displayPdf;?>;">
-						 	<a class="btn btn-success" href='/mantGestionPagos_c/docPagoPdf/<?php echo $COD_DOC_PAGO;?>'>Imprimir</a>
+						 	<a class="btn btn-success" target="_blank" href='/mantGestionPagos_c/docPagoPdf/<?php echo $COD_DOC_PAGO;?>'>Imprimir</a>
 						 </div>
 		            </div>
 					<br/>
@@ -110,7 +164,7 @@ if($TIPO_TRANSACCION==1){
 								
 								<div class="col-md-3 col-md-offset-9 container-style">
 									<label for="" class="control-label ">
-										<?php 
+									<?php 
 											date_default_timezone_set('Australia/Melbourne');
 											$date = date('m/d/Y h:i:s a', time());
 											echo $date;
@@ -158,7 +212,7 @@ if($TIPO_TRANSACCION==1){
 									<label for="" class="control-label col-md-6" >Fecha Operación :</label>
 									<div class="col-md-6">
 										<div class='input-group'>
-										<input type='text' name="FECHA_OPERACION" id="FECHA_OPERACION" class="form-control input-sm calendario" value="<?php echo $FECHA_OPERACION;?>" placeholder="Fecha de Inicio" />
+										<input type='text' name="FECHA_OPERACION" id="FECHA_OPERACION" class="form-control input-sm calendario" value="<?php echo $FECHA_OPERACION_NEW;?>" placeholder="Fecha de Inicio" />
 										<!-- <div class="input-group-addon">
 										<span class="glyphicon glyphicon-calendar"></span>
 										</div> -->
@@ -299,10 +353,9 @@ if($TIPO_TRANSACCION==1){
 									   		   Guardar
 									           <img src="/public/images/GUARDAR.png">
 									   </button>
-
-									 
+									
 									     
-									   <a href="/ConsOrdenEntrada_c/" class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);">
+									   <a href="/mantGestionPagos_c/" class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);">
 										        Cancelar
 										        <img src="/public/images/CANCELAR.png">
 									   </a>
@@ -377,6 +430,7 @@ if($TIPO_TRANSACCION==1){
     </div>
   </div> 
 
+												
 	<div class="modal modal-static fade" id="processing-modal" data-backdrop="static" role="dialog" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -394,9 +448,11 @@ if($TIPO_TRANSACCION==1){
  	<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" ></script>
  	<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 	<script type="text/javascript" src="/public/jquery/jquery.validate.js"></script>
-	<script type="text/javascript" src="/public/js/moment.min.js" charset="UTF-8"></script>
+	<script  type="text/javascript"  src="/public/js/moment.min.js"> </script>
 	<script src="/public/js/bootstrap-datepicker.min.js"></script>   
-  	<script src="/public/js/bootstrap-datepicker.es.min.js"></script> 
+  	<script src="/public/js/bootstrap-datepicker.es.min.js"></script>
+	  
+	 
 	<script src="/public/pnotify/pnotify.custom.min.js"></script>
 	<script>
 		$(document).ready(function() {
