@@ -325,11 +325,6 @@ $(document).ready(function() {
 
 
 
-
-       
-
-
-
         GuiaRemision.PUNTO_LLEGADA = $("#PUNTO_LLEGADA").val();
         GuiaRemision.MARCA_PLACA = $("#MARCA_PLACA").val();
         GuiaRemision.NROCONS_INSCRIPC = $("#NROCONS_INSCRIPC").val();
