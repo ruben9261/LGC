@@ -1,3 +1,5 @@
+//Prueba
+
 function fn_eliminar(COD_DOC_COBRO) 
 {  $.ajax({
 		    url:  "/mantGestionCobros_c/eliminar",
