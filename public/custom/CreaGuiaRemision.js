@@ -405,6 +405,7 @@ $(document).ready(function() {
         GuiaRemision.TRANSPORTISTA_RUC = $("#TRANSPORTISTA_RUC").val();
         GuiaRemision.COSTO_MINIMO = $("#COSTO_MINIMO").val();
         GuiaRemision.COD_MOT_TRAS = $("#COD_MOT_TRAS").val();
+        GuiaRemision.Nomb_Empresa = $("#Nomb_Empresa").val();
         
     
         var listGuiaRemisionDet = new Array();
@@ -414,8 +415,8 @@ $(document).ready(function() {
             GuiaRemisionDet.COD_PROD = $(".COD_PROD",this).val();
             GuiaRemisionDet.COD_UM = parseInt($(".COD_UM",this).val());
             GuiaRemisionDet.CANTIDAD = parseInt($(".CANTIDAD",this).val());
-            GuiaRemisionDet.UNIDMED = parseInt($(".UNIDMED",this).val());
-            GuiaRemisionDet.PRODUCTO = parseInt($(".PRODUCTO",this).val());
+            GuiaRemisionDet.UNIDMED = $(".UNIDMED",this).val();
+            GuiaRemisionDet.PRODUCTO = $(".PRODUCTO",this).val();
             listGuiaRemisionDet.push(GuiaRemisionDet);
         });
         debugger;

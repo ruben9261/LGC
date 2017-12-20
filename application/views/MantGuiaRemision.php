@@ -8,6 +8,9 @@
 	<link rel="stylesheet" type="text/css" href="/public/pnotify/pnotify.custom.min.css">
 	<link rel="stylesheet" href="/public/styles/bootstrap-datepicker.css"/>
 	<script type="text/javascript" src="/public/jquery/jquery-3.1.1.min.js"></script>
+
+
+
 	<script  type="text/javascript"  src="/public/bootstrap-3.3.7-dist/js/bootstrap.min.js"> </script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
 	
@@ -59,6 +62,9 @@ i.btn.glyphicon.glyphicon-ok {
 			background-color:rgb(0,128,255); color:white; font-size:11px;
 		}
 	</style>
+
+
+
  </head>
 <body>
 <?php
@@ -121,7 +127,7 @@ i.btn.glyphicon.glyphicon-ok {
 		            <div class="modal-header" style="color:rgb(0,128,255);"> 
 		                 <STRONG>Mantenimiento de Guia de Remision </STRONG>
 						 <div id="ImprimirPdf" class="" style="display:<?php echo $displayPdf;?>;">
-						 	<a class="btn btn-success" href="">Imprimir <i class="fa fa-file-pdf-o"> </i>  </a>
+						 	<a class="btn btn-success" target="_blank" id="generate">Imprimir <i class="fa fa-file-pdf-o"> </i>  </a>
 						 </div>
 		            </div>
 					<br/>
@@ -450,6 +456,21 @@ i.btn.glyphicon.glyphicon-ok {
   	<script type="text/javascript" src="/public/js/bootstrap-datepicker.es.min.js"></script> 
 	<script type="text/javascript" src="/public/pnotify/pnotify.custom.min.js"></script>
 	<script type="text/javascript" src="/public/custom/CreaGuiaRemision.js"></script>
+	<script type="text/javascript" src="/public/js/libs/require.js"></script>
+
+
+	<script> 
+  require.config({paths: {
+       'jspdf': '../../public/js/libs/jspdf.debug', 
+       'jspdf-autotable': '../../public/js/libs/jspdf.plugin.autotable'
+    }});
+    
+    require(['../../public/custom/GuiaRemisionPdf'], function(main) {
+        document.getElementById("generate").onclick = function() {
+            main.generatePdf();
+        }
+    });
+</script>
 	<script>
 		$(document).ready(function() {
 
