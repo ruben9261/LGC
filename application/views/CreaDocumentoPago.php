@@ -69,12 +69,14 @@ $NOMBRE = "";
 $TOTAL = 0;
 $COD_TIPOPAGO = 1;
 $COD_TIPO_DOC = 0;
+$OBSERVACION = "";
+$FECHA_OPERACION_NEW ="";
 if(count($docPago)>0){
 
 
 	foreach($docPago as $item){
 		$NUMERO_CUENTA = $item->NUMERO_CUENTA;
-
+		$OBSERVACION = $item->OBSERVACION;
 		// $fecha= $item->FECHA_OPERACION;
 
 		// $FECHA_OPERACION = moment($item->FECHA_OPERACION).format('YYYY/MM/DD');
@@ -122,7 +124,7 @@ if($COD_TIPOPAGO==1){
 if($TIPO_TRANSACCION==1){
 	$displayPdf = "none";
 }else{
-	$displayPdf = "true";
+	$displayPdf = "block";
 }
 
 ?>
@@ -211,12 +213,10 @@ if($TIPO_TRANSACCION==1){
 								<div class="col-md-4 container-style" style="display:<?php echo $display;?>" id="divFechaOperacion">
 									<label for="" class="control-label col-md-6" >Fecha Operación :</label>
 									<div class="col-md-6">
-										<div class='input-group'>
 										<input type='text' name="FECHA_OPERACION" id="FECHA_OPERACION" class="form-control input-sm calendario" value="<?php echo $FECHA_OPERACION_NEW;?>" placeholder="Fecha de Inicio" />
 										<!-- <div class="input-group-addon">
 										<span class="glyphicon glyphicon-calendar"></span>
 										</div> -->
-										</div>
 									</div>
 								</div>
 								
@@ -343,7 +343,7 @@ if($TIPO_TRANSACCION==1){
 						    
 						    <div class="form-group">
 						         <span style="color:rgb(0,128,255);">Comentario</span>
-						          <textarea id="OBSERVACION" rows="5" cols="80" class="form-control" placeholder="observaci&oacute;n"></textarea>
+						          <textarea id="OBSERVACION" rows="5" cols="80" class="form-control" placeholder="observaci&oacute;n" ><?php echo $OBSERVACION;?></textarea>
 						    </div>	
 						 
 						    <br/>

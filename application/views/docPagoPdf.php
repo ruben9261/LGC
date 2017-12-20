@@ -39,7 +39,7 @@
             <br/>
             <div class="">
                 <div class="contentLeftDefault">
-                <span>BOUCHER DE PAGO N°: </span><?php echo $COD_DOC_PAGO; ?></br>
+                <span>BOUCHER DE PAGO N°: </span><?php echo str_pad($COD_DOC_PAGO,6,"0",STR_PAD_LEFT);?></br>
                 <span>ORDEN N°: </span> 
                 <?php
                         echo $Ordenes;

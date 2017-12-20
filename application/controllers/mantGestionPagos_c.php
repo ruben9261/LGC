@@ -110,7 +110,8 @@ class MantGestionPagos_c  extends CI_Controller{
 			$listOrdenes = array();
 
 			foreach($docPagoDet as $item){
-				array_push($listOrdenes, $item->COD_ORDEN_S);
+				$OrdenS = $item->SERIE ."-". str_pad($item->COD_ORDEN_S,6,"0",STR_PAD_LEFT);
+				array_push($listOrdenes, $OrdenS);
 			}
 
 			$listOrdenes = array_unique($listOrdenes);

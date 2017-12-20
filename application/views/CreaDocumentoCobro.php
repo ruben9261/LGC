@@ -70,16 +70,16 @@ $NRO_DOCUMENTO = "";
 $COD_CLI = "";
 $NOMBRE = "";
 $Total = 0;
-$COD_TIPOCOBRO = 0;
 $COD_TIPO_DOC = 0;
+$FECHA_OPERACION_NEW = "";
+$COD_TIPOCOBRO = 1;
+$OBSERVACION = "";
 if(count($docCobro)>0){
 	foreach($docCobro as $item){
 		$NUMERO_CUENTA = $item->NUMERO_CUENTA;
 		$FECHA_OPERACION = $item->FECHA_OPERACION;
-
-
+		$OBSERVACION = $item->OBSERVACION;
 		$fechahora=explode(" ", $FECHA_OPERACION);
- 
 		$fecha=$fechahora[0];
 		$hora = $fechahora[1];
 		 
@@ -115,7 +115,7 @@ if($COD_TIPOCOBRO==1){
 if($TIPO_TRANSACCION==1){
 	$displayPdf = "none";
 }else{
-	$displayPdf = "true";
+	$displayPdf = "block";
 }
 
 ?>
@@ -212,6 +212,7 @@ if($TIPO_TRANSACCION==1){
 								</div>
 								
 							</div>
+								
 							<div class="form-group">
 								<div class="col-md-4 container-style">
 									<label class="control-label col-md-3" >Caja :</label>
@@ -337,7 +338,7 @@ if($TIPO_TRANSACCION==1){
 						    
 						    <div class="form-group">
 						         <span style="color:rgb(0,128,255);">Comentario</span>
-						          <textarea id="OBSERVACION" rows="5" cols="80" class="form-control" placeholder="observaci&oacute;n"></textarea>
+						          <textarea id="OBSERVACION" rows="5" cols="80" class="form-control" placeholder="observaci&oacute;n"><?php echo $OBSERVACION;?></textarea>
 						    </div>	
 						 
 						    <br/>

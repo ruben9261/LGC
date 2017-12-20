@@ -109,9 +109,10 @@ class MantGestionCobros_c  extends CI_Controller{
 		if(count($docCobroDet)>0){
 			
 			$listOrdenes = array();
-
+			$OrdenE = "";
 			foreach($docCobroDet as $item){
-				array_push($listOrdenes, $item->CodOrdenE);
+				$OrdenE = $item->Serie."-". str_pad($item->CodOrdenE,6,"0",STR_PAD_LEFT);
+				array_push($listOrdenes, $OrdenE);
 			}
 
 			$listOrdenes = array_unique($listOrdenes);
