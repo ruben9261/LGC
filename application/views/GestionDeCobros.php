@@ -4,7 +4,13 @@
     <title>Gesti&oacute;n Orden de Entrada </title> 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type ="text/css" href="/public/bootstrap-3.3.7-dist/css/bootstrap.min.css"> 
-     <style type="text/css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" type="text/css" href="/public/pnotify/pnotify.custom.min.css">
+	<link rel="stylesheet" href="/public/styles/bootstrap-datepicker.css"/>
+	<script type="text/javascript" src="/public/jquery/jquery-3.1.1.min.js"></script>
+	<script  type="text/javascript"  src="/public/bootstrap-3.3.7-dist/js/bootstrap.min.js"> </script>
+	 
+	 <style type="text/css">
 		.modal-static { 
 		    position: fixed;
 		    top: 50% !important; 
@@ -98,16 +104,22 @@
 		    	</form>
 		</div>
     </div>
-    <div class="container">
-		  <div id="cuadro_paginacion"></div>
-		 
-		  <div id="tabla"></div>
-	</div> 
-	
-	 <div class="container">
-		  <div id="respuesta"></div>
-	</div> 
-	
+	<table id="TablaGestionCobros" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>COD DOC COBRO</th>
+                <th>USUARIO</th>
+                <th>DESC DE CAJA </th>
+                <th>NOM TIPO COBRO</th>
+				<th>NOMBRE CLIENTE</th>
+				<th>ACCIONES</th>
+				
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
  
 <script type="text/javascript"> 
 
@@ -163,8 +175,12 @@
       </div>
    </div>
 </div>
-<script type="text/javascript" src="/public/jquery/jquery-3.1.1.min.js"></script>
-<script  type="text/javascript"  src="/public/bootstrap-3.3.7-dist/js/bootstrap.min.js"> </script>
 <script type="text/javascript" src="/public/custom/GestionDeCobros.js"></script>
+	<script type="text/javascript" src="/public/js/datatable.js" ></script>
+ 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+	<script type="text/javascript" src="/public/jquery/jquery.validate.js"></script>
+	<script  type="text/javascript"  src="/public/js/moment.min.js"> </script>
+
+
 </body> 
 </html> 
