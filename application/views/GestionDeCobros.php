@@ -125,9 +125,7 @@
         </div>
     </div>
 </div>
-	
-
-	
+	<!--Prueba-->
   <div class="modal fade" id="mostrarmodal_ok" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
