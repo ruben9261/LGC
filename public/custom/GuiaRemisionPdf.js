@@ -160,7 +160,7 @@ var doc = new jsPDF({
              doc.line(80, 280, 80, 550); // vertical line
              doc.line(140, 280, 140, 550); // vertical line
              doc.line(200, 280, 200, 550); // vertical line
-             doc.line(730, 280, 730, 550); // vertical line       
+            // doc.line(730, 280, 730, 550); // vertical line       
             //FOOTER
 
              doc.setFontSize(11);
@@ -189,7 +189,7 @@ var doc = new jsPDF({
 doc.setFontSize(10);
             doc.text("COSTO MINIMO", data.settings.margin.left +720, 560);
 
-             doc.text("S/."+GuiaRemision.COSTO_MINIMO , data.settings.margin.left +720, 570);
+             doc.text("S/."+GuiaRemision.COSTO_MINIMO , data.settings.margin.left +720, 580);
 
 
             doc.rect(15,565 , 790, 25);
