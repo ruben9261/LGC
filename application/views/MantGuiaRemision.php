@@ -80,7 +80,7 @@ i.btn.glyphicon.glyphicon-ok {
 	$TRANSPORTISTA_RUC = "";
 	$COSTO_MINIMO = "";
 	$COD_MOT_TRAS = "";
-	$RUC_EMPRESA = "";
+	$RUC_EMPRESA = $RUC;
 
 	if(count($GuiaRemision)>0){
 
@@ -130,6 +130,7 @@ i.btn.glyphicon.glyphicon-ok {
 						 <input type="hidden" id="SERIE" value="<?php echo str_pad($COD_CAJA,3,"0",STR_PAD_LEFT);?>">
 		    	         <input type="hidden" id="RUC_EMPRESA" value="<?php echo $RUC_EMPRESA; ?>">
 						 <input type="hidden" id="TIPO_TRANSACCION" value="<?php echo $TIPO_TRANSACCION; ?>">
+						 <input type="hidden" id="Nomb_Empresa" value="<?php echo $Nomb_Empresa; ?>">
 							<div class="form-group">
                             <div class="col-md-4 container-style" style="" id="divFechaOperacion">
 									<label for="" class="control-label col-md-6" >Fecha de Emisión :</label>
