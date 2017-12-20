@@ -83,6 +83,47 @@ class MantGuiaRemision_c  extends CI_Controller{
 				$data['TIPO_TRANSACCION'] = 1;
 			}
 
+
+
+////////////////////////////////////////
+foreach ($datos as $campos) 
+{	$codusu=$campos->COD_USU;}
+
+$this->load->model('consOrdenEntrada_m');
+$datos1=$this->consOrdenEntrada_m->obt_serie_orden_x_usu($codusu,1);
+mysqli_next_result($this->db->conn_id);
+foreach ($datos1 as $campos)
+{	$codserorden=$campos->COD_SERIE_ORDEN;
+  $serie=$campos->SERIE;
+  $numero=$campos->NUMERO;
+}
+
+//obtenemos tipo de documento de cliente
+//$this->load->model('consCliente_m');
+//$tipodoc=$this->consCliente_m->listar_tipo_documento();
+//mysqli_next_result($this->db->conn_id);
+
+//obtenemnos tipo de producto     
+$this->load->model('consProducto_m');
+$tipo_prod=$this->consProducto_m->obt_Tipos();
+mysqli_next_result($this->db->conn_id);
+
+
+date_default_timezone_set("America/Bogota");
+
+//$data['codserorden']=$codserorden;
+//$data['codusuario']=$codusu;	
+//$anio = date('Y');
+//$mes = date('m');
+//$dia = date('d');
+//$data['fecha']= $dia.'/'.$mes.'/'.$anio;
+//$data['fecha']= $anio.'-'.$mes.'-'.$dia;
+//$data['tipodoc']=$tipodoc;
+$data['tipo_prod']=$tipo_prod;
+//$data['serie']=$serie;
+//$data['numero']=$numero;
+
+			
 		$this->load->view("MantGuiaRemision",$data);
 		 
 	}

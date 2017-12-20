@@ -58,7 +58,17 @@ $(document).ready(function() {
         });
         
     } );
-    
+  ///////////////////////////////////////
+    jQuery.validator.addMethod("decimal", function(value, element) {
+        return this.optional(element) || /^\d{0,10}(\.\d{0,2})?$/i.test(value);
+    }, "You must include two decimal places");
+    jQuery.validator.addMethod("lettersonly", function(value, element) {
+    return this.optional(element) || /^[a-z\s]+$/i.test(value);
+    }, "Only alphabetical characters");
+
+////////////////////////////
+
+
     function QuitarValidacion (element) {
         $(element)
             .closest('.form-group')
@@ -268,7 +278,70 @@ $(document).ready(function() {
         }
         
     }
-    
+    $( "#GuardarProducto" ).click(function( e ) {
+        $("#frmCreaProducto").validate({
+                rules: {
+                   descripcion: {
+                        required: true
+                    },tipo: {
+                        required: true
+                    },precio: {
+                        required: true,
+                        decimal:true
+                    }
+                }, messages: {
+                   descripcion: {
+                        required: "Ingrese Descripcion"
+                    },tipo: {
+                        required: "Seleccione Tipo"
+                    },precio: {
+                        required: "Ingrese Numero",
+                        decimal:"Ingrese 2 Decimales "
+                    }
+                },
+                submitHandler: function (form) {
+                    e.preventDefault();
+                    insertar_Producto();
+                }
+            });
+        });
+
+
+        function insertar_Producto()
+{   var v_producto=$("#txt_desc_producto").val();
+	var v_tipo=$("#tipo_producto").val();
+    var v_precio=$("#txt_precio_producto").val();
+
+$.ajax({
+	    url:  "/MantProducto_c/insertar",
+	    type: 'post',//metodo
+	    data: { descripcion:v_producto,
+			    tipo:       v_tipo,
+		        precio:     v_precio
+	    	  }, //parametros
+	    success: function(respuesta) { 
+
+	   if(respuesta==1)
+	       { 
+            
+            $("#modal_creaProducto_reg_ok").modal("show");
+
+           fn_AbrirModalProductos();
+            fn_modal_cerrar_crea_producto();
+            fn_limpiar_modal_crea_producto();
+
+	       }
+	       else
+	       {
+	      	 $("#modal_creaProducto_reg_error").modal("show");
+	       }    
+	    }, 
+	    error: function() { alert('Se ha producido un error'); }
+
+    });
+
+    return false;
+}
     $( "#Guardar" ).click(function( e ) {
         // var TipoCobro = $("#COD_TIPOPAGO").val();
         // debugger;
@@ -590,6 +663,38 @@ $(document).ready(function() {
         $("#ProductosModal").modal("show");
         
     }
+    function fn_modal_crea_producto(){
+        $("#ProductosModal").modal("hide");
+        
+        $("#modal_crea_producto").modal("show");
+       
+    }
+    function fn_modal_cerrar_crea_producto(){
+        
+        $("#modal_crea_producto").modal("hide");
+       
+    }
+    function fn_limpiar_modal_crea_producto(){
+        $("#txt_descproducto").val('');
+  $("#tipo_producto").val(0);
+  $("#tipo_producto option[value="+"0" +"]").attr("selected",true);
+  $("#txt_precio_producto").val('');
+       
+    }
+
+    function   fn_limpiar_modal_sel_producto(){
+
+  $("#COD_UM").val(0);
+  $("#COD_UM option[value="+"0" +"]").attr("selected",true);
+  $("#COD_PROD").val(0);
+  $("#COD_PROD option[value="+"0" +"]").attr("selected",true);
+
+
+
+  $("#CANTIDAD").val('');
+       
+    }
+
 
     $( "#AgregarProducto" ).click(function(e) {
         // var TipoCobro = $("#COD_TIPOPAGO").val();

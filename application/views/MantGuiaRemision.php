@@ -370,14 +370,86 @@ i.btn.glyphicon.glyphicon-ok {
    </div>
 
    
-   <div class="modal fade" id="ProductosModal" data-backdrop="static" data-keyboard="false" role="dialog">
+ 
+
+	<div class="modal modal-static fade" id="processing-modal" data-backdrop="static" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="text-center">
+						<img src="/public/images/cargar2.gif">
+						<h4>            Procesando... <button type="button" class="close" style="float: none;" data-dismiss="modal" aria-hidden="true"></button></h4>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div  data-backdrop="static"  class="modal fade" id="modal_crea_producto" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+			 <div class="modal-header btn-primary" style="background-color:rgb(0,128,255);">
+			      <button class="close" data-dismiss="modal" aria-hidden="true" onclick="fn_ocultar_modal('modal_crea_producto');fn_limpiar_modal_crea_producto(); fn_mostrar_modal('ProductosModal');">&times;</button>
+			                <h4>Crear Producto</h4>
+			 </div>
+		          
+		     <div class="modal-body">
+		          <form id="frmCreaProducto" >
+					    <div class="form-group">
+						          <input id="txt_desc_producto" name="descripcion"  type="text" class="form-control" placeholder="Descripcion" >
+					    </div>
+						   
+						<div class="form-group">
+						       <select  id="tipo_producto" name="tipo"  class="form-control">
+								    <option value="">
+											SELECCIONAR TIPO	
+								     </option>
+								      
+								      <?php foreach ($tipo_prod as $tipo): ?>
+										     <option value="<?php echo "".$tipo->CLAVE?>">
+											     <?php echo "".$tipo->VALOR?>
+										    </option>
+							          <?php  endforeach ?>
+							   </select>
+						 </div>
+						    
+						  <div class="form-group">
+						         <input id="txt_precio_producto"  name="precio" type="text" class="form-control" placeholder="Precio">
+						  </div>
+						    
+						   
+						  <div class="form-group">
+						  <button class="btn btn-primary" type="submit"  id="GuardarProducto" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);">
+						  Guardar
+					   <img src="<?php echo base_url()?>public/images/GUARDAR.png">
+							  </button>
+							     
+							   <a href="#" class="btn btn-primary" style="background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);" onclick="fn_ocultar_modal('modal_crea_producto'),fn_limpiar_modal_crea_producto(),fn_limpiar_modal_sel_producto(), fn_mostrar_modal('ProductosModal');">
+							           Cancelar
+							           <img src="<?php echo base_url()?>public/images/CANCELAR.png">
+							   </a>
+						 </div>     
+			       </form>
+		     </div>
+             
+             <div class="container">
+               		  <div id="respuesta"></div>
+	         </div> 
+	         
+             <div class="modal-footer"> </div>
+       </div>
+   </div>
+</div>
+<div class="modal fade" id="ProductosModal" data-backdrop="static" data-keyboard="false" role="dialog">
     <div class="modal-dialog">
 
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 style="color:red;"> Buscar Cliente</h4>
+          <h4 style="color:red;"> Agregar  Producto</h4>
         </div>
         <div class="modal-body">
 		<form id="formAgregarProducto" method="POST">
@@ -396,6 +468,11 @@ i.btn.glyphicon.glyphicon-ok {
 							?>
 						</select>
 					</div>
+
+					<a href="#"   class="btn btn-primary col-md-2 col-md-offset-1"  id="btnNuevo_selproducto" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" onclick="fn_modal_crea_producto();" >
+					    	 		    <img src="<?php echo base_url()?>public/images/REGISTRAR.png">
+					    	 		    Nuevo
+					    	 	    </a
 				</div>
 				<div class="form-group">
 					<label for="" class=" col-md-3 control-label">Unidad :</label>
@@ -419,10 +496,12 @@ i.btn.glyphicon.glyphicon-ok {
 					</div>
 				</div>
 				<div class="form-group">
+			
 				<button  type="submit" class="btn btn-primary col-md-2 col-md-offset-8" id="AgregarProducto"  style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);">
 									   		   Agregar
 									           <img src="/public/images/GUARDAR.png">
 				</button>
+				
 				</div>
 			</div>
 		</form>
@@ -433,20 +512,7 @@ i.btn.glyphicon.glyphicon-ok {
         </div>
       </div>
     </div>
-  </div> 
-
-	<div class="modal modal-static fade" id="processing-modal" data-backdrop="static" role="dialog" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-body">
-					<div class="text-center">
-						<img src="/public/images/cargar2.gif">
-						<h4>            Procesando... <button type="button" class="close" style="float: none;" data-dismiss="modal" aria-hidden="true"></button></h4>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+  </div>
 
  	<script type="text/javascript" src="/public/js/datatable.js" ></script>
  	<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
@@ -458,7 +524,18 @@ i.btn.glyphicon.glyphicon-ok {
 	<script type="text/javascript" src="/public/custom/CreaGuiaRemision.js"></script>
 	<script type="text/javascript" src="/public/js/libs/require.js"></script>
 
+<script>
+/*******************utilitarios********************/
+function fn_mostrar_modal(ide)
+ {   $('#'+ide).modal("show");
+ }
 
+ function fn_ocultar_modal(ide)
+ { $('#'+ide).modal("hide");
+   
+ }
+ 
+/**************************************************/ </script>
 	<script> 
   require.config({paths: {
        'jspdf': '../../public/js/libs/jspdf.debug', 

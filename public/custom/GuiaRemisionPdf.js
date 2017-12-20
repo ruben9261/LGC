@@ -108,7 +108,7 @@ var doc = new jsPDF({
             doc.setFontStyle('bold');
             doc.text("R.U.C :" +  GuiaRemision.RUC_EMPRESA , data.settings.margin.left + 520, 60);  
                   doc.setFontSize(30);    
-            doc.text("GUIA DE REMISION"+  GuiaRemision.COD_GUIAREM , data.settings.margin.left + 530, 90);      
+            doc.text("GUIA DE REMISION" , data.settings.margin.left + 530, 90);      
             doc.text("REMITENTE", data.settings.margin.left + 560, 120);
             doc.text("N-"+GuiaRemision.SERIE, data.settings.margin.left + 500, 155);
 
