@@ -22,90 +22,30 @@ function fn_eliminar(COD_DOC_PAGO)
 	  return false;
 }
 
+
 $(function(){
-$("#txt_fecha").keypress(function(e) {
-   if(e.which == 13) {
-         // Acciones a realizar, por ej: enviar formulario.
-	    bus_OrdenPago();
-	   return false;
-     }
-   
+	$("#btnbuscar").click(function(){
+		bus_GuiRemision();
+	  return false;
+	});
   });
   
-});
-
-$(function(){
-	$("#txt_serie").keypress(function(e) {
-	   if(e.which == 13) {
-	         // Acciones a realizar, por ej: enviar formulario.
-		    bus_OrdenPago();
-		   return false;
-	     }
-	   
-	  });
-});
-
-
-$(function(){
-	$("#txt_numero").keypress(function(e) {
-	   if(e.which == 13) {
-	         // Acciones a realizar, por ej: enviar formulario.
-		    bus_OrdenPago();
-		   return false;
-	     }
-	   
-	  });
-});
-
-
-$(function(){
-	$("#txt_cliente").keypress(function(e) {
-	   if(e.which == 13) {
-	         // Acciones a realizar, por ej: enviar formulario.
-		    bus_OrdenPago();
-		   return false;
-	     }
-	   
-	  });
-});
-
-
-$(function(){
-	$("#txt_documento").keypress(function(e) {
-	   if(e.which == 13) {
-	         // Acciones a realizar, por ej: enviar formulario.
-		    bus_OrdenPago();
-		   return false;
-	     }
-	   
-	  });
-});
-
-
-
-$(function(){
-  $("#btnbuscar").click(function(){
-	   bus_OrdenPago();
-	return false;
-  });
-});
-
-
-
 
 /*-alinear para que todo el mantenimiento sea por ajax*/
-function bus_OrdenPago()
+function bus_GuiRemision()
 {   
 	
     var Filtros = new Object();
 
 
 
-	Filtros.COD_PROV= $("#COD_PROV").val();
-	Filtros.COD_USU= $("#COD_USU").val();
-	Filtros.COD_TIPOPAGO= $("#COD_TIPOPAGO").val();
-	Filtros.COD_DOC_PAGO= $("#COD_DOC_PAGO").val();
-	Filtros.DOC_PAGO_FECHA= $("#DOC_PAGO_FECHA").val();
+	Filtros.COD_GUIAREM= $("#COD_GUIAREM").val();
+	Filtros.FECHA_EMISION= $("#FECHA_EMISION").val();
+	Filtros.FECHA_TRASLADO= $("#FECHA_TRASLADO").val();
+	Filtros.NRO_DOCUMENTO= $("#NRO_DOCUMENTO").val();
+	Filtros.NRO_COMPROBANTE= $("#NRO_COMPROBANTE").val();
+    Filtros.COD_PROD= $("#COD_PROD").val();
+
 	debugger;
     Filtros.Pagina = -1;
     $('#processing-modal').modal('show');
@@ -175,50 +115,50 @@ function bus_OrdenPago()
               	  	   var sb="";
    					   sb=sb+" <div class='row'>";
    					   sb=sb+"   <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-   					   sb=sb+"     COD_DOC_PAGO";  
+   					   sb=sb+"     COD_GUIAREM";  
    					   sb=sb+" 	  </div>"; 
    					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
- 					   sb=sb+" 	   USU";
+ 					   sb=sb+" 	   FECHA_EMISION";
  					   sb=sb+" 	  </div>";
    					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-   					   sb=sb+" 	    DESC_CAJA";
+   					   sb=sb+" 	    FECHA_TRASLADO";
    					   sb=sb+" 	  </div>";
    				       sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-					   sb=sb+" 	    NOM_TIPOPAGO";
+					   sb=sb+" 	    NRO_DOCUMENTO";
 					   sb=sb+" 	  </div>";
 					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-   					   sb=sb+" 	    NOMBRE PROVEEDOR";
-   					   sb=sb+" 	  </div>";			   
+   					   sb=sb+" 	    NRO_COMPROBANTE";
+					   sb=sb+" 	  </div>";
+					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
+					   sb=sb+" 	    COD_PROD";
+					   sb=sb+" 	  </div>";  			   
    					   sb=sb+" </div>";	
 
    					   
-           	  	
+					
             	  	       for(var i=0;i<lista.length;i++)
                           {  var fila=lista[i];
                              sb=sb+"<div class='row'>";   
                              sb=sb+"   <div class='col-xs-2'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:10px;'> ";
-          	  	          	  sb=sb+fila["COD_DOC_PAGO"].toString();
+          	  	          	  sb=sb+fila["COD_GUIAREM"].toString();
           	  	         	  sb=sb+"  </div>";
           	  	          	  sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:10px;'>";
-      	  	    	 	 	  sb=sb+fila["USU"].toString();
+      	  	    	 	 	  sb=sb+fila["NRO_DOCUMENTO"].toString();
       	  	    	      	  sb=sb+"   </div>";
           	  	      	 	  sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
-          	  	    	 	  sb=sb+fila["DESC_CAJA"].toString();
+          	  	    	 	  sb=sb+fila["NRO_COMPROBANTE"].toString();
           	  	    	      sb=sb+"   </div>";
           	  	    	  	  sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
-      	  	    	 	  	  sb=sb+fila["NOM_TIPOPAGO"].toString();
-      	  	    	          sb=sb+"   </div>";
-      	  	    	      	  sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
-  	  	    	 	  	  	  sb=sb+fila["NOMBRE"].toString();
-                              sb=sb+"   </div>";
+      	  	    	 	  	  sb=sb+fila["COD_PROD"].toString();
+
 					          sb=sb+"  <div class='col-xs-1'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:11px;'>";
-   	                          sb=sb+"	<a href='/mantGestionPagos_c/CreaDocumentoPago/"+fila['COD_DOC_PAGO'].toString()+"'>";
+   	                          sb=sb+"	<a href='/mantGuiaRemision_c/mantGuiaRemision/"+fila['COD_GUIAREM'].toString()+"'>";
       	  			    	  sb=sb+"	   Editar&nbsp";
       	  					  sb=sb+"	   <img src='/public/images/EDITAR.png'>";
       	  					  sb=sb+"	</a>"; 
 	   	  			 	      sb=sb+"  </div>";
 	   	  			 	      sb=sb+"  <div class='col-xs-1'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:11px;'>";
-	   	  			 	      sb=sb+"	    <a href='#' onclick=fn_eliminar('"+fila["COD_DOC_PAGO"].toString()+"')>";
+	   	  			 	      sb=sb+"	    <a href='#' onclick=fn_eliminar('"+fila["COD_GUIAREM"].toString()+"')>";
 	   	  			    	  sb=sb+"	       Anular&nbsp";
 	   	  					  sb=sb+"	      <img src='/public/images/ELIMINAR.png'>";
 	   	  					  sb=sb+"	    </a>"; 
@@ -245,11 +185,12 @@ function bus_OrdenPago()
 
 function fn_mostrar_pagina(npagina)
 { 	var Filtros = new Object();
-	Filtros.COD_DOC_PAGO= $("#COD_DOC_PAGO").val();
-    Filtros.DOC_PAGO_FECHA= $("#DOC_PAGO_FECHA").val();
-    Filtros.COD_OFI= $("#COD_OFI").val();
-    Filtros.COD_USU= $("#COD_USU").val();
-    Filtros.COD_TIPOPAGO= $("#COD_TIPOPAGO").val();
+	Filtros.COD_GUIAREM= $("#COD_GUIAREM").val();
+	Filtros.FECHA_EMISION= $("#FECHA_EMISION").val();
+	Filtros.FECHA_TRASLADO= $("#FECHA_TRASLADO").val();
+	Filtros.NRO_DOCUMENTO= $("#NRO_DOCUMENTO").val();
+	Filtros.NRO_COMPROBANTE= $("#NRO_COMPROBANTE").val();
+    Filtros.COD_PROD= $("#COD_PROD").val();
     Filtros.Pagina = npagina;
 
    $.ajax({
@@ -312,57 +253,57 @@ function fn_mostrar_pagina(npagina)
                 if(lista.length > 0) 
           	  	 {  
                     var sb="";
-                    sb=sb+" <div class='row'>";
-                    sb=sb+"   <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-                    sb=sb+"     COD_DOC_PAGO";  
-                    sb=sb+" 	  </div>"; 
-                    sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-                    sb=sb+" 	   USU";
-                    sb=sb+" 	  </div>";
-                    sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-                    sb=sb+" 	    DESC_CAJA";
-                    sb=sb+" 	  </div>";
-                    sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-                    sb=sb+" 	    NOM_TIPOPAGO";
-                    sb=sb+" 	  </div>";
-                    sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-                    sb=sb+" 	    NOMBRE PROVEEDOR";
-                    sb=sb+" 	  </div>";			   
-                    sb=sb+" </div>";		
+   					   sb=sb+" <div class='row'>";
+   					   sb=sb+"   <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
+   					   sb=sb+"     COD_GUIAREM";  
+   					   sb=sb+" 	  </div>"; 
+   					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
+ 					   sb=sb+" 	   FECHA_EMISION";
+ 					   sb=sb+" 	  </div>";
+   					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
+   					   sb=sb+" 	    FECHA_TRASLADO";
+   					   sb=sb+" 	  </div>";
+   				       sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
+					   sb=sb+" 	    NRO_DOCUMENTO";
+					   sb=sb+" 	  </div>";
+					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
+   					   sb=sb+" 	    NRO_COMPROBANTE";
+					   sb=sb+" 	  </div>";
+					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
+					   sb=sb+" 	    COD_PROD";
+					   sb=sb+" 	  </div>";  			   
+   					   sb=sb+" </div>";		
 
   					   
           	  	
                     for(var i=0;i<lista.length;i++)
                     {  var fila=lista[i];
-                            sb=sb+"<div class='row'>";   
-                            sb=sb+"   <div class='col-xs-2'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:10px;'> ";
-                            sb=sb+fila["COD_DOC_PAGO"].toString();
-                            sb=sb+"  </div>";
-                            sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:10px;'>";
-                            sb=sb+fila["USU"].toString();
-                            sb=sb+"   </div>";
-                            sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
-                            sb=sb+fila["DESC_CAJA"].toString();
-                            sb=sb+"   </div>";
-                            sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
-                            sb=sb+fila["NOM_TIPOPAGO"].toString();
-                            sb=sb+"   </div>";
-                            sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
-                            sb=sb+fila["NOMBRE"].toString();
-                            sb=sb+"   </div>";
-                            sb=sb+"  <div class='col-xs-1'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:11px;'>";
-                            sb=sb+"	<a href='/mantGestionPagos_c/mostrar_Editar/"+fila['COD_DOC_PAGO'].toString()+"'>";
-                            sb=sb+"	   Editar&nbsp";
-                            sb=sb+"	   <img src='/public/images/EDITAR.png'>";
-                            sb=sb+"	</a>"; 
-                            sb=sb+"  </div>";
-                            sb=sb+"  <div class='col-xs-1'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:11px;'>";
-                            sb=sb+"	    <a href='#' onclick=fn_eliminar('"+fila["COD_DOC_PAGO"].toString()+"')>";
-                            sb=sb+"	       Anular&nbsp";
-                            sb=sb+"	      <img src='/public/images/ELIMINAR.png'>";
-                            sb=sb+"	    </a>"; 
-                            sb=sb+"  </div>";
-                            sb=sb+"</div> ";
+						sb=sb+"<div class='row'>";   
+						sb=sb+"   <div class='col-xs-2'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:10px;'> ";
+							   sb=sb+fila["COD_GUIAREM"].toString();
+							  sb=sb+"  </div>";
+							   sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:10px;'>";
+							   sb=sb+fila["NRO_DOCUMENTO"].toString();
+							   sb=sb+"   </div>";
+								sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
+							  sb=sb+fila["NRO_COMPROBANTE"].toString();
+							 sb=sb+"   </div>";
+							   sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
+								sb=sb+fila["COD_PROD"].toString();
+
+						 sb=sb+"  <div class='col-xs-1'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:11px;'>";
+							sb=sb+"	<a href='/mantGuiaRemision_c/mantGuiaRemision/"+fila['COD_GUIAREM'].toString()+"'>";
+							 sb=sb+"	   Editar&nbsp";
+							 sb=sb+"	   <img src='/public/images/EDITAR.png'>";
+							 sb=sb+"	</a>"; 
+							   sb=sb+"  </div>";
+							   sb=sb+"  <div class='col-xs-1'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:11px;'>";
+							   sb=sb+"	    <a href='#' onclick=fn_eliminar('"+fila["COD_GUIAREM"].toString()+"')>";
+							  sb=sb+"	       Anular&nbsp";
+							  sb=sb+"	      <img src='/public/images/ELIMINAR.png'>";
+							  sb=sb+"	    </a>"; 
+						   sb=sb+"  </div>";
+							 sb=sb+"</div> ";
                         }
            	  	    	 $('#tabla').html('');
               	  	     $('#tabla').append(sb);

@@ -129,18 +129,21 @@ class ConsGuiaRemision_m extends CI_Model {
 
 	public function obt_totpaginas($Filtros){
 		$TotalPaginas = 0;
-		$this->db->select('dc.COD_DOC_PAGO,prov.NOMBRE, prov.NRO_DOCUMENTO, u.COD_USU, u.USU,c.DESC_CAJA,tp.NOM_TIPOPAGO');
-		$this->db->from('doc_pago dc');
-		$this->db->join('Proveedor prov', 'dc.COD_PROV = prov.COD_PROV');
-		$this->db->join('usuario u', 'dc.COD_USU = u.COD_USU');
-		$this->db->join('caja c', 'dc.COD_CAJA = c.COD_CAJA');
-		$this->db->join('tipo_pago tp', 'dc.COD_TIPOPAGO = tp.COD_TIPOPAGO');
-		$this->db->where("((".$Filtros["COD_PROV"]."=0) or(dc.COD_PROV=".$Filtros["COD_PROV"]."))");
-		$this->db->where("((".$Filtros["COD_USU"]."=0) or(u.COD_USU=".$Filtros["COD_USU"]."))");
-		$this->db->where("((".$Filtros["COD_TIPOPAGO"]."=0) or(dc.COD_TIPOPAGO=".$Filtros["COD_TIPOPAGO"]."))");
-		$this->db->where("(('".$Filtros["COD_DOC_PAGO"]."'='') or(dc.COD_DOC_PAGO='".$Filtros["COD_DOC_PAGO"]."'))");
-		$this->db->where("(('".$Filtros["DOC_PAGO_FECHA"]."'='') or(date(dc.DOC_PAGO_FECHA)='".$Filtros["DOC_PAGO_FECHA"]."'))");
-		//$string = $this->db->get_compiled_select();
+		$this->db->select('gr.COD_GUIAREM ,gr.FECHA_EMISION , gr.FECHA_TRASLADO , gr.NRO_DOCUMENTO ,gr.NRO_COMPROBANTE ,gr.TIPO_COMPROBANTE , gr.RUC_EMPRESA ,
+		prod.DESCRIPCION ,unit.DESC_UM ,dt_gr.CANTIDAD');
+	   $this->db->from('GuiaRemision gr');
+	   $this->db->join('GuiaRemision_Detalle dt_gr', 'gr.COD_GUIAREM = dt_gr.COD_GUIAREM');
+	   $this->db->join('orden_s or', 'gr.COD_ORDEN_S = or.COD_ORDEN_S');
+        $this->db->join('producto prod', 'gr.COD_PROD = prod.COD_PROD');
+		$this->db->join('UnidadMedida unit', 'gr.COD_UM = unit.COD_UM');
+		
+		$this->db->where("(('".$Filtros["COD_GUIAREM"]."'='') or(gr.COD_GUIAREM='".$Filtros["COD_GUIAREM"]."'))");
+		$this->db->where("(('".$Filtros["FECHA_EMISION"]."'='') or(gr.FECHA_EMISION='".$Filtros["FECHA_EMISION"]."'))");
+		$this->db->where("(('".$Filtros["FECHA_TRASLADO"]."'='') or(gr.COD_GUIAREM='".$Filtros["FECHA_TRASLADO"]."'))");
+		$this->db->where("(('".$Filtros["NRO_DOCUMENTO"]."'='') or(gr.NRO_DOCUMENTO='".$Filtros["NRO_DOCUMENTO"]."'))");
+		$this->db->where("(('".$Filtros["NRO_COMPROBANTE"]."'='') or(gr.NRO_COMPROBANTE='".$Filtros["NRO_COMPROBANTE"]."'))");
+		$this->db->where("(('".$Filtros["COD_PROD"]."'='') or(dt_gr.COD_PROD='".$Filtros["COD_PROD"]."'))");
+		$string = $this->db->get_compiled_select();
 		$query  = $this->db->get();
 		$result = $query->result();
 		//$error = $this->db->error_message();
@@ -167,18 +170,20 @@ class ConsGuiaRemision_m extends CI_Model {
 		$filasxpagina = 10;
 		$inicio = round($P_numpagina/$filasxpagina);
 
-				$this->db->select('dc.COD_DOC_PAGO,prov.NOMBRE, prov.NRO_DOCUMENTO, u.COD_USU, u.USU,c.DESC_CAJA,tp.NOM_TIPOPAGO');
-				$this->db->from('doc_pago dc');
-				$this->db->join('Proveedor prov', 'dc.COD_PROV = prov.COD_PROV');
-				$this->db->join('usuario u', 'dc.COD_USU = u.COD_USU');
-				$this->db->join('caja c', 'dc.COD_CAJA = c.COD_CAJA');
-				$this->db->join('tipo_pago tp', 'dc.COD_TIPOPAGO = tp.COD_TIPOPAGO');
-				$this->db->where("((".$Filtros["COD_PROV"]."=0) or(dc.COD_PROV=".$Filtros["COD_PROV"]."))");
-				$this->db->where("((".$Filtros["COD_USU"]."=0) or(u.COD_USU=".$Filtros["COD_USU"]."))");
-				$this->db->where("((".$Filtros["COD_TIPOPAGO"]."=0) or(dc.COD_TIPOPAGO=".$Filtros["COD_TIPOPAGO"]."))");
-				$this->db->where("(('".$Filtros["COD_DOC_PAGO"]."'='') or(dc.COD_DOC_PAGO='".$Filtros["COD_DOC_PAGO"]."'))");
-				$this->db->where("(('".$Filtros["DOC_PAGO_FECHA"]."'='') or(date(dc.DOC_PAGO_FECHA)='".$Filtros["DOC_PAGO_FECHA"]."'))");
-				$this->db->limit($filasxpagina,$inicio);
+		$this->db->select('gr.COD_GUIAREM ,gr.FECHA_EMISION , gr.FECHA_TRASLADO , gr.NRO_DOCUMENTO ,gr.NRO_COMPROBANTE ,gr.TIPO_COMPROBANTE , gr.RUC_EMPRESA ,
+		prod.DESCRIPCION ,unit.DESC_UM ,dt_gr.CANTIDAD');
+	   $this->db->from('GuiaRemision gr');
+	   $this->db->join('GuiaRemision_Detalle dt_gr', 'gr.COD_GUIAREM = dt_gr.COD_GUIAREM');
+	   $this->db->join('orden_s or', 'gr.COD_ORDEN_S = or.COD_ORDEN_S');
+        $this->db->join('producto prod', 'gr.COD_PROD = prod.COD_PROD');
+		$this->db->join('UnidadMedida unit', 'gr.COD_UM = unit.COD_UM');
+	   $this->db->where("((".$Filtros["COD_GUIAREM"]."'='') or(gr.COD_GUIAREM=".$Filtros["COD_GUIAREM"]."))");
+	   $this->db->where("((".$Filtros["FECHA_EMISION"]."'='') or(gr.FECHA_EMISION=".$Filtros["FECHA_EMISION"]."))");
+	   $this->db->where("((".$Filtros["FECHA_TRASLADO"]."'='') or(gr.COD_GUIAREM=".$Filtros["FECHA_TRASLADO"]."))");
+	   $this->db->where("((".$Filtros["NRO_DOCUMENTO"]."'='') or(gr.NRO_DOCUMENTO=".$Filtros["NRO_DOCUMENTO"]."))");
+	   $this->db->where("((".$Filtros["NRO_COMPROBANTE"]."'='') or(gr.NRO_COMPROBANTE=".$Filtros["NRO_COMPROBANTE"]."))");
+	   $this->db->where("((".$Filtros["COD_PROD"]."'='') or(dt_gr.COD_PROD=".$Filtros["COD_PROD"]."))");
+	   $this->db->limit($filasxpagina,$inicio);
 				//$string = $this->db->get_compiled_select();
 				$query  = $this->db->get();
 				$result = $query->result();

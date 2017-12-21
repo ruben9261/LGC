@@ -361,7 +361,7 @@ i.btn.glyphicon.glyphicon-ok {
 
 									 
 									     
-									   <a href="" class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);">
+									   <a href="/mantGuiaRemision_c/" class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);">
 										        Cancelar
 										        <img src="/public/images/CANCELAR.png">
 									   </a>

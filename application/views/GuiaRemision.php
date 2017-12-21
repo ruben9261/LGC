@@ -55,33 +55,17 @@
 		    	  </div>
 		    	  <br/>
 		    	  <div class="form_group">
-				  	   <input type="text" name="btnbuscar" id="COD_DOC_PAGO"  class="form-control"  placeholder="COD DE PAGO">
-				       <input type="text" name="btnbuscar" id="DOC_PAGO_FECHA" class="form-control"  placeholder="fecha"> 
-                       <input type="text" name="btnbuscar" id="COD_USU" class="form-control"  placeholder="COD_USU"> 
-                       <input type="text" name="btnbuscar" id="COD_PROV" class="form-control"  placeholder="COD_PROV">
-					   <select name="btnbuscar" class="form-control" id="COD_OFI">
-					   		<option value="0">--TODAS LAS OFICINAS--</option>
-						   <?php
-								foreach($listOficina as $item){
-									echo "<option value='".$item->COD_OFI."'>".$item->NOMB_OFICINA."</option>";
-								}  
-						   ?>
-					   </select>
+				  	   <input type="text" name="btnbuscar" id="COD_GUIAREM"  class="form-control"  placeholder="COD_GUIAREM">
+				       <input type="text" name="btnbuscar" id="FECHA_EMISION" class="form-control"  placeholder="FECHA_EMISION"> 
+					   <input type="text" name="btnbuscar" id="FECHA_TRASLADO"  class="form-control"  placeholder="FECHA_TRASLADO">
+				       <input type="text" name="btnbuscar" id="NRO_DOCUMENTO" class="form-control"  placeholder="NRO_DOCUMENTO"> 
+					   <input type="text" name="btnbuscar" id="NRO_COMPROBANTE"  class="form-control"  placeholder="NRO_COMPROBANTE">
+				       <input type="text" name="btnbuscar" id="COD_PROD" class="form-control"  placeholder="COD_PROD"> 
+					
 
-					   <select name="btnbuscar" class="form-control" id="COD_TIPOPAGO">
-					   		<option value="0">--TODOS LOS TIPO DE COBRO--</option>
-						   <?php
-								foreach($listTipoCobro as $item){
-									echo "<option value='".$item->COD_TIPOPAGO."'>".$item->COD_TIPOPAGO."</option>";
-								}  
-						   ?>
-					   </select>	
-							    
 					   <br/>
 
-
-
-
+                       
 					   <button  type="button"  id="btnbuscar"   style="background-color:rgb(255,255,255);color:rgb(0,128,255); border: 1px solid rgb(0,128,255);">
 							  <img src="/public/images/BUSCAR.png">
 							  Buscar
