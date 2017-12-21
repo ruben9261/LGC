@@ -115,6 +115,7 @@ class ConsGestionCobro_m extends CI_Model {
 		return $TotalPaginas;
 	}
 
+	
 	public function obt_Usuarios()
 	{	$query  = $this->db->get("usuario");
 		$result = $query->result();

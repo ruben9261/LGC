@@ -24,7 +24,7 @@ class MantGuiaRemision_c  extends CI_Controller{
 		$data["listUnidadMedida"] = $listUnidadMedida;
 		$data["listProducto"] = $listProducto;
 
-		$this->load->view("MantGuiaRemision",$data);
+		$this->load->view("GuiaRemision",$data);
 	}
 
 	public function MantGuiaRemision($COD_GUIAREM)
@@ -98,12 +98,7 @@ foreach ($datos1 as $campos)
   $numero=$campos->NUMERO;
 }
 
-//obtenemos tipo de documento de cliente
-//$this->load->model('consCliente_m');
-//$tipodoc=$this->consCliente_m->listar_tipo_documento();
-//mysqli_next_result($this->db->conn_id);
-
-//obtenemnos tipo de producto     
+   
 $this->load->model('consProducto_m');
 $tipo_prod=$this->consProducto_m->obt_Tipos();
 mysqli_next_result($this->db->conn_id);
@@ -111,19 +106,8 @@ mysqli_next_result($this->db->conn_id);
 
 date_default_timezone_set("America/Bogota");
 
-//$data['codserorden']=$codserorden;
-//$data['codusuario']=$codusu;	
-//$anio = date('Y');
-//$mes = date('m');
-//$dia = date('d');
-//$data['fecha']= $dia.'/'.$mes.'/'.$anio;
-//$data['fecha']= $anio.'-'.$mes.'-'.$dia;
-//$data['tipodoc']=$tipodoc;
 $data['tipo_prod']=$tipo_prod;
-//$data['serie']=$serie;
-//$data['numero']=$numero;
 
-			
 		$this->load->view("MantGuiaRemision",$data);
 		 
 	}
@@ -141,5 +125,32 @@ $data['tipo_prod']=$tipo_prod;
 		$jsonResponse = json_encode($respuesta);
 		
 		echo $jsonResponse;
+	}
+
+
+	public function obt_datos(){
+		header('Content-Type: application/json');
+		$Filtros = $_POST["Filtros"];
+		$numpagina = $Filtros["Pagina"];
+		$this->load->model('consGuiaRemision_m');
+		$totalpaginas=$this->consGuiaRemision_m->obt_totpaginas($Filtros);
+		if($numpagina==-1)
+		   {  $Filtros["numpagina"]=1;
+			   $datos=$this->consGuiaRemision_m->obt_lista($Filtros);
+		   }
+		else 
+		   { $datos=$this->consGuiaRemision_m->obt_lista($Filtros);
+		   }
+			
+		if($totalpaginas<>0 && $datos<>0)
+		{   	$array = array( 'totalpaginas'=>$totalpaginas,
+								'lista'=>$datos
+	        				   );
+		    $json_string =json_encode($array);
+			echo $json_string;
+		}
+		else
+		{  	echo "no existe";}
+	   
 	}
 }

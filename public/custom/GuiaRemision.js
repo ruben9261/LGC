@@ -1,6 +1,6 @@
 function fn_eliminar(COD_DOC_PAGO) 
 {  $.ajax({
-		    url:  "/mantGestionPagos_c/eliminar",
+		    url:  "/mantGuiaRemision_c/eliminar",
 	    	type: 'post',//metodo
 	    	data: { COD_DOC_PAGO:  COD_DOC_PAGO
 	    		  }, //parametros
@@ -96,21 +96,24 @@ $(function(){
 /*-alinear para que todo el mantenimiento sea por ajax*/
 function bus_OrdenPago()
 {   
-	debugger;
+	
     var Filtros = new Object();
+
+
+
+	Filtros.COD_PROV= $("#COD_PROV").val();
+	Filtros.COD_USU= $("#COD_USU").val();
+	Filtros.COD_TIPOPAGO= $("#COD_TIPOPAGO").val();
 	Filtros.COD_DOC_PAGO= $("#COD_DOC_PAGO").val();
-    Filtros.DOC_PAGO_FECHA= $("#DOC_PAGO_FECHA").val();
-    Filtros.COD_OFI= $("#COD_OFI").val();
-    Filtros.COD_USU= $("#COD_USU").val();
-    Filtros.COD_PROV= $("#COD_PROV").val();
-    Filtros.COD_TIPOPAGO= $("#COD_TIPOPAGO").val();
+	Filtros.DOC_PAGO_FECHA= $("#DOC_PAGO_FECHA").val();
+	debugger;
     Filtros.Pagina = -1;
     $('#processing-modal').modal('show');
     $.ajax({
   		type: "POST",
   		data:{ Filtros:Filtros
 			 },
-  		url: "/mantGestionPagos_c/obt_datos",
+  		url: "/mantGuiaRemision_c/obt_datos",
   		success: function(objJson){
               debugger;
               $('#processing-modal').modal('hide');
@@ -130,7 +133,7 @@ function bus_OrdenPago()
       		    $("#tpagina").val(tpaginas);
       		    $("#pactual").val(npagina);
       		
-          
+				  debugger;
       			if (tpaginas >0)
           		  { var contendiopag="";
         			contendiopag="<span>Resultado:</span>";

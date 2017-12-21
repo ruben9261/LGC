@@ -10,6 +10,7 @@ class MantGestionCobros_c  extends CI_Controller{
 	
 	}
 
+	
 	public function index() {
 		$this->load->model('consGestionCobro_m');
 		$listOficina=$this->consGestionCobro_m->obt_Oficina();
