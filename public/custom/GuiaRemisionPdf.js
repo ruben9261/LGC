@@ -36,6 +36,7 @@ define(['jspdf', 'jspdf-autotable'], function(jsPDF) {
  GuiaRemision.COD_MOT_TRAS = $("#COD_MOT_TRAS").val();
  GuiaRemision.Nomb_Empresa = $("#Nomb_Empresa").val();
  
+
  debugger;
  var listGuiaRemisionDet = new Array();
  var GuiaRemisionDet = null;
@@ -49,6 +50,8 @@ define(['jspdf', 'jspdf-autotable'], function(jsPDF) {
      GuiaRemisionDet.CANTIDAD = $(".CANTIDAD",this).val();
      GuiaRemisionDet.UNIDMED = $(".UNIDMED",this).val();
      GuiaRemisionDet.PRODUCTO = $(".PRODUCTO",this).val();
+
+     
    // listGuiaRemisionDet.push(GuiaRemisionDet);
 
     rows.push(GuiaRemisionDet.COD_PROD , GuiaRemisionDet.UNIDMED,GuiaRemisionDet.CANTIDAD,GuiaRemisionDet.PRODUCTO);
@@ -110,7 +113,7 @@ var doc = new jsPDF({
                   doc.setFontSize(30);    
             doc.text("GUIA DE REMISION" , data.settings.margin.left + 530, 90);      
             doc.text("REMITENTE", data.settings.margin.left + 560, 120);
-            doc.text("N-"+GuiaRemision.SERIE, data.settings.margin.left + 500, 155);
+            doc.text(""+GuiaRemision.SERIE, data.settings.margin.left + 500, 155);
 
             doc.setLineWidth(1.5);
             doc.setDrawColor(13, 36, 86)
@@ -142,7 +145,7 @@ var doc = new jsPDF({
             doc.text("N  de Licencia de Conducir:"+ GuiaRemision.NROLIC_CONDUCIR, data.settings.margin.left + 360, 245);
 
             doc.text("Orden de Compra N  :"+ GuiaRemision.ORDEN_COMPRA, data.settings.margin.left + 340, 270);
-            doc.text("N  de Pedido :" + GuiaRemision.NRO_PEDIDO, data.settings.margin.left + 490, 270);
+            doc.text("N  de Pedido :" + GuiaRemision.NRO_PEDIDO, data.settings.margin.left + 520, 270);
 
 
 
@@ -160,7 +163,7 @@ var doc = new jsPDF({
              doc.line(80, 280, 80, 550); // vertical line
              doc.line(140, 280, 140, 550); // vertical line
              doc.line(200, 280, 200, 550); // vertical line
-            // doc.line(730, 280, 730, 550); // vertical line       
+                 
             //FOOTER
 
              doc.setFontSize(11);
@@ -184,9 +187,12 @@ var doc = new jsPDF({
             doc.text("11.IMPORTACION", data.settings.margin.left +450, 580); 
             doc.text("12.EXPORTACION", data.settings.margin.left +450, 587); 
            
-            doc.text("13.OTROS", data.settings.margin.left +570, 573); 
-            doc.setFontSize(14);
-            doc.text("", +GuiaRemision.COD_MOT_TRAS ,data.settings.margin.left +570, 580); 
+            doc.text("13.OTROS", data.settings.margin.left +570, 573);
+
+            doc.line(710, 565, 710, 590); // vertical line  
+             doc.line(650, 565, 650, 590); // vertical line  
+            doc.setFontSize(24);
+            doc.text(""+GuiaRemision.COD_MOT_TRAS ,data.settings.margin.left +660,583); 
             
             doc.setFontSize(10);
             doc.text("COSTO MINIMO", data.settings.margin.left +720, 560);

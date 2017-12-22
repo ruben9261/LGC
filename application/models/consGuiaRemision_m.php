@@ -135,7 +135,7 @@ class ConsGuiaRemision_m extends CI_Model {
 		//prod.DESCRIPCION ,unit.DESC_UM ,dt_gr.CANTIDAD');
 
 	   $this->db->from('GuiaRemision gr');
-	   $this->db->join('GuiaRemision_Detalle dt_gr', 'gr.COD_GUIAREM = dt_gr.COD_GUIAREM');
+	   //$this->db->join('GuiaRemision_Detalle dt_gr', 'gr.COD_GUIAREM = dt_gr.COD_GUIAREM');
 	   //$this->db->join('orden_s or', 'dt_gr.COD_ORDEN_S = or.COD_ORDEN_S');
        // $this->db->join('producto prod', 'dt_gr.COD_PROD = prod.COD_PROD');
 		//$this->db->join('UnidadMedida unit', 'dt_gr.COD_UM = unit.COD_UM');
@@ -178,7 +178,8 @@ class ConsGuiaRemision_m extends CI_Model {
 
 		$this->db->select('gr.COD_GUIAREM ,gr.FECHA_EMISION , gr.FECHA_TRASLADO , gr.NRO_DOCUMENTO ,gr.NRO_COMPROBANTE ,gr.TIPO_COMPROBANTE , gr.RUC_EMPRESA ');
 	   $this->db->from('GuiaRemision gr');
-	   $this->db->join('GuiaRemision_Detalle dt_gr', 'gr.COD_GUIAREM = dt_gr.COD_GUIAREM');
+	   
+	   //$this->db->join('GuiaRemision_Detalle dt_gr', 'gr.COD_GUIAREM = dt_gr.COD_GUIAREM');
 	   // $this->db->join('orden_s or', 'dt_gr.COD_ORDEN_S = or.COD_ORDEN_S');
        // $this->db->join('producto prod', 'dt_gr.COD_PROD = prod.COD_PROD');
 	   //$this->db->join('UnidadMedida unit', 'dt_gr.COD_UM = unit.COD_UM');
