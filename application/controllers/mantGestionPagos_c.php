@@ -84,6 +84,8 @@ class MantGestionPagos_c  extends CI_Controller{
 		$CLIENTE  = "";
 		$DOCUMENTO = "";
 		$NOMB_OFICINA = "";
+		$NOMB_OFICINA = "";
+		$COD_TIPOPAGO = "";
 		
 		foreach($docPago as $item){
 			$NUMERO_CUENTA = $item->NUMERO_CUENTA;
@@ -91,6 +93,7 @@ class MantGestionPagos_c  extends CI_Controller{
 			$HORA_PAGO = date("h:i:s a",strtotime($item->DOC_PAGO_FECHA));
 			$FECHA_PAGO = date("Y-m-d",strtotime($item->DOC_PAGO_FECHA));
 			$FECHA_OPERACION = date("Y-m-d", strtotime($item->FECHA_OPERACION));
+			$COD_TIPOPAGO = $item->COD_TIPOPAGO;
 			$DOCUMENTO = $item->NRO_DOCUMENTO;
 			$PROVEEDOR = $item->NOMBRE;
 			$NOMB_OFICINA = $item->NOMB_OFICINA;
@@ -103,6 +106,7 @@ class MantGestionPagos_c  extends CI_Controller{
 		$data['PROVEEDOR']=$PROVEEDOR;
 		$data['DOCUMENTO']=$DOCUMENTO;
 		$data['NOMB_OFICINA']=$NOMB_OFICINA;
+		$data['COD_TIPOPAGO']=$COD_TIPOPAGO;
 
 		$Ordenes = "";
 		if(count($docPagoDet)>0){

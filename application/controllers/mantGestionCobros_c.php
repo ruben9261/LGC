@@ -96,6 +96,7 @@ class MantGestionCobros_c  extends CI_Controller{
 			$DOCUMENTO = $item->NRO_DOCUMENTO;
 			$CLIENTE = $item->NOMBRE;
 			$NOMB_OFICINA = $item->NOMB_OFICINA;
+			$COD_TIPOCOBRO = $item->COD_TIPOCOBRO;
 		}
 		$data['NUMERO_CUENTA']=$NUMERO_CUENTA;
 		$data['NUMERO_OPERACION']=$NUMERO_OPERACION;
@@ -105,6 +106,7 @@ class MantGestionCobros_c  extends CI_Controller{
 		$data['CLIENTE']=$CLIENTE;
 		$data['DOCUMENTO']=$DOCUMENTO;
 		$data['NOMB_OFICINA']=$NOMB_OFICINA;
+		$data['COD_TIPOCOBRO']=$COD_TIPOCOBRO;
 
 		$Ordenes = "";
 		if(count($docCobroDet)>0){

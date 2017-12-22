@@ -228,7 +228,8 @@ class ConsGuiaRemision_m extends CI_Model {
                 'TRANSPORTISTA' => $GuiaRemision["TRANSPORTISTA"],
                 'TRANSPORTISTA_RUC' => $GuiaRemision["TRANSPORTISTA_RUC"],
                 'COSTO_MINIMO' => $GuiaRemision["COSTO_MINIMO"],
-                'COD_MOT_TRAS' => $GuiaRemision["COD_MOT_TRAS"]
+				'COD_MOT_TRAS' => $GuiaRemision["COD_MOT_TRAS"],
+				'RUC_EMPRESA' => $GuiaRemision["RUC_EMPRESA"]
 		);
 		
 		$this->db->insert('GuiaRemision', $GUIA_REMISION);
@@ -292,7 +293,8 @@ class ConsGuiaRemision_m extends CI_Model {
             'TRANSPORTISTA' => $GuiaRemision["TRANSPORTISTA"],
             'TRANSPORTISTA_RUC' => $GuiaRemision["TRANSPORTISTA_RUC"],
             'COSTO_MINIMO' => $GuiaRemision["COSTO_MINIMO"],
-            'COD_MOT_TRAS' => $GuiaRemision["COD_MOT_TRAS"]
+			'COD_MOT_TRAS' => $GuiaRemision["COD_MOT_TRAS"],
+			'RUC_EMPRESA' => $GuiaRemision["RUC_EMPRESA"]
         );
 
 		$this->db->where('COD_GUIAREM', $COD_GUIAREM);

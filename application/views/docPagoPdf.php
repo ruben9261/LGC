@@ -31,9 +31,24 @@
                 <span>CAJA:</span><br/><?php echo $Desc_Caja; ?>
                 </div>
                 <div class="contentRight">
-                <span>N.CUENTA: </span><?php echo $NUMERO_CUENTA;?></br>
-                <span>NRO DE OPERACION: </span> <?php echo $NUMERO_OPERACION; ?></br>
-                <span>FECHA OPERACIÓN: </span> <?php echo $FECHA_OPERACION; ?>
+                <?php
+                    if($COD_TIPOPAGO != 1){
+
+                        $fecha=explode("-", $FECHA_OPERACION);
+                        $dia=$fecha[2];
+                        $mes=$fecha[1];
+                        $ano=$fecha[0];
+                        
+                        $FECHA_OPERACION_NEW = "$mes/$dia/$ano";
+
+                        $fila = "";
+                        $fila .= '<span>N.CUENTA: </span>'.$NUMERO_CUENTA.'</br>';
+                        $fila .= '<span>NRO DE OPERACION: </span>'.$NUMERO_OPERACION.'</br>';
+                        $fila .= '<span>FECHA OPERACIÓN: </span>'.$FECHA_OPERACION_NEW;
+                        echo $fila;                 
+                    }
+                ?>
+                
                 </div>
             </div>
             <br/>

@@ -133,7 +133,7 @@ i.btn.glyphicon.glyphicon-ok {
 					<br/>
 				<form id="frmGuiaRemision" rol="form" class="form-horizontal" method="POST">
 						 <input type="hidden" id="COD_GUIAREM" value="<?php echo $COD_GUIAREM; ?>">
-						 <input type="hidden" id="SERIE" value="<?php echo str_pad($COD_CAJA,3,"0",STR_PAD_LEFT);?>">
+						 <input type="hidden" id="SERIE" value="<?php echo str_pad($COD_CAJA,3,"0",STR_PAD_LEFT).'-'.str_pad($COD_GUIAREM,6,"0",STR_PAD_LEFT);?>">
 		    	         <input type="hidden" id="RUC_EMPRESA" value="<?php echo $RUC_EMPRESA; ?>">
 						 <input type="hidden" id="TIPO_TRANSACCION" value="<?php echo $TIPO_TRANSACCION; ?>">
 						 <input type="hidden" id="Nomb_Empresa" value="<?php echo $Nomb_Empresa; ?>">

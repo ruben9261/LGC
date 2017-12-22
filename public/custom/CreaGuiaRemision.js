@@ -479,7 +479,7 @@ $.ajax({
         GuiaRemision.COSTO_MINIMO = $("#COSTO_MINIMO").val();
         GuiaRemision.COD_MOT_TRAS = $("#COD_MOT_TRAS").val();
         GuiaRemision.Nomb_Empresa = $("#Nomb_Empresa").val();
-        
+        GuiaRemision.RUC_EMPRESA = $("#RUC_EMPRESA").val();
     
         var listGuiaRemisionDet = new Array();
         var GuiaRemisionDet = null;
