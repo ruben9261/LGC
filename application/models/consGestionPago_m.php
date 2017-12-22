@@ -121,7 +121,7 @@ class ConsGestionPago_m extends CI_Model {
 
 	public function obt_totpaginas($Filtros){
 		$TotalPaginas = 0;
-		$this->db->select('dc.COD_DOC_PAGO,prov.NOMBRE, prov.NRO_DOCUMENTO, u.COD_USU, u.USU,c.DESC_CAJA,tp.NOM_TIPOPAGO');
+		$this->db->select('dc.COD_DOC_PAGO,prov.NOMBRE, prov.NRO_DOCUMENTO, u.COD_USU, u.NOM_USU,c.DESC_CAJA,tp.NOM_TIPOPAGO');
 		$this->db->from('doc_pago dc');
 		$this->db->join('Proveedor prov', 'dc.COD_PROV = prov.COD_PROV');
 		$this->db->join('usuario u', 'dc.COD_USU = u.COD_USU');
@@ -159,7 +159,7 @@ class ConsGestionPago_m extends CI_Model {
 		$filasxpagina = 10;
 		$inicio = round($P_numpagina/$filasxpagina);
 
-				$this->db->select('dc.COD_DOC_PAGO,prov.NOMBRE, prov.NRO_DOCUMENTO, u.COD_USU, u.USU,c.DESC_CAJA,tp.NOM_TIPOPAGO');
+				$this->db->select('dc.COD_DOC_PAGO,prov.NOMBRE, prov.NRO_DOCUMENTO, u.COD_USU, u.NOM_USU,c.DESC_CAJA,tp.NOM_TIPOPAGO');
 				$this->db->from('doc_pago dc');
 				$this->db->join('Proveedor prov', 'dc.COD_PROV = prov.COD_PROV');
 				$this->db->join('usuario u', 'dc.COD_USU = u.COD_USU');
@@ -184,7 +184,7 @@ class ConsGestionPago_m extends CI_Model {
 		//$FECHA_OPERACION = "1900-10-10";
 		date_default_timezone_set('America/Lima');
 		$DOC_PAGO_FECHA = date('Y/m/d', time());
-		
+		$FECHA_OPERACION = date('Y/m/d', time());
 		$COD_DOC_PAGO = 0;
 
 		$doc_pago = array(
@@ -195,7 +195,7 @@ class ConsGestionPago_m extends CI_Model {
 				'NRO_DOCUMENTO' => $DocPago["NRO_DOCUMENTO"],
 				'NUMERO_CUENTA' => $DocPago["NUMERO_CUENTA"],
 				'COD_TIPO_DOC' => $DocPago["COD_TIPO_DOC"],
-				'FECHA_OPERACION' => $DocPago["FECHA_OPERACION"] == ""?"1900/10/10":$DocPago["FECHA_OPERACION"],
+				'FECHA_OPERACION' => $DocPago["FECHA_OPERACION"] == "Invalid date"?$FECHA_OPERACION:$DocPago["FECHA_OPERACION"],
 				'NUMERO_OPERACION' => $DocPago["NUMERO_OPERACION"],
 				'OBSERVACION' => $DocPago["OBSERVACION"],
 				'COD_USU' => $DocPago["COD_USU"],
@@ -245,6 +245,7 @@ class ConsGestionPago_m extends CI_Model {
 		date_default_timezone_set('America/Lima');
 		$doc_pago_FECHA = date('Y/m/d', time());
 		$COD_DOC_PAGO = $DocPago['COD_DOC_PAGO'];
+		$FECHA_OPERACION = date('Y/m/d', time());
 		$doc_pago = array(
 				'COD_OFI' => $DocPago["COD_OFI"],
 				'doc_pago_FECHA' => $doc_pago_FECHA,
@@ -253,7 +254,7 @@ class ConsGestionPago_m extends CI_Model {
 				'NRO_DOCUMENTO' => $DocPago["NRO_DOCUMENTO"],
 				'NUMERO_CUENTA' => $DocPago["NUMERO_CUENTA"],
 				'COD_TIPO_DOC' => $DocPago["COD_TIPO_DOC"],
-				'FECHA_OPERACION' => $DocPago["FECHA_OPERACION"] == ""?"1900/10/10":$DocPago["FECHA_OPERACION"],
+				'FECHA_OPERACION' => $DocPago["FECHA_OPERACION"] == "Invalid date"?$FECHA_OPERACION:$DocPago["FECHA_OPERACION"],
 				'NUMERO_OPERACION' => $DocPago["NUMERO_OPERACION"],
 				'OBSERVACION' => $DocPago["OBSERVACION"],
 				'COD_USU' => $DocPago["COD_USU"],

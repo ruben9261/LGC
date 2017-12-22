@@ -127,9 +127,7 @@
             <br/>
             <div class="row">
                 <div class="col-md-12">
-                LE RECORDAMOS QUE EL PLAZO DE RECEPCION 
-                DE DOCUMENTOS SIN RECARGOS ES HASTA EL
-                DIA 10 DE CADA MES. 
+                <?php echo $OBSERVACION; ?>
                 </div>
             </div>
             <div class="row">

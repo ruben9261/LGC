@@ -30,8 +30,7 @@
                 <span>OFICINA:</span><br/><?php echo $NOMB_OFICINA; ?><br/>
                 <span>CAJA:</span><br/><?php echo $Desc_Caja; ?>
                 </div>
-
-                <?php
+                <div class="contentRight"><?php
                     if($COD_TIPOCOBRO != 1){
 
                         $fecha=explode("-", $FECHA_OPERACION);
@@ -47,7 +46,7 @@
                         $fila .= '<span>FECHA OPERACIÓN: </span>'.$FECHA_OPERACION_NEW;
                         echo $fila;                 
                     }
-                ?>
+                ?></div>
             </div>
             <br/>
             <div class="">
@@ -126,9 +125,7 @@
             <br/>
             <div class="row">
                 <div class="col-md-12">
-                LE RECORDAMOS QUE EL PLAZO DE RECEPCION 
-                DE DOCUMENTOS SIN RECARGOS ES HASTA EL
-                DIA 10 DE CADA MES. 
+               <?php echo $OBSERVACION; ?>
                 </div>
             </div>
             <div class="row">

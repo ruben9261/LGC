@@ -180,7 +180,7 @@ function bus_OrdenEntrada()
    					   sb=sb+"     COD_DOC_COBRO";  
    					   sb=sb+" 	  </div>"; 
    					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
- 					   sb=sb+" 	   USU";
+ 					   sb=sb+" 	   NOM_USU";
  					   sb=sb+" 	  </div>";
    					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
    					   sb=sb+" 	    DESC_CAJA";
@@ -202,7 +202,7 @@ function bus_OrdenEntrada()
           	  	          	  sb=sb+fila["COD_DOC_COBRO"].toString();
           	  	         	  sb=sb+"  </div>";
           	  	          	  sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:10px;'>";
-      	  	    	 	 	  sb=sb+fila["USU"].toString();
+      	  	    	 	 	  sb=sb+fila["NOM_USU"].toString();
       	  	    	      	  sb=sb+"   </div>";
           	  	      	 	  sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
           	  	    	 	  sb=sb+fila["DESC_CAJA"].toString();
@@ -320,7 +320,7 @@ function fn_mostrar_pagina(npagina)
                     sb=sb+"     COD_DOC_COBRO";  
                     sb=sb+" 	  </div>"; 
                     sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-                    sb=sb+" 	   USU";
+                    sb=sb+" 	   NOM_USU";
                     sb=sb+" 	  </div>";
                     sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
                     sb=sb+" 	    DESC_CAJA";
@@ -342,7 +342,7 @@ function fn_mostrar_pagina(npagina)
                             sb=sb+fila["COD_DOC_COBRO"].toString();
                             sb=sb+"  </div>";
                             sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:10px;'>";
-                            sb=sb+fila["USU"].toString();
+                            sb=sb+fila["NOM_USU"].toString();
                             sb=sb+"   </div>";
                             sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
                             sb=sb+fila["DESC_CAJA"].toString();

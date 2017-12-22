@@ -197,7 +197,7 @@ function bus_OrdenPago()
           	  	          	  sb=sb+fila["COD_DOC_PAGO"].toString();
           	  	         	  sb=sb+"  </div>";
           	  	          	  sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:10px;'>";
-      	  	    	 	 	  sb=sb+fila["USU"].toString();
+      	  	    	 	 	  sb=sb+fila["NOM_USU"].toString();
       	  	    	      	  sb=sb+"   </div>";
           	  	      	 	  sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
           	  	    	 	  sb=sb+fila["DESC_CAJA"].toString();

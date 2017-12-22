@@ -86,6 +86,7 @@ class MantGestionPagos_c  extends CI_Controller{
 		$NOMB_OFICINA = "";
 		$NOMB_OFICINA = "";
 		$COD_TIPOPAGO = "";
+		$OBSERVACION = "";
 		
 		foreach($docPago as $item){
 			$NUMERO_CUENTA = $item->NUMERO_CUENTA;
@@ -97,6 +98,7 @@ class MantGestionPagos_c  extends CI_Controller{
 			$DOCUMENTO = $item->NRO_DOCUMENTO;
 			$PROVEEDOR = $item->NOMBRE;
 			$NOMB_OFICINA = $item->NOMB_OFICINA;
+			$OBSERVACION = $item->OBSERVACION;
 		}
 		$data['NUMERO_CUENTA']=$NUMERO_CUENTA;
 		$data['NUMERO_OPERACION']=$NUMERO_OPERACION;
@@ -107,6 +109,7 @@ class MantGestionPagos_c  extends CI_Controller{
 		$data['DOCUMENTO']=$DOCUMENTO;
 		$data['NOMB_OFICINA']=$NOMB_OFICINA;
 		$data['COD_TIPOPAGO']=$COD_TIPOPAGO;
+		$data['OBSERVACION']=$OBSERVACION;
 
 		$Ordenes = "";
 		if(count($docPagoDet)>0){
@@ -173,6 +176,7 @@ class MantGestionPagos_c  extends CI_Controller{
 			$data['COD_OFI']=$COD_OFI;
 			$data['COD_DOC_PAGO']=$COD_DOC_PAGO;
 			
+
 			$data['docPago']=$docPago;
 			$data['docPagoDet']=$docPagoDet;
 			$data['listTipoPago']=$listTipoPago;

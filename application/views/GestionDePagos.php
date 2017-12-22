@@ -55,8 +55,8 @@
 		    	  </div>
 		    	  <br/>
 		    	  <div class="form_group">
-				  	   <input type="text" name="btnbuscar" id="COD_DOC_PAGO"  class="form-control"  placeholder="fecha">
-				       <input type="text" name="btnbuscar" id="DOC_PAGO_FECHA" class="form-control"  placeholder="fecha"> 
+				  	   <input type="text" name="btnbuscar" id="COD_DOC_PAGO"  class="form-control"  placeholder="Código de Pago">
+				       <input type="text" name="btnbuscar" id="DOC_PAGO_FECHA" class="form-control"  placeholder="Fecha de Pago"> 
 					   <select name="btnbuscar" class="form-control" id="COD_OFI">
 					   		<option value="0">--TODAS LAS OFICINAS--</option>
 						   <?php

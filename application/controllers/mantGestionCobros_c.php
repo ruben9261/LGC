@@ -86,6 +86,7 @@ class MantGestionCobros_c  extends CI_Controller{
 		$CLIENTE  = "";
 		$DOCUMENTO = "";
 		$NOMB_OFICINA = "";
+		$OBSERVACION = "";
 		
 		foreach($docCobro as $item){
 			$NUMERO_CUENTA = $item->NUMERO_CUENTA;
@@ -97,6 +98,7 @@ class MantGestionCobros_c  extends CI_Controller{
 			$CLIENTE = $item->NOMBRE;
 			$NOMB_OFICINA = $item->NOMB_OFICINA;
 			$COD_TIPOCOBRO = $item->COD_TIPOCOBRO;
+			$OBSERVACION = $item->OBSERVACION;
 		}
 		$data['NUMERO_CUENTA']=$NUMERO_CUENTA;
 		$data['NUMERO_OPERACION']=$NUMERO_OPERACION;
@@ -107,6 +109,7 @@ class MantGestionCobros_c  extends CI_Controller{
 		$data['DOCUMENTO']=$DOCUMENTO;
 		$data['NOMB_OFICINA']=$NOMB_OFICINA;
 		$data['COD_TIPOCOBRO']=$COD_TIPOCOBRO;
+		$data['OBSERVACION']=$OBSERVACION;
 
 		$Ordenes = "";
 		if(count($docCobroDet)>0){
@@ -159,7 +162,8 @@ class MantGestionCobros_c  extends CI_Controller{
 
 			$docCobro=$this->consGestionCobro_m->obt_DocCobro($COD_DOC_COBRO);
 			$docCobroDet=$this->consGestionCobro_m->obt_DocCobroDet($COD_DOC_COBRO);
-			
+			$listTipoCobro=$this->consGestionCobro_m->obt_TipoCobro();
+
 			date_default_timezone_set("America/Bogota");
 			$data['COD_USU'] = $COD_USU;
 			$data['Nom_Usu']=$Nom_Usu;
@@ -172,7 +176,7 @@ class MantGestionCobros_c  extends CI_Controller{
 			
 			$data['docCobro']=$docCobro;
 			$data['docCobroDet']=$docCobroDet;
-
+			$data['listTipoCobro'] = $listTipoCobro;
 			if($COD_DOC_COBRO!=0){
 				$data['TIPO_TRANSACCION'] = 2;
 			}else{

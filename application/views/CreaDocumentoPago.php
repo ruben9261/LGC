@@ -233,7 +233,7 @@ if($TIPO_TRANSACCION==1){
 									</div>
 								</div>
 								<div class='col-md-4 col-md-offset-3 container-style'>
-										<label class="control-label col-md-6">SERIE:</label>
+										<label class="control-label col-md-6">CÓDIGO:</label>
 										<div class="col-md-6">
 											<label class=" control-label" id="lblCOD_DOC_PAGO"><?php echo $COD_DOC_PAGO;?></label>
 										</div>
@@ -343,7 +343,17 @@ if($TIPO_TRANSACCION==1){
 						    
 						    <div class="form-group">
 						         <span style="color:rgb(0,128,255);">Comentario</span>
-						          <textarea id="OBSERVACION" rows="5" cols="80" class="form-control" placeholder="observaci&oacute;n" ><?php echo $OBSERVACION;?></textarea>
+								  <textarea id="OBSERVACION" rows="5" cols="80" class="form-control" placeholder="observaci&oacute;n" ><?php 
+									if($TIPO_TRANSACCION==1){
+										if($OBSERVACION==""){
+											echo "LE RECORDAMOS QUE EL PLAZO DE RECEPCION DE DOCUMENTOS SIN RECARGOS ES HASTA EL DIA 10 DE CADA MES.";
+										}else{
+											echo $OBSERVACION;
+										}
+									  }else{
+											echo $OBSERVACION;
+									  }
+								  ?></textarea>
 						    </div>	
 						 
 						    <br/>
@@ -452,7 +462,7 @@ if($TIPO_TRANSACCION==1){
 	<script>
 		$(document).ready(function() {
 
-			$("#COD_TIPOPAGO").val("<?php echo $docPago->COD_TIPOPAGO; ?>");
+			$("#COD_TIPOPAGO").val("<?php echo COD_TIPOPAGO; ?>");
 		});
 	</script>
 </body>

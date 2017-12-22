@@ -95,7 +95,7 @@ class ConsGestionCobro_m extends CI_Model {
 
 	public function obt_totpaginas($Filtros){
 		$TotalPaginas = 0;
-		$this->db->select('dc.COD_DOC_COBRO,cli.NOMBRE, cli.NRO_DOCUMENTO, u.COD_USU, u.USU,c.DESC_CAJA,tc.NOM_TIPOCOBRO');
+		$this->db->select('dc.COD_DOC_COBRO,cli.NOMBRE, cli.NRO_DOCUMENTO, u.COD_USU, u.NOM_USU,c.DESC_CAJA,tc.NOM_TIPOCOBRO');
 		$this->db->from('doc_cobro dc');
 		$this->db->join('cliente cli', 'dc.COD_CLI = cli.COD_CLI');
 		$this->db->join('usuario u', 'dc.COD_USU = u.COD_USU');
@@ -134,7 +134,7 @@ class ConsGestionCobro_m extends CI_Model {
 		$filasxpagina = 10;
 		$inicio = round($P_numpagina/$filasxpagina);
 
-				$this->db->select('dc.COD_DOC_COBRO,cli.NOMBRE, cli.NRO_DOCUMENTO, u.COD_USU, u.USU,c.DESC_CAJA,tc.NOM_TIPOCOBRO');
+				$this->db->select('dc.COD_DOC_COBRO,cli.NOMBRE, cli.NRO_DOCUMENTO, u.COD_USU, u.NOM_USU,c.DESC_CAJA,tc.NOM_TIPOCOBRO');
 				$this->db->from('doc_cobro dc');
 				$this->db->join('cliente cli', 'dc.COD_CLI = cli.COD_CLI');
 				$this->db->join('usuario u', 'dc.COD_USU = u.COD_USU');
@@ -156,8 +156,8 @@ class ConsGestionCobro_m extends CI_Model {
 	public function insertDocCobro($DocCobro)
 	{	
 		$this->db->trans_start();
-		$DOC_PAGO_FECHA = "1900-10-10";
-		$FECHA_OPERACION = "1900-10-10";
+		//$DOC_PAGO_FECHA = "1900-10-10";
+		$FECHA_OPERACION = date('Y/m/d', time());
 		date_default_timezone_set('America/Lima');
 		$DOC_COBRO_FECHA = date('Y/m/d h:i:s', time());
 		$COD_DOC_COBRO = 0;
@@ -170,7 +170,7 @@ class ConsGestionCobro_m extends CI_Model {
 				'NRO_DOCUMENTO' => $DocCobro["NRO_DOCUMENTO"],
 				'NUMERO_CUENTA' => $DocCobro["NUMERO_CUENTA"],
 				'COD_TIPO_DOC' => $DocCobro["COD_TIPO_DOC"],
-				'FECHA_OPERACION' => $DocCobro["FECHA_OPERACION"] == ""?"1900-10-10":$DocCobro["FECHA_OPERACION"],
+				'FECHA_OPERACION' => $DocCobro["FECHA_OPERACION"] == "Invalid date"? $FECHA_OPERACION :$DocCobro["FECHA_OPERACION"],
 				'NUMERO_OPERACION' => $DocCobro["NUMERO_OPERACION"],
 				'OBSERVACION' => $DocCobro["OBSERVACION"],
 				'COD_USU' => $DocCobro["COD_USU"],
@@ -218,6 +218,7 @@ class ConsGestionCobro_m extends CI_Model {
 
 		date_default_timezone_set('America/Lima');
 		$DOC_COBRO_FECHA = date('Y/m/d h:i:s', time());
+		$FECHA_OPERACION = date('Y/m/d', time());
 		$COD_DOC_COBRO = $DocCobro['COD_DOC_COBRO'];
 		$doc_cobro = array(
 				'COD_OFI' => $DocCobro["COD_OFI"],
@@ -227,7 +228,7 @@ class ConsGestionCobro_m extends CI_Model {
 				'NRO_DOCUMENTO' => $DocCobro["NRO_DOCUMENTO"],
 				'NUMERO_CUENTA' => $DocCobro["NUMERO_CUENTA"],
 				'COD_TIPO_DOC' => $DocCobro["COD_TIPO_DOC"],
-				'FECHA_OPERACION' => $DocCobro["FECHA_OPERACION"] == ""?"1900-10-10":$DocCobro["FECHA_OPERACION"],
+				'FECHA_OPERACION' => $DocCobro["FECHA_OPERACION"] == "Invalid date"? $FECHA_OPERACION :$DocCobro["FECHA_OPERACION"],
 				'NUMERO_OPERACION' => $DocCobro["NUMERO_OPERACION"],
 				'OBSERVACION' => $DocCobro["OBSERVACION"],
 				'COD_USU' => $DocCobro["COD_USU"],

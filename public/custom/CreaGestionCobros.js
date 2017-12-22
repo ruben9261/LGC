@@ -1,7 +1,5 @@
 $(document).ready(function() {
 
-	fn_ObtenerTipoCobro();
-
 	    $.validator.setDefaults({
         errorClass: 'help-block',
         highlight: function (element) {

@@ -147,7 +147,11 @@ if($TIPO_TRANSACCION==1){
 									<label for="" class="control-label col-md-3">TipoCobro :</label>
 									<div class="col-md-6" >
 										<select id="COD_TIPOCOBRO" name="COD_TIPOCOBRO" class="form-control input-sm" >
-											
+										<?php
+											foreach($listTipoCobro as $item){
+												echo "<option value='".$item->COD_TIPOCOBRO."'>".$item->NOM_TIPOCOBRO."</option>";
+											}
+										?>
 										</select>	
 									</div>
 									
@@ -225,7 +229,7 @@ if($TIPO_TRANSACCION==1){
 									</div>
 								</div>
 								<div class='col-md-4 col-md-offset-3 container-style'>
-										<label class="control-label col-md-6">Serie:</label>
+										<label class="control-label col-md-6">CÓDIGO:</label>
 										<div class="col-md-6">
 											<label class=" control-label" id="lblCOD_DOC_COBRO"><?php echo $COD_DOC_COBRO;?></label>
 										</div>
@@ -338,7 +342,18 @@ if($TIPO_TRANSACCION==1){
 						    
 						    <div class="form-group">
 						         <span style="color:rgb(0,128,255);">Comentario</span>
-						          <textarea id="OBSERVACION" rows="5" cols="80" class="form-control" placeholder="observaci&oacute;n"><?php echo $OBSERVACION;?></textarea>
+								  <textarea id="OBSERVACION" rows="5" cols="80" class="form-control" placeholder="observaci&oacute;n"><?php
+								  if($TIPO_TRANSACCION==1){
+									if($OBSERVACION==""){
+										echo "LE RECORDAMOS QUE EL PLAZO DE RECEPCION DE DOCUMENTOS SIN RECARGOS ES HASTA EL DIA 10 DE CADA MES.";
+									}else{
+										echo $OBSERVACION;
+									}
+								  }else{
+										echo $OBSERVACION;
+								  }
+								  		
+									?></textarea>
 						    </div>	
 						 
 						    <br/>
@@ -447,8 +462,8 @@ if($TIPO_TRANSACCION==1){
 	<script src="/public/pnotify/pnotify.custom.min.js"></script>
 	<script>
 		$(document).ready(function() {
-
-			$("#COD_TIPOCOBRO").val("<?php echo $docCobro->COD_TIPOCOBRO; ?>");
+			
+			$("#COD_TIPOCOBRO").val("<?php echo $COD_TIPOCOBRO; ?>");
 		});
 	</script>
 </body>
