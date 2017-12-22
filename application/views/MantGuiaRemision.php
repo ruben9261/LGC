@@ -87,12 +87,48 @@ i.btn.glyphicon.glyphicon-ok {
 	$COSTO_MINIMO = "";
 	$COD_MOT_TRAS = "";
 	$RUC_EMPRESA = $RUC;
-
+	$FECHA_EMISION_NEW = "";
+	$FECHA_TRASLADO_NEW = "";
 	if(count($GuiaRemision)>0){
 
 		foreach($GuiaRemision as $item){
 			$FECHA_EMISION = $item->FECHA_EMISION;
 			$FECHA_TRASLADO = $item->FECHA_TRASLADO;
+			
+			
+			$fechahora=explode(" ", $FECHA_EMISION);
+			$fecha=$fechahora[0];
+			$hora = $fechahora[1];
+			 
+			$fecha=explode("-", $fecha);
+			$dia=$fecha[2];
+			$mes=$fecha[1];
+			$ano=$fecha[0];
+			 
+			$hora=explode(":", $hora);
+			 
+			$horas=$hora[0];
+			$minutos=$hora[1];
+			$segundos=$hora[2];
+			$FECHA_EMISION_NEW = "$mes/$dia/$ano"; // join them together
+		   
+			$fechahora2=explode(" ", $FECHA_TRASLADO);
+			$fecha2=$fechahora2[0];
+			$hora2= $fechahora2[1];
+			 
+			$fecha2=explode("-", $fecha2);
+			$dia2=$fecha2[2];
+			$mes2=$fecha2[1];
+			$ano2=$fecha2[0];
+			 
+			$hora2=explode(":", $hora2);
+			 
+			$horas2=$hora2[0];
+			$minutos2=$hora2[1];
+			$segundos2=$hora2[2];
+			$FECHA_TRASLADO_NEW = "$mes2/$dia2/$ano2"; // join them together
+
+
 			$PUNTO_PARTIDA = $item->PUNTO_PARTIDA;
 			$PUNTO_LLEGADA = $item->PUNTO_LLEGADA;
 			$RAZON_SOCIAL = $item->RAZON_SOCIAL;
@@ -142,7 +178,7 @@ i.btn.glyphicon.glyphicon-ok {
 									<label for="" class="control-label col-md-6" >Fecha de Emisión :</label>
 									<div class="col-md-6">
 										<div class='input-group'>
-										<input type='text' name="FECHA_EMISION" id="FECHA_EMISION" class="form-control input-sm FECHA_EMISION" value="<?php echo $FECHA_EMISION;?>" />
+										<input type='text' name="FECHA_EMISION" id="FECHA_EMISION" class="form-control input-sm FECHA_EMISION" value="<?php echo $FECHA_EMISION_NEW;?>" />
 										<!-- <div class="input-group-addon">
 										<span class="glyphicon glyphicon-calendar"></span>
 										</div> -->
@@ -153,7 +189,7 @@ i.btn.glyphicon.glyphicon-ok {
 									<label for="" class="control-label col-md-6" >Fecha de Translado :</label>
 									<div class="col-md-6">
 										<div class='input-group'>
-										<input type='text' name="FECHA_TRASLADO" id="FECHA_TRASLADO" class="form-control input-sm FECHA_TRASLADO" value="<?php echo $FECHA_TRASLADO;?>"/>
+										<input type='text' name="FECHA_TRASLADO" id="FECHA_TRASLADO" class="form-control input-sm FECHA_TRASLADO" value="<?php echo $FECHA_TRASLADO_NEW;?>"/>
 										<!-- <div class="input-group-addon">
 										<span class="glyphicon glyphicon-calendar"></span>
 										</div> -->
