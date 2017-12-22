@@ -118,10 +118,10 @@ function bus_GuiRemision()
    					   sb=sb+"     COD_GUIAREM";  
    					   sb=sb+" 	  </div>"; 
    					   sb=sb+" 	  <div class='col-xs-1'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
- 					   sb=sb+" 	   FECHA_EMISION";
+ 					   sb=sb+" 	   EMISION";
  					   sb=sb+" 	  </div>";
    					   sb=sb+" 	  <div class='col-xs-1'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-   					   sb=sb+" 	    FECHA_TRASLADO";
+   					   sb=sb+" 	    TRASLADO";
    					   sb=sb+" 	  </div>";
    				       sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
 					   sb=sb+" 	    NRO_COMPROBANTE";
@@ -275,10 +275,10 @@ function fn_mostrar_pagina(npagina)
 					sb=sb+"     COD_GUIAREM";  
 					sb=sb+" 	  </div>"; 
 					sb=sb+" 	  <div class='col-xs-1'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-				  sb=sb+" 	   FECHA_EMISION";
+				  sb=sb+" 	   EMISION";
 				  sb=sb+" 	  </div>";
 					sb=sb+" 	  <div class='col-xs-1'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-					sb=sb+" 	    FECHA_TRASLADO";
+					sb=sb+" 	    TRASLADO";
 					sb=sb+" 	  </div>";
 					sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
 				 sb=sb+" 	    NRO_COMPROBANTE";
