@@ -1,11 +1,13 @@
-function fn_eliminar(COD_DOC_PAGO) 
+
+function fn_eliminar(COD_GUIAREM) 
 {  $.ajax({
 		    url:  "/mantGuiaRemision_c/eliminar",
 	    	type: 'post',//metodo
-	    	data: { COD_DOC_PAGO:  COD_DOC_PAGO
+	    	data: { COD_GUIAREM:  COD_GUIAREM
 	    		  }, //parametros
 	    	success: function(respuesta) {
                 debugger;
+
             respuesta = JSON.parse(respuesta);
             
        		if(respuesta)

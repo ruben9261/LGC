@@ -153,4 +153,16 @@ $data['tipo_prod']=$tipo_prod;
 		{  	echo "no existe";}
 	   
 	}
+
+	function eliminar(){
+		$COD_GUIAREM = $_POST["COD_GUIAREM"];
+		$this->load->model('consGuiaRemision_m');
+		$respuesta=$this->consGuiaRemision_m->eliminar($COD_GUIAREM);
+		
+		$array = array( 'respuesta'=>$respuesta,
+		);
+		$response =json_encode($array);
+		echo $response;
+	}
+
 }
