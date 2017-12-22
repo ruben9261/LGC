@@ -174,9 +174,9 @@ var doc = new jsPDF({
             doc.text("5.DEVOLUCION", data.settings.margin.left +160, 580); 
             doc.text("6.TRASL ENTRE ESTABL. DE COMRPOB.", data.settings.margin.left +160, 587);
 
-             doc.text("7.TRANSLADO DE BIENES PARA TRANSFORMACION", data.settings.margin.left +300, 573); 
-            doc.text("8.TRASL.DE BIENES TRAFORMADOS", data.settings.margin.left +300, 580); 
-            doc.text("9.TRASL POR ITIN. DE COMRPOB DE PAGO.", data.settings.margin.left +300, 587); 
+             doc.text("7.TRANSLADO DE BIENES PARA TRANSFORMACION", data.settings.margin.left +290, 573); 
+            doc.text("8.TRASL.DE BIENES TRAFORMADOS", data.settings.margin.left +290, 580); 
+            doc.text("9.TRASL POR ITIN. DE COMRPOB DE PAGO.", data.settings.margin.left +290, 587); 
             
            
 
@@ -184,9 +184,11 @@ var doc = new jsPDF({
             doc.text("11.IMPORTACION", data.settings.margin.left +450, 580); 
             doc.text("12.EXPORTACION", data.settings.margin.left +450, 587); 
            
-            doc.text("13.OTROS", data.settings.margin.left +600, 573); 
+            doc.text("13.OTROS", data.settings.margin.left +570, 573); 
+            doc.setFontSize(14);
+            doc.text("", +GuiaRemision.COD_MOT_TRAS ,data.settings.margin.left +570, 580); 
             
-doc.setFontSize(10);
+            doc.setFontSize(10);
             doc.text("COSTO MINIMO", data.settings.margin.left +720, 560);
 
              doc.text("S/."+GuiaRemision.COSTO_MINIMO , data.settings.margin.left +720, 580);
