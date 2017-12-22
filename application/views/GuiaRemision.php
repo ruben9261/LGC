@@ -60,8 +60,7 @@
 					   <input type="text" name="btnbuscar" id="FECHA_TRASLADO"  class="form-control"  placeholder="FECHA_TRASLADO">
 				       <input type="text" name="btnbuscar" id="NRO_DOCUMENTO" class="form-control"  placeholder="NRO_DOCUMENTO"> 
 					   <input type="text" name="btnbuscar" id="NRO_COMPROBANTE"  class="form-control"  placeholder="NRO_COMPROBANTE">
-				       <input type="text" name="btnbuscar" id="COD_PROD" class="form-control"  placeholder="COD_PROD"> 
-					
+				     
 
 					   <br/>
 
@@ -139,6 +138,9 @@
 </div>
 <script type="text/javascript" src="/public/jquery/jquery-3.1.1.min.js"></script>
 <script  type="text/javascript"  src="/public/bootstrap-3.3.7-dist/js/bootstrap.min.js"> </script>
+
+	<script type="text/javascript" src="/public/js/moment.min.js" charset="UTF-8"></script>
+
 <script type="text/javascript" src="/public/custom/GuiaRemision.js"></script>
 </body> 
 </html> 

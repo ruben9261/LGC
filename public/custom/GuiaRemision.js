@@ -117,40 +117,57 @@ function bus_GuiRemision()
    					   sb=sb+"   <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
    					   sb=sb+"     COD_GUIAREM";  
    					   sb=sb+" 	  </div>"; 
-   					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
+   					   sb=sb+" 	  <div class='col-xs-1'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
  					   sb=sb+" 	   FECHA_EMISION";
  					   sb=sb+" 	  </div>";
-   					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
+   					   sb=sb+" 	  <div class='col-xs-1'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
    					   sb=sb+" 	    FECHA_TRASLADO";
    					   sb=sb+" 	  </div>";
    				       sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-					   sb=sb+" 	    NRO_DOCUMENTO";
+					   sb=sb+" 	    NRO_COMPROBANTE";
 					   sb=sb+" 	  </div>";
 					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-   					   sb=sb+" 	    NRO_COMPROBANTE";
+   					   sb=sb+" 	    NRO_DOCUMENTO";
 					   sb=sb+" 	  </div>";
 					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-					   sb=sb+" 	    COD_PROD";
+					   sb=sb+" 	    RUC_EMPRESA";
 					   sb=sb+" 	  </div>";  			   
    					   sb=sb+" </div>";	
-
-   					   
+						  
+						 	   
 					
             	  	       for(var i=0;i<lista.length;i++)
-                          {  var fila=lista[i];
+						  {  var fila=lista[i];
+							//fila["FECHA_EMISION"];
+					     	//fila["FECHA_TRASLADO"];
+							var fecha= fila["FECHA_EMISION"];
+							var fecha2= fila["FECHA_TRASLADO"];
+
+							var new_date = moment(fecha).format('YYYY/MM/DD');
+							var new_date2 = moment(fecha2).format('YYYY/MM/DD');
+							
                              sb=sb+"<div class='row'>";   
                              sb=sb+"   <div class='col-xs-2'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:10px;'> ";
           	  	          	  sb=sb+fila["COD_GUIAREM"].toString();
           	  	         	  sb=sb+"  </div>";
-          	  	          	  sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:10px;'>";
-      	  	    	 	 	  sb=sb+fila["NRO_DOCUMENTO"].toString();
+          	  	          	  sb=sb+"  <div class='col-xs-1' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:10px;'>";
+      	  	    	 	 	  sb=sb+new_date;
       	  	    	      	  sb=sb+"   </div>";
-          	  	      	 	  sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
+          	  	      	 	  sb=sb+"  <div class='col-xs-1' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
+          	  	    	 	  sb=sb+new_date2;
+						      sb=sb+"   </div>";
+							  sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
           	  	    	 	  sb=sb+fila["NRO_COMPROBANTE"].toString();
-          	  	    	      sb=sb+"   </div>";
-          	  	    	  	  sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
-      	  	    	 	  	  sb=sb+fila["COD_PROD"].toString();
-
+							  sb=sb+"   </div>";
+							  sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
+          	  	    	 	  sb=sb+fila["NRO_DOCUMENTO"].toString();
+						      sb=sb+"   </div>";  
+							  sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
+							  sb=sb+fila["RUC_EMPRESA"];
+						       sb=sb+"   </div>"; 
+          	  	    	  	 // sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
+      	  	    	 	  	 // sb=sb+fila["COD_PROD"].toString();
+							//  sb=sb+"   </div>";
 					          sb=sb+"  <div class='col-xs-1'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:11px;'>";
    	                          sb=sb+"	<a href='/mantGuiaRemision_c/mantGuiaRemision/"+fila['COD_GUIAREM'].toString()+"'>";
       	  			    	  sb=sb+"	   Editar&nbsp";
@@ -163,7 +180,7 @@ function bus_GuiRemision()
 	   	  					  sb=sb+"	      <img src='/public/images/ELIMINAR.png'>";
 	   	  					  sb=sb+"	    </a>"; 
      			 	          sb=sb+"  </div>";
-      	  			          sb=sb+"</div> ";
+						      sb=sb+"</div> ";								
       	  			      }
             	  	     $('#tabla').html('');
                	  	     $('#tabla').append(sb);
@@ -253,57 +270,74 @@ function fn_mostrar_pagina(npagina)
                 if(lista.length > 0) 
           	  	 {  
                     var sb="";
-   					   sb=sb+" <div class='row'>";
-   					   sb=sb+"   <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-   					   sb=sb+"     COD_GUIAREM";  
-   					   sb=sb+" 	  </div>"; 
-   					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
- 					   sb=sb+" 	   FECHA_EMISION";
- 					   sb=sb+" 	  </div>";
-   					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-   					   sb=sb+" 	    FECHA_TRASLADO";
-   					   sb=sb+" 	  </div>";
-   				       sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-					   sb=sb+" 	    NRO_DOCUMENTO";
-					   sb=sb+" 	  </div>";
-					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-   					   sb=sb+" 	    NRO_COMPROBANTE";
-					   sb=sb+" 	  </div>";
-					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-					   sb=sb+" 	    COD_PROD";
-					   sb=sb+" 	  </div>";  			   
-   					   sb=sb+" </div>";		
+					sb=sb+" <div class='row'>";
+					sb=sb+"   <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
+					sb=sb+"     COD_GUIAREM";  
+					sb=sb+" 	  </div>"; 
+					sb=sb+" 	  <div class='col-xs-1'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
+				  sb=sb+" 	   FECHA_EMISION";
+				  sb=sb+" 	  </div>";
+					sb=sb+" 	  <div class='col-xs-1'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
+					sb=sb+" 	    FECHA_TRASLADO";
+					sb=sb+" 	  </div>";
+					sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
+				 sb=sb+" 	    NRO_COMPROBANTE";
+				 sb=sb+" 	  </div>";
+				 sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
+					sb=sb+" 	    NRO_DOCUMENTO";
+				 sb=sb+" 	  </div>";
+				 sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
+				 sb=sb+" 	    RUC_EMPRESA";
+				 sb=sb+" 	  </div>";  			   
+					sb=sb+" </div>";		
 
   					   
           	  	
                     for(var i=0;i<lista.length;i++)
                     {  var fila=lista[i];
-						sb=sb+"<div class='row'>";   
-						sb=sb+"   <div class='col-xs-2'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:10px;'> ";
-							   sb=sb+fila["COD_GUIAREM"].toString();
-							  sb=sb+"  </div>";
-							   sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:10px;'>";
-							   sb=sb+fila["NRO_DOCUMENTO"].toString();
+						//fila["FECHA_EMISION"];
+					     	//fila["FECHA_TRASLADO"];
+							 var fecha= fila["FECHA_EMISION"];
+							 var fecha2= fila["FECHA_TRASLADO"];
+ 
+							 var new_date = moment(fecha).format('YYYY/MM/DD');
+							 var new_date2 = moment(fecha2).format('YYYY/MM/DD');
+							 
+							  sb=sb+"<div class='row'>";   
+							  sb=sb+"   <div class='col-xs-2'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:10px;'> ";
+									 sb=sb+fila["COD_GUIAREM"].toString();
+									sb=sb+"  </div>";
+									 sb=sb+"  <div class='col-xs-1' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:10px;'>";
+									 sb=sb+new_date;
+									 sb=sb+"   </div>";
+									  sb=sb+"  <div class='col-xs-1' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
+									sb=sb+new_date2;
 							   sb=sb+"   </div>";
-								sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
-							  sb=sb+fila["NRO_COMPROBANTE"].toString();
-							 sb=sb+"   </div>";
 							   sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
-								sb=sb+fila["COD_PROD"].toString();
-
-						 sb=sb+"  <div class='col-xs-1'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:11px;'>";
-							sb=sb+"	<a href='/mantGuiaRemision_c/mantGuiaRemision/"+fila['COD_GUIAREM'].toString()+"'>";
-							 sb=sb+"	   Editar&nbsp";
-							 sb=sb+"	   <img src='/public/images/EDITAR.png'>";
-							 sb=sb+"	</a>"; 
-							   sb=sb+"  </div>";
+									sb=sb+fila["NRO_COMPROBANTE"].toString();
+							   sb=sb+"   </div>";
+							   sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
+									sb=sb+fila["NRO_DOCUMENTO"].toString();
+							   sb=sb+"   </div>";  
+							   sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
+							   sb=sb+fila["RUC_EMPRESA"];
+								sb=sb+"   </div>"; 
+									// sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
+									 // sb=sb+fila["COD_PROD"].toString();
+							 //  sb=sb+"   </div>";
 							   sb=sb+"  <div class='col-xs-1'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:11px;'>";
-							   sb=sb+"	    <a href='#' onclick=fn_eliminar('"+fila["COD_GUIAREM"].toString()+"')>";
-							  sb=sb+"	       Anular&nbsp";
-							  sb=sb+"	      <img src='/public/images/ELIMINAR.png'>";
-							  sb=sb+"	    </a>"; 
-						   sb=sb+"  </div>";
-							 sb=sb+"</div> ";
+								  sb=sb+"	<a href='/mantGuiaRemision_c/mantGuiaRemision/"+fila['COD_GUIAREM'].toString()+"'>";
+								   sb=sb+"	   Editar&nbsp";
+								   sb=sb+"	   <img src='/public/images/EDITAR.png'>";
+								   sb=sb+"	</a>"; 
+									 sb=sb+"  </div>";
+									 sb=sb+"  <div class='col-xs-1'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:11px;'>";
+									 sb=sb+"	    <a href='#' onclick=fn_eliminar('"+fila["COD_GUIAREM"].toString()+"')>";
+									sb=sb+"	       Anular&nbsp";
+									sb=sb+"	      <img src='/public/images/ELIMINAR.png'>";
+									sb=sb+"	    </a>"; 
+								 sb=sb+"  </div>";
+							   sb=sb+"</div> ";
                         }
            	  	    	 $('#tabla').html('');
               	  	     $('#tabla').append(sb);
