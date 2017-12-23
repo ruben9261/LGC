@@ -48,7 +48,7 @@ class MantGuiaRemision_c  extends CI_Controller{
 				$Nomb_Empresa=$campos->Nomb_Empresa;
 				$COD_CAJA=$campos->COD_CAJA;
 				$COD_OFI=$campos->COD_OFI;
-				$RUC = $campos->RUC;
+				$RUC_EMPRESA = $campos->RUC;
 			}
 			
 			date_default_timezone_set("America/Bogota");
@@ -59,7 +59,7 @@ class MantGuiaRemision_c  extends CI_Controller{
 			$data['Nomb_Empresa']=$Nomb_Empresa;
 			$data['COD_CAJA']=$COD_CAJA;
 			$data['COD_OFI']=$COD_OFI;
-			$data['RUC']=$RUC;
+			$data['RUC_EMPRESA']=$RUC_EMPRESA;
 
 			$this->load->model('consGuiaRemision_m');
 			

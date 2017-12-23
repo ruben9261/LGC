@@ -86,7 +86,6 @@ i.btn.glyphicon.glyphicon-ok {
 	$TRANSPORTISTA_RUC = "";
 	$COSTO_MINIMO = "";
 	$COD_MOT_TRAS = "";
-	$RUC_EMPRESA = $RUC;
 	$FECHA_EMISION_NEW = "";
 	$FECHA_TRASLADO_NEW = "";
 	if(count($GuiaRemision)>0){
@@ -144,7 +143,7 @@ i.btn.glyphicon.glyphicon-ok {
 			$TRANSPORTISTA_RUC = $item->TRANSPORTISTA_RUC;
 			$COSTO_MINIMO = $item->COSTO_MINIMO;
 			$COD_MOT_TRAS = $item->COD_MOT_TRAS;
-			$RUC_EMPRESA = $item->RUC_EMPRESA;
+			//$RUC_EMPRESA = $item->RUC_EMPRESA;
 		}
 	}
 
