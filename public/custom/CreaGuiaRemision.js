@@ -511,8 +511,8 @@ $.ajax({
                     $("#lblCOD_GUIAREM").html(response.COD_GUIAREM);
                     $("#TIPO_TRANSACCION").val(2);
                     $("#ImprimirPdf").show();
-                    var ImprimirPdf = '<a class="btn btn-success" href="/mantGuiaRemision_c/docPagoPdf/'+response.COD_GUIAREM+'">Imprimir</a>';
-                    $("#ImprimirPdf").html(ImprimirPdf);
+                    //var ImprimirPdf = '<a class="btn btn-success" href="/mantGuiaRemision_c/docPagoPdf/'+response.COD_GUIAREM+'">Imprimir</a>';
+                    //$("#ImprimirPdf").html(ImprimirPdf);
                 }else{
                     AlertNotify('', 'Error', 'No se pudo guardar el registro', 'danger');
                 }
