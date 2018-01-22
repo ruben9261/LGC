@@ -1,0 +1,53 @@
+Estimado Ruben
+Por la presente te estoy detallando las observaciones encontradas:
+
+
+General
+corregir los títulos, descripciones y mensajes en todos los formularios como:
+guia, cobros y pagos según corresponda
+así mismo en los botones de cancelar debe direccionar a la página correspondiente.
+
+GUIA DE REMISIÓN:
+- Gestión de guías
+  Eliminar el campo código de los filtros de búsqueda-corregido
+  Añadir el encabezado operación a la grilla
+  corregir las búsquedas por cada uno de los campos ya que actualmente me envía a otra página
+- Registro de nueva guía
+  Centrar la  grilla  y que encaje correctamente
+  Añadir caja descripción de producto en formulario al agregar producto, el cual debe añadirse a la grilla como a la  base de datos al momento de la       inserción.
+- El número de la guía debe ser actualizado en la tabla serie de guía ya que existe una configuración inicial desde la cual se debe de incrementar
+
+ COBROS
+ - margen superior no debe ir pegado
+ - centrar la  grilla  y que encaje correctamente
+ - agregar opción de crear cliente desde el  formulario que añade al cliente
+ - centrar la caja del comentario
+ - añadir etiqueta de fecha en registro de cobro
+ - añadir mensaje de validación en caso no haya registros en el detalle 
+ - agregar tipo doc de cliente de boucher
+ - al imprimir no debe cerrar la sesión  el sistema no debe cerrarse solo dede abrir una pagina con el pdf 
+
+ PAGOS
+-  margen superior no debe ir pegado
+-  los campos que son filtros en la busqueda no deben elegirse se deben de ingresar como en los casos anteriores
+   Eliminar el campo código de los filtros de búsqueda
+   Añadir el encabezado operación a la grilla
+   corregir las búsquedas por cada uno de los campos ya que actualmente no realiza la búsqueda
+-  Agregar opción para crear proveedor desde el  formulario que añade al proveedor
+-  agregar tipo doc de proveedor de boucher
+-  al imprimir no debe cerrar la sesion  el sistema no debe cerrarse solo dede abrir una pagina
+   con el pdf 
+-  Centrar la  grilla  y que encaje correctamente
+-  centrar la caja del comentario
+
+favor  de corregirlo esta semana que viene ya que debo estar cerrando el proyecto el fin de semana
+
+gracias de antemano
+
+quedo atento a tus comentarios
+
+
+saludos
+Percy Fhon
+
+

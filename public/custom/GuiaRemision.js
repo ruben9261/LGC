@@ -41,7 +41,7 @@ function bus_GuiRemision()
 
 
 
-	Filtros.COD_GUIAREM= $("#COD_GUIAREM").val();
+
 	Filtros.FECHA_EMISION= $("#FECHA_EMISION").val();
 	Filtros.FECHA_TRASLADO= $("#FECHA_TRASLADO").val();
 	Filtros.NRO_DOCUMENTO= $("#NRO_DOCUMENTO").val();
