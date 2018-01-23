@@ -270,7 +270,7 @@ $( "#Guardar" ).click(function( e ) {
 	// debugger;
 	$datos = $("#datos").val();
 	if($datos==0){
-	   document.getElementById("demo").innerHTML = "<div id='validartabla'><label style='color:red;' class=control-labe>Seleccione orden de entrada</label></label> </div>";
+	   document.getElementById("demo").innerHTML = "<div id='validartabla'><label style='color:red;' class=control-labe>Seleccione orden de salida</label></label> </div>";
 	}
 	$("#frmCreadocPago").validate({
 				rules: {
