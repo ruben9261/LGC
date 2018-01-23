@@ -133,7 +133,10 @@ function bus_GuiRemision()
 					   sb=sb+" 	  </div>";
 					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
 					   sb=sb+" 	    RUC_EMPRESA";
-					   sb=sb+" 	  </div>";  			   
+					   sb=sb+" 	  </div>";  	
+					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
+					   sb=sb+" 	    Acciones";
+					   sb=sb+" 	  </div>"		   
    					   sb=sb+" </div>";	
 						  
 								
@@ -291,7 +294,10 @@ function fn_mostrar_pagina(npagina)
 				 sb=sb+" 	  </div>";
 				 sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
 				 sb=sb+" 	    RUC_EMPRESA";
-				 sb=sb+" 	  </div>";  			   
+				 sb=sb+" 	  </div>";  
+				 sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
+				 sb=sb+" 	    Acciones";
+				 sb=sb+" 	  </div>"; 			   
 					sb=sb+" </div>";		
 
   					   

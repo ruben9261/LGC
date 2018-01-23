@@ -40,13 +40,19 @@ i.btn.glyphicon.glyphicon-ok {
     content: "\f1c1";
 }
 
-		.container{
-			background-color:rgb(255,255,255);
-			
-			width: 90%;
-			height:50%;
-		}
+.container.contenido{
+	border: 1px solid rgb(0,128,255); 
+	
+	}
+	.container{
+		background-color:rgb(255,255,255);
 
+		width: 90%;
+		height:50%;
+	}
+td.input-sm {
+    border: #0080ff 1px solid;
+}
 		 .container-border{
 			background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);
 			
@@ -60,7 +66,10 @@ i.btn.glyphicon.glyphicon-ok {
 
 		.thead-style{
 			background-color:rgb(0,128,255); color:white; font-size:11px;
-		}
+		}.form-horizontal .form-group {
+    margin-right: 10px;
+    margin-left: 10px;
+}
 	</style>
 
 
@@ -68,6 +77,9 @@ i.btn.glyphicon.glyphicon-ok {
  </head>
 <body>
 <?php
+
+
+  $datos = 0;
 
 	$FECHA_EMISION = "";
 	$FECHA_TRASLADO = "";
@@ -156,8 +168,9 @@ i.btn.glyphicon.glyphicon-ok {
 	}
 
 ?>
+<br><br>
 	<input type="hidden" Id="CodCli" name="" value="">
-	<div class="container" id="contenedor">
+	<div class="container contenido" id="contenedor">
 		           <br/>
 		            <div class="modal-header" style="color:rgb(0,128,255);"> 
 		                 <STRONG>Mantenimiento de Gesti&oacute;n de Guia de Remisi&oacute;n</STRONG>
@@ -347,6 +360,7 @@ i.btn.glyphicon.glyphicon-ok {
 									<tbody>
 									   <?php
 									 		if(count($GuiaRemisionDet)>0){
+												$datos = $datos + 1;
 												 foreach($GuiaRemisionDet as $item){
 													$cols = "";
 													$cols .= '<tr class="FILA'.$item->COD_PROD.'">';
@@ -365,17 +379,16 @@ i.btn.glyphicon.glyphicon-ok {
 												 }
 											}
 									   ?>
-									</tbody>
+									</tbody><input type="hidden" name="datos" id="datos" value="<?php echo $datos;?>">
+										<div id="demo"></div>
 									<tfoot>
 										<tr>
-											<th class='col-md-1 '></th>
-											<th class='col-md-1'></th> 
+											<th class='col-md-2 '></th>
+											<th class='col-md-2'></th> 
 											<th class='col-md-3'></th>
-											<th class='col-md-1'></th>
 											<th class='col-md-3'></th>
-											<th class='col-md-1'></th>
-											<th class='col-md-1'></th>
-											<th class='col-md-1'></th>
+											<th class='col-md-3'></th>
+											<th class='col-md-2'></th>
 										</tr>
 									</tfoot>
 									</table>

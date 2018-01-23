@@ -93,19 +93,26 @@ class ConsGestionCobro_m extends CI_Model {
 		}
 	}
 
+
 	public function obt_totpaginas($Filtros){
 		$TotalPaginas = 0;
-		$this->db->select('dc.COD_DOC_COBRO,cli.NOMBRE, cli.NRO_DOCUMENTO, u.COD_USU, u.NOM_USU,c.DESC_CAJA,tc.NOM_TIPOCOBRO');
+		$this->db->select('u.NOM_USU,of.NOMB_OFICINA,tc.NOM_TIPOCOBRO,dc.FECHA_OPERACION,dc.COD_DOC_COBRO');
 		$this->db->from('doc_cobro dc');
 		$this->db->join('cliente cli', 'dc.COD_CLI = cli.COD_CLI');
+		$this->db->join('oficina of', 'dc.COD_OFI = of.COD_OFI');
+		
 		$this->db->join('usuario u', 'dc.COD_USU = u.COD_USU');
-		$this->db->join('caja c', 'dc.COD_CAJA = c.COD_CAJA');
 		$this->db->join('tipo_cobro tc', 'dc.COD_TIPOCOBRO = tc.COD_TIPOCOBRO');
-		$this->db->where("((".$Filtros["COD_CLI"]."=0) or(dc.COD_CLI=".$Filtros["COD_CLI"]."))");
-		$this->db->where("((".$Filtros["COD_USU"]."=0) or(u.COD_USU=".$Filtros["COD_USU"]."))");
-		$this->db->where("((".$Filtros["COD_TIPOCOBRO"]."=0) or(dc.COD_TIPOCOBRO=".$Filtros["COD_TIPOCOBRO"]."))");
-		$this->db->where("(('".$Filtros["COD_DOC_COBRO"]."'='') or(dc.COD_DOC_COBRO='".$Filtros["COD_DOC_COBRO"]."'))");
-		$this->db->where("(('".$Filtros["DOC_COBRO_FECHA"]."'='') or(date(dc.DOC_COBRO_FECHA)='".$Filtros["DOC_COBRO_FECHA"]."'))");
+		
+		$this->db->where("(('".$Filtros["NOMB_OFICINA"]."'='') or(of.NOMB_OFICINA='".$Filtros["NOMB_OFICINA"]."'))");
+        $this->db->where("(('".$Filtros["DOC_COBRO_FECHA"]."'='') or(date(dc.DOC_COBRO_FECHA)='".$Filtros["DOC_COBRO_FECHA"]."'))");
+		$this->db->where("(('".$Filtros["NOM_TIPOCOBRO"]."'='') or(date(tc.NOM_TIPOCOBRO)='".$Filtros["NOM_TIPOCOBRO"]."'))");
+
+		
+
+
+
+		
 		//$string = $this->db->get_compiled_select();
 		$query  = $this->db->get();
 		$result = $query->result();
@@ -134,17 +141,17 @@ class ConsGestionCobro_m extends CI_Model {
 		$filasxpagina = 10;
 		$inicio = round($P_numpagina/$filasxpagina);
 
-				$this->db->select('dc.COD_DOC_COBRO,cli.NOMBRE, cli.NRO_DOCUMENTO, u.COD_USU, u.NOM_USU,c.DESC_CAJA,tc.NOM_TIPOCOBRO');
-				$this->db->from('doc_cobro dc');
-				$this->db->join('cliente cli', 'dc.COD_CLI = cli.COD_CLI');
-				$this->db->join('usuario u', 'dc.COD_USU = u.COD_USU');
-				$this->db->join('caja c', 'dc.COD_CAJA = c.COD_CAJA');
-				$this->db->join('tipo_cobro tc', 'dc.COD_TIPOCOBRO = tc.COD_TIPOCOBRO');
-				$this->db->where("((".$Filtros["COD_CLI"]."=0) or(dc.COD_CLI=".$Filtros["COD_CLI"]."))");
-				$this->db->where("((".$Filtros["COD_USU"]."=0) or(u.COD_USU=".$Filtros["COD_USU"]."))");
-				$this->db->where("((".$Filtros["COD_TIPOCOBRO"]."=0) or(dc.COD_TIPOCOBRO=".$Filtros["COD_TIPOCOBRO"]."))");
-				$this->db->where("(('".$Filtros["COD_DOC_COBRO"]."'='') or(dc.COD_DOC_COBRO='".$Filtros["COD_DOC_COBRO"]."'))");
-				$this->db->where("(('".$Filtros["DOC_COBRO_FECHA"]."'='') or(date(dc.DOC_COBRO_FECHA)='".$Filtros["DOC_COBRO_FECHA"]."'))");
+		$this->db->select('u.NOM_USU,of.NOMB_OFICINA,tc.NOM_TIPOCOBRO,dc.FECHA_OPERACION,dc.COD_DOC_COBRO');
+		$this->db->from('doc_cobro dc');
+		$this->db->join('cliente cli', 'dc.COD_CLI = cli.COD_CLI');
+		$this->db->join('oficina of', 'dc.COD_OFI = of.COD_OFI');
+		
+		$this->db->join('usuario u', 'dc.COD_USU = u.COD_USU');
+		$this->db->join('tipo_cobro tc', 'dc.COD_TIPOCOBRO = tc.COD_TIPOCOBRO');
+		
+		$this->db->where("(('".$Filtros["NOMB_OFICINA"]."'='') or(of.NOMB_OFICINA='".$Filtros["NOMB_OFICINA"]."'))");
+        $this->db->where("(('".$Filtros["DOC_COBRO_FECHA"]."'='') or(date(dc.DOC_COBRO_FECHA)='".$Filtros["DOC_COBRO_FECHA"]."'))");
+		$this->db->where("(('".$Filtros["NOM_TIPOCOBRO"]."'='') or(date(tc.NOM_TIPOCOBRO)='".$Filtros["NOM_TIPOCOBRO"]."'))");
 				$this->db->limit($filasxpagina,$inicio);
 				//$string = $this->db->get_compiled_select();
 				$query  = $this->db->get();

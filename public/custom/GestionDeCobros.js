@@ -101,12 +101,10 @@ $(function(){
 function bus_OrdenEntrada()
 {   
     var Filtros = new Object();
-	Filtros.COD_DOC_COBRO= $("#COD_DOC_COBRO").val();
+
     Filtros.DOC_COBRO_FECHA= $("#DOC_COBRO_FECHA").val();
-    Filtros.COD_OFI= $("#COD_OFI").val();
-    Filtros.COD_USU= $("#COD_USU").val();
-    Filtros.COD_CLI= $("#COD_CLI").val();
-    Filtros.COD_TIPOCOBRO= $("#COD_TIPOCOBRO").val();
+    Filtros.NOMB_OFICINA= $("#NOMB_OFICINA").val();
+    Filtros.NOM_TIPOCOBRO= $("#NOM_TIPOCOBRO").val();
     Filtros.Pagina = -1;
     $('#processing-modal').modal('show');
     $.ajax({
@@ -176,56 +174,53 @@ function bus_OrdenEntrada()
            	  	 {  
               	  	   var sb="";
    					   sb=sb+" <div class='row'>";
-   					   sb=sb+"   <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-   					   sb=sb+"     COD_DOC_COBRO";  
+   					   sb=sb+"   <div class='col-xs-4'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
+   					   sb=sb+"     USUARIO";  
    					   sb=sb+" 	  </div>"; 
    					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
- 					   sb=sb+" 	   NOM_USU";
+ 					   sb=sb+" 	   NOMB OFICINA";
  					   sb=sb+" 	  </div>";
    					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-   					   sb=sb+" 	    DESC_CAJA";
+   					   sb=sb+" 	    TIPO COBRO";
    					   sb=sb+" 	  </div>";
    				       sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-					   sb=sb+" 	    NOM_TIPOCOBRO";
+					   sb=sb+" 	    FECHA OPERACION";
 					   sb=sb+" 	  </div>";
 					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-   					   sb=sb+" 	    NOMBRE CLIENTE";
-   					   sb=sb+" 	  </div>";			   
+   					   sb=sb+" 	    Acciones";
+   					   sb=sb+" 	  </div>";		   
    					   sb=sb+" </div>";	
 
-   					   
-           	  	
+   				
             	  	       for(var i=0;i<lista.length;i++)
                           {  var fila=lista[i];
-                             sb=sb+"<div class='row'>";   
-                             sb=sb+"   <div class='col-xs-2'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:10px;'> ";
-          	  	          	  sb=sb+fila["COD_DOC_COBRO"].toString();
-          	  	         	  sb=sb+"  </div>";
-          	  	          	  sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:10px;'>";
-      	  	    	 	 	  sb=sb+fila["NOM_USU"].toString();
-      	  	    	      	  sb=sb+"   </div>";
-          	  	      	 	  sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
-          	  	    	 	  sb=sb+fila["DESC_CAJA"].toString();
-          	  	    	      sb=sb+"   </div>";
-          	  	    	  	  sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
-      	  	    	 	  	  sb=sb+fila["NOM_TIPOCOBRO"].toString();
-      	  	    	          sb=sb+"   </div>";
-      	  	    	      	  sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
-  	  	    	 	  	  	  sb=sb+fila["NOMBRE"].toString();
-                              sb=sb+"   </div>";
-					          sb=sb+"  <div class='col-xs-1'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:11px;'>";
-   	                          sb=sb+"	<a href='/mantGestionCobros_c/CreaDocumentoCobro/"+fila['COD_DOC_COBRO'].toString()+"'>";
-      	  			    	  sb=sb+"	   Editar&nbsp";
-      	  					  sb=sb+"	   <img src='/public/images/EDITAR.png'>";
-      	  					  sb=sb+"	</a>"; 
-	   	  			 	      sb=sb+"  </div>";
-	   	  			 	      sb=sb+"  <div class='col-xs-1'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:11px;'>";
-	   	  			 	      sb=sb+"	    <a href='#' onclick=fn_eliminar('"+fila["COD_DOC_COBRO"].toString()+"')>";
-	   	  			    	  sb=sb+"	       Anular&nbsp";
-	   	  					  sb=sb+"	      <img src='/public/images/ELIMINAR.png'>";
-	   	  					  sb=sb+"	    </a>"; 
-     			 	          sb=sb+"  </div>";
-      	  			          sb=sb+"</div> ";
+							sb=sb+"<div class='row'>";   
+                            sb=sb+"   <div class='col-xs-4'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:10px;'> ";
+                            sb=sb+fila["NOM_USU"].toString();
+                            sb=sb+"  </div>";
+                            sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:10px;'>";
+                            sb=sb+fila["NOMB_OFICINA"].toString();
+                            sb=sb+"   </div>";
+                            sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
+                            sb=sb+fila["NOM_TIPOCOBRO"].toString();
+                            sb=sb+"   </div>";
+                            sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
+                            sb=sb+fila["FECHA_OPERACION"].toString();
+                            sb=sb+"   </div>";
+                    
+                            sb=sb+"  <div class='col-xs-1'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:11px;'>";
+                            sb=sb+"	<a href='/mantGestionCobros_c/CreaDocumentoCobro/"+fila['COD_DOC_COBRO'].toString()+"'>";
+                            sb=sb+"	   Editar&nbsp";
+                            sb=sb+"	   <img src='/public/images/EDITAR.png'>";
+                            sb=sb+"	</a>"; 
+                            sb=sb+"  </div>";
+                            sb=sb+"  <div class='col-xs-1'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:11px;'>";
+                            sb=sb+"	    <a href='#' onclick=fn_eliminar('"+fila["COD_DOC_COBRO"].toString()+"')>";
+                            sb=sb+"	       Anular&nbsp";
+                            sb=sb+"	      <img src='/public/images/ELIMINAR.png'>";
+                            sb=sb+"	    </a>"; 
+                            sb=sb+"  </div>";
+                            sb=sb+"</div> ";
       	  			      }
             	  	     $('#tabla').html('');
                	  	     $('#tabla').append(sb);
@@ -245,14 +240,14 @@ function bus_OrdenEntrada()
 }
 
 
+
 function fn_mostrar_pagina(npagina)
 { 	var Filtros = new Object();
 	debugger;
-	Filtros.COD_DOC_COBRO= $("#COD_DOC_COBRO").val();
-    Filtros.DOC_COBRO_FECHA= $("#DOC_COBRO_FECHA").val();
-    Filtros.COD_OFI= $("#COD_OFI").val();
-    Filtros.COD_USU= $("#COD_USU").val();
-    Filtros.COD_TIPOCOBRO= $("#COD_TIPOCOBRO").val();
+	
+	Filtros.DOC_COBRO_FECHA= $("#DOC_COBRO_FECHA").val();
+    Filtros.NOMB_OFICINA= $("#NOMB_OFICINA").val();
+    Filtros.NOM_TIPOCOBRO= $("#NOM_TIPOCOBRO").val();
     Filtros.Pagina = npagina;
 
    $.ajax({
@@ -315,57 +310,54 @@ function fn_mostrar_pagina(npagina)
                 if(lista.length > 0) 
           	  	 {  
                     var sb="";
-                    sb=sb+" <div class='row'>";
-                    sb=sb+"   <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-                    sb=sb+"     COD_DOC_COBRO";  
-                    sb=sb+" 	  </div>"; 
-                    sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-                    sb=sb+" 	   NOM_USU";
-                    sb=sb+" 	  </div>";
-                    sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-                    sb=sb+" 	    DESC_CAJA";
-                    sb=sb+" 	  </div>";
-                    sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-                    sb=sb+" 	    NOM_TIPOCOBRO";
-                    sb=sb+" 	  </div>";
-                    sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
-                    sb=sb+" 	    NOMBRE CLIENTE";
-                    sb=sb+" 	  </div>";			   
-                    sb=sb+" </div>";		
+   					   sb=sb+" <div class='row'>";
+   					   sb=sb+"   <div class='col-xs-4'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
+   					   sb=sb+"     USUARIO";  
+   					   sb=sb+" 	  </div>"; 
+   					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
+ 					   sb=sb+" 	   NOMB OFICINA";
+ 					   sb=sb+" 	  </div>";
+   					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
+   					   sb=sb+" 	    TIPO COBRO";
+   					   sb=sb+" 	  </div>";
+   				       sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
+					   sb=sb+" 	    FECHA OPERACION";
+					   sb=sb+" 	  </div>";
+					   sb=sb+" 	  <div class='col-xs-2'  style='background-color:rgb(0,128,255); color:white; font-size:12px;'>";
+   					   sb=sb+" 	    Acciones";
+   					   sb=sb+" 	  </div>";		   
+   					   sb=sb+" </div>";		
 
-  					   
-          	  	
+						
                     for(var i=0;i<lista.length;i++)
                     {  var fila=lista[i];
-                            sb=sb+"<div class='row'>";   
-                            sb=sb+"   <div class='col-xs-2'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:10px;'> ";
-                            sb=sb+fila["COD_DOC_COBRO"].toString();
-                            sb=sb+"  </div>";
-                            sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:10px;'>";
-                            sb=sb+fila["NOM_USU"].toString();
-                            sb=sb+"   </div>";
-                            sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
-                            sb=sb+fila["DESC_CAJA"].toString();
-                            sb=sb+"   </div>";
-                            sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
-                            sb=sb+fila["NOM_TIPOCOBRO"].toString();
-                            sb=sb+"   </div>";
-                            sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
-                            sb=sb+fila["NOMBRE"].toString();
-                            sb=sb+"   </div>";
-                            sb=sb+"  <div class='col-xs-1'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:11px;'>";
-                            sb=sb+"	<a href='/mantGestionCobros_c/CreaDocumentoCobro/"+fila['COD_DOC_COBRO'].toString()+"'>";
-                            sb=sb+"	   Editar&nbsp";
-                            sb=sb+"	   <img src='/public/images/EDITAR.png'>";
-                            sb=sb+"	</a>"; 
-                            sb=sb+"  </div>";
-                            sb=sb+"  <div class='col-xs-1'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:11px;'>";
-                            sb=sb+"	    <a href='#' onclick=fn_eliminar('"+fila["COD_DOC_COBRO"].toString()+"')>";
-                            sb=sb+"	       Anular&nbsp";
-                            sb=sb+"	      <img src='/public/images/ELIMINAR.png'>";
-                            sb=sb+"	    </a>"; 
-                            sb=sb+"  </div>";
-                            sb=sb+"</div> ";
+						sb=sb+"<div class='row'>";   
+						sb=sb+"   <div class='col-xs-4'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:10px;'> ";
+						sb=sb+fila["NOM_USU"].toString();
+						sb=sb+"  </div>";
+						sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:10px;'>";
+						sb=sb+fila["NOMB_OFICINA"].toString();
+						sb=sb+"   </div>";
+						sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
+						sb=sb+fila["NOM_TIPOCOBRO"].toString();
+						sb=sb+"   </div>";
+						sb=sb+"  <div class='col-xs-2' style='background-color:#fff; border: 1px solid rgb(0,128,255);font-size:11px;'>";
+						sb=sb+fila["FECHA_OPERACION"].toString();
+						sb=sb+"   </div>";
+				
+						sb=sb+"  <div class='col-xs-1'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:11px;'>";
+						sb=sb+"	<a href='/mantGestionCobros_c/CreaDocumentoCobro/"+fila['COD_DOC_COBRO'].toString()+"'>";
+						sb=sb+"	   Editar&nbsp";
+						sb=sb+"	   <img src='/public/images/EDITAR.png'>";
+						sb=sb+"	</a>"; 
+						sb=sb+"  </div>";
+						sb=sb+"  <div class='col-xs-1'  style='background-color:#fff; border: 1px solid rgb(0,128,255); font-size:11px;'>";
+						sb=sb+"	    <a href='#' onclick=fn_eliminar('"+fila["COD_DOC_COBRO"].toString()+"')>";
+						sb=sb+"	       Anular&nbsp";
+						sb=sb+"	      <img src='/public/images/ELIMINAR.png'>";
+						sb=sb+"	    </a>"; 
+						sb=sb+"  </div>";
+						sb=sb+"</div> ";
                         }
            	  	    	 $('#tabla').html('');
               	  	     $('#tabla').append(sb);

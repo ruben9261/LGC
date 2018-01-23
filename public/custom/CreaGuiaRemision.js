@@ -266,6 +266,7 @@ $(document).ready(function() {
                                     $("#MONTO_TOTAL").val(TOTAL);
                                     $("#MONTO_NETO").val(TOTAL);
                                 });
+                                document.getElementById("validartabla").innerHTML = "";
                             }
                         },
                         error: function(error){
@@ -345,6 +346,11 @@ $.ajax({
     $( "#Guardar" ).click(function( e ) {
         // var TipoCobro = $("#COD_TIPOPAGO").val();
         // debugger;
+
+        $datos = $("#datos").val();
+        if($datos==0){
+           document.getElementById("demo").innerHTML = "<div id='validartabla'><label style='color:red;' class=control-labe>Seleccione  Producto</label></label> </div>";
+        }
         $("#frmGuiaRemision").validate({
                     rules: {
                         FECHA_EMISION: {
@@ -762,7 +768,8 @@ $.ajax({
         
         $("#TablaGuiaRemision tbody").append(cols);
         $("#ProductosModal").modal("toggle");
-
+        document.getElementById("validartabla").innerHTML ="";
+       
         var COD_PROD = $("#COD_PROD").val("");
         var COD_UM = $("#COD_UM").val("");
         var CANTIDAD = $("#CANTIDAD").val("");

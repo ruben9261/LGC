@@ -103,7 +103,7 @@ function fn_ObtenerProveedores(){
 					// cols += '<tr><td class="COD_PROV" data-value="">'+value.COD_CLI+'</td>';
 					// cols += '<td class="NomCli" >'+value.NOMBRE+'</td>';
 					// cols += '<td>'+value.NRO_DOCUMENTO+'</td>';
-					// cols += '<td><i class="btn glyphicon glyphicon-ok" onclick="fn_SeleccionarProveedor('+"'"+value.COD_CLI+"','"+value.NOMBRE+"','"+value.NRO_DOCUMENTO+"'"+');"></i></td></tr>';
+					// cols += '<td><i class="btn glyphicon glyphico	document.getElementById("validartabla").innerHTML = "";n-ok" onclick="fn_SeleccionarProveedor('+"'"+value.COD_CLI+"','"+value.NOMBRE+"','"+value.NRO_DOCUMENTO+"'"+');"></i></td></tr>';
 					//$("#TablaProveedores tbody").append(cols);
 
 					Proveedor = new Object;
@@ -158,6 +158,7 @@ function fn_ObtenerOrdenSalida(){
 					OrdenSalida.Acciones = '<i class="btn glyphicon glyphicon-ok" onclick="fn_SeleccionarOrdenSalida('+"'"+value.COD_ORDEN_S+"'"+');"></i>';
 					TableData.push(OrdenSalida);
 				});
+				
 			}
 			$('#TablaOrdenSalida').dataTable().fnAddData(TableData);
 		},
@@ -248,6 +249,7 @@ function fn_SeleccionarOrdenSalida(COD_ORDEN_S){
 								$("#TOTAL").html(TOTAL);
 								$("#MONTO_TOTAL").val(TOTAL);
 								$("#MONTO_NETO").val(TOTAL);
+								document.getElementById("validartabla").innerHTML = "";
 							});
 						}
 					},
@@ -265,6 +267,10 @@ function fn_SeleccionarOrdenSalida(COD_ORDEN_S){
 $( "#Guardar" ).click(function( e ) {
 	// var TipoCobro = $("#COD_TIPOPAGO").val();
 	// debugger;
+	$datos = $("#datos").val();
+	if($datos==0){
+	   document.getElementById("demo").innerHTML = "<div id='validartabla'><label style='color:red;' class=control-labe>Seleccione orden de entrada</label></label> </div>";
+	}
 	$("#frmCreadocPago").validate({
 				rules: {
 					NRO_DOCUMENTO: {
@@ -320,6 +326,7 @@ $( "#Guardar" ).click(function( e ) {
 			$("#TOTAL").html(TOTAL);
 			$("#MONTO_TOTAL").val(TOTAL);			
 			$("#MONTO_NETO").val(TOTAL);
+			document.getElementById("validartabla").innerHTML = "";
 		});
 	}
 }

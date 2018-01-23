@@ -228,12 +228,17 @@ function fn_SeleccionarOrdenEntrada(CodOrdenE){
 						debugger;
 						Total = parseInt($("#Total").html());
 						if(listOrdenEntradaDet.length>0){
+							$datos=0;
+
 							$.each(listOrdenEntradaDet, function(index, value){
+								$datos=$datos+1;
+								
 								var cols = "";
 								cols += '<tr class="FILA'+value.CodOrdenE+'">';
 								cols += '<input type="hidden" class="COD_DOC_COBRO_DET" value="'+value.COD_DET_ORDEN_E+'">';
 								cols += '<input type="hidden" class="CodOrdenE" value="'+value.CodOrdenE+'">';
 								cols += '<input type="hidden" class="SUB_TOTAL" value="'+value.Importe+'">'
+								cols += '<input type="hidden" class="SUB_TOTAL" value="'+value.datos+'">'
 								cols += '<td class="col-md-3 input-sm">'+value.CodOrdenE+'-'+value.Serie+'-'+value.Numero+'</td>';
 								cols += '<td class="col-md-1 input-sm" >'+value.Cantidad+'</td>';
 								cols += '<td class="col-md-1 input-sm" >'+value.Producto+'</td>';
@@ -249,6 +254,7 @@ function fn_SeleccionarOrdenEntrada(CodOrdenE){
 								$("#MONTO_TOTAL").val(Total);
 								$("#MONTO_NETO").val(Total);
 							});
+							document.getElementById("validartabla").innerHTML = "";
 						}
 					},
 					error: function(error){
@@ -265,6 +271,13 @@ function fn_SeleccionarOrdenEntrada(CodOrdenE){
 $( "#Guardar" ).click(function( e ) {
 	// var TipoCobro = $("#COD_TIPOCOBRO").val();
 	// debugger;
+	$datos = $("#datos").val();
+	 if($datos==0){
+		document.getElementById("demo").innerHTML = "<div id='validartabla'><label style='color:red;' class=control-labe>Seleccione orden de entrada</label></label> </div>";
+	 }
+	
+	
+
 	$("#frmCreaDocCobro").validate({
 				rules: {
 					NRO_DOCUMENTO: {
@@ -279,7 +292,9 @@ $( "#Guardar" ).click(function( e ) {
 					FECHA_OPERACION: {
 						required: true,
 					}
+				
 				}, messages: {
+					
 					NRO_DOCUMENTO: {
 						required: "Ingrese un número de documento"
 					},
@@ -304,12 +319,16 @@ $( "#Guardar" ).click(function( e ) {
 
 function fn_ActualizarDetalleDocCobro(listDocCobroDet){
 	if(listDocCobroDet.length>0){
+		$datos = 0;
 		$.each(listDocCobroDet, function(index, value){
+			$datos = $datos +1;
+          
 			var cols = "";
 			cols += '<tr>';
 			cols += '<input type="hidden" class="COD_DOC_COBRO_DET" value="'+value.COD_DOC_COBRO_DET+'">';
 			cols += '<input type="hidden" class="CodOrdenE" value="'+value.CodOrdenE+'">';
 			cols += '<input type="hidden" class="SUB_TOTAL" value="'+value.Importe+'">'
+			cols += '<input type="hidden" class="datos" value="'+value.datos+'">';
 			cols += '<td class="col-md-3 input-sm">'+value.CodOrdenE+'-'+value.Serie+'-'+value.Numero+'</td>';
 			cols += '<td class="col-md-1 input-sm" >'+value.Cantidad+'</td>';
 			cols += '<td class="col-md-1 input-sm" >'+value.Producto+'</td>';
@@ -323,7 +342,9 @@ function fn_ActualizarDetalleDocCobro(listDocCobroDet){
 			$("#MONTO_TOTAL").val(Total);
 			$("#MONTO_NETO").val(Total);
 		});
+		document.getElementById("validartabla").innerHTML = "";
 	}
+	
 }
 function fn_GuardarDocCobro(){
 

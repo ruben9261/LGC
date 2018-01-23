@@ -36,13 +36,19 @@ i.btn.glyphicon.glyphicon-ok {
 }.fa-file-pdf-o:before {
     content: "\f1c1";
 }
+.container.contenido{
+	border: 1px solid rgb(0,128,255); 
+	
+	}
+	.container{
+		background-color:rgb(255,255,255);
 
-		.container{
-			background-color:rgb(255,255,255);
-			width: 90%;
-			height:50%;
-		}
-
+		width: 90%;
+		height:50%;
+	}
+td.input-sm {
+    border: #0080ff 1px solid;
+}
 		 .container-border{
 			background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);
 			
@@ -56,7 +62,10 @@ i.btn.glyphicon.glyphicon-ok {
 
 		.thead-style{
 			background-color:rgb(0,128,255); color:white; font-size:11px;
-		}
+		}.form-horizontal .form-group {
+    margin-right: 10px;
+    margin-left: 10px;
+}
 	</style>
  </head>
 <body>
@@ -69,6 +78,8 @@ $NRO_DOCUMENTO = "";
 $COD_CLI = "";
 $NOMBRE = "";
 $Total = 0;
+$datos = 0;
+
 $COD_TIPO_DOC = 0;
 $FECHA_OPERACION_NEW = "";
 $COD_TIPOCOBRO = 1;
@@ -117,9 +128,9 @@ if($TIPO_TRANSACCION==1){
 	$displayPdf = "block";
 }
 
-?>
+?><br><br>
 	<input type="hidden" Id="CodCli" name="" value="">
-	<div class="container" id="contenedor">
+	<div class="container contenido" id="contenedor">
 		           <br/>
 		            <div class="modal-header" style="color:rgb(0,128,255);"> 
 		                 <STRONG>Registrar Gesti&oacute;n de Cobro</STRONG>
@@ -157,7 +168,7 @@ if($TIPO_TRANSACCION==1){
 								</div>
 								
 								<div class="col-md-3 col-md-offset-9 container-style">
-									<label for="" class="control-label ">
+									<label for="" class="control-label ">Fecha :
 										<?php 
 											date_default_timezone_set('Australia/Melbourne');
 											$date = date('m/d/Y h:i:s a', time());
@@ -295,28 +306,37 @@ if($TIPO_TRANSACCION==1){
 									<tbody>
 										<?php
 											if(count($docCobroDet)>0){
+											$datos = $datos + 1;
 												
 												foreach($docCobroDet as $item){
+													
 													$cols = "";
 													$cols .= '<tr class="fila'.$item->CodOrdenE.'">';
 													$cols .= '<input type="hidden" class="CodOrdenE" value="'.$item->CodOrdenE.'">';
 													$cols .= '<input type="hidden" class="SUB_TOTAL" value="'.$item->Importe.'">';
-													$cols .= '<td class="col-md-3 input-sm">'.$item->CodOrdenE.'-'.$item->Serie.'-'.$item->Numero.'</td>';
+													$cols .= '<td class="col-md-1 input-sm">'.$item->CodOrdenE.'-'.$item->Serie.'-'.$item->Numero.'</td>';
 													$cols .= '<td class="col-md-1 input-sm" >'.$item->Cantidad.'</td>';
-													$cols .= '<td class="col-md-1 input-sm" >'.$item->Producto.'</td>';
-													$cols .= '<td class="col-md-3 input-sm" >'.$item->TipoProducto.'</td>';
-													$cols .= '<td class="col-md-2 input-sm" >'.$item->ObsProd.'</td>';
-													$cols .= '<td class="col-md-3 input-sm" >'.$item->Precio.'</td>';
-													$cols .= '<td class="col-md-2 input-sm" >'.$item->Importe.'</td>';
+													$cols .= '<td class="col-md-3 input-sm" >'.$item->Producto.'</td>';
+													$cols .= '<td class="col-md-1 input-sm" >'.$item->TipoProducto.'</td>';
+													$cols .= '<td class="col-md-3 input-sm" >'.$item->ObsProd.'</td>';
+													$cols .= '<td class="col-md-1 input-sm" >'.$item->Precio.'</td>';
+													$cols .= '<td class="col-md-1 input-sm" >'.$item->Importe.'</td>';
 													$cols .= '<td class="col-md-1 input-sm" ><i class="btn glyphicon glyphicon-remove" onclick="fn_EliminarOrdenEntradaDetalle('."'fila".$item->CodOrdenE."'".');"></i></td>';
+													$cols .= '<input type="hidden" id="datos" value="'.$datos.'">';
+
 													$cols .= '</tr>';
 													$importe = intval($item->Importe);
 													$Total = $Total + $importe;
 													echo $cols;
+
+													
+													
+													
 												}
+												
 											}
-										?>
-									</tbody>
+										?> <input type="hidden" name="datos" id="datos" value="<?php echo $datos;?>">
+										<div id="demo"></div>
 									<tfoot>
 										<tr>
 											<th class='col-md-1 '></th>
@@ -365,7 +385,7 @@ if($TIPO_TRANSACCION==1){
 
 									 
 									     
-									   <a href="/ConsOrdenEntrada_c/" class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);">
+									   <a href="/mantGestionCobros_c/" class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);">
 										        Cancelar
 										        <img src="/public/images/CANCELAR.png">
 									   </a>
@@ -463,6 +483,8 @@ if($TIPO_TRANSACCION==1){
 		$(document).ready(function() {
 			
 			$("#COD_TIPOCOBRO").val("<?php echo $COD_TIPOCOBRO; ?>");
+
+			
 		});
 	</script>
 </body>

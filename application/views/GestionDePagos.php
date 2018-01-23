@@ -57,38 +57,47 @@
 		    	  <div class="form_group">
 				  	   <input type="text" name="btnbuscar" id="COD_DOC_PAGO"  class="form-control"  placeholder="Código de Pago">
 				       <input type="text" name="btnbuscar" id="DOC_PAGO_FECHA" class="form-control"  placeholder="Fecha de Pago"> 
+					   
+                       <input type="text" name="btnbuscar" id="NOMB_OFICINA" class="form-control"  placeholder="Nombre de Oficina"> 
+					   <input type="text" name="btnbuscar" id="NOM_TIPOPAGO" class="form-control"  placeholder="Tipo de Pago"> 
+					   <input type="text" name="btnbuscar" id="NOMBRE" class="form-control"  placeholder="Nombre Cliente"> 
+					   <input type="text" name="btnbuscar" id="DOC_PAGO_FECHA" class="form-control"  placeholder="Fecha de Pago"> 
+					   
+				    
+					   <!-- 
+					   
 					   <select name="btnbuscar" class="form-control" id="COD_OFI">
-					   		<option value="0">--TODAS LAS OFICINAS--</option>
-						   <?php
+					   		<option value="0">TODAS LAS OFICINAS</option>
+						   <php
 								foreach($listOficina as $item){
 									echo "<option value='".$item->COD_OFI."'>".$item->NOMB_OFICINA."</option>";
 								}  
-						   ?>
+						   >
 					   </select>
 					   <select name="btnbuscar" class="form-control" id="COD_USU">
-					   		<option value="0">--TODOS LOS USUARIOS--</option>
-						   <?php
+					   		<option value="0">TODOS LOS USUARIOS</option>
+						   <php
 								foreach($listUsuarios as $item){
 									echo "<option value='".$item->COD_USU."'>".$item->NOM_USU."</option>";
 								}  
-						   ?>
+						   >
 					   </select>
 					   <select name="btnbuscar" class="form-control" id="COD_TIPOPAGO">
-					   		<option value="0">--TODOS LOS TIPO DE PAGO--</option>
-						   <?php
+					   		<option value="0">TODOS LOS TIPO DE PAGO</option>
+						   <php
 								foreach($listTipoPago as $item){
 									echo "<option value='".$item->COD_TIPOPAGO."'>".$item->NOM_TIPOPAGO."</option>";
 								}  
-						   ?>
+						   >
 					   </select>	
 					   <select name="btnbuscar" class="form-control" id="COD_PROV">
-					   		<option value="0">--TODOS LOS CLIENTES--</option>
-						   <?php
+					   		<option value="0">TODOS LOS CLIENTES</option>
+						   <php
 								foreach($listProveedores as $item){	
 									echo "<option value='".$item->COD_PROV."'>".$item->NOMBRE."</option>";
 								}  
-						   ?>
-					   </select>				    
+						   >
+					   </select>	-->			    
 					   <br/>
 					   <button  type="button"  id="btnbuscar"   style="background-color:rgb(255,255,255);color:rgb(0,128,255); border: 1px solid rgb(0,128,255);">
 							  <img src="/public/images/BUSCAR.png">

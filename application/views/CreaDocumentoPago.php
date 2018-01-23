@@ -34,13 +34,19 @@ i.btn.glyphicon.glyphicon-ok {
 }.fa-file-pdf-o:before {
     content: "\f1c1";
 }
-		.container{
-			background-color:rgb(255,255,255);
-			border: 1px solid rgb(0,128,255); 
-			width: 90%;
-			height:50%;
-		}
+.container.contenido{
+	border: 1px solid rgb(0,128,255); 
+	
+	}
+	.container{
+		background-color:rgb(255,255,255);
 
+		width: 90%;
+		height:50%;
+	}
+td.input-sm {
+    border: #0080ff 1px solid;
+}
 		 .container-border{
 			background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);
 			
@@ -55,6 +61,10 @@ i.btn.glyphicon.glyphicon-ok {
 		.thead-style{
 			background-color:rgb(0,128,255); color:white; font-size:11px;
 		}
+		.form-horizontal .form-group {
+    margin-right: 10px;
+    margin-left: 10px;
+}
 	</style>
  </head>
 <body>
@@ -67,6 +77,8 @@ $NRO_DOCUMENTO = "";
 $COD_PROV = "";
 $NOMBRE = "";
 $TOTAL = 0;
+$datos = 0;
+
 $COD_TIPOPAGO = 1;
 $COD_TIPO_DOC = 0;
 $OBSERVACION = "";
@@ -127,9 +139,9 @@ if($TIPO_TRANSACCION==1){
 	$displayPdf = "block";
 }
 
-?>
+?><br><br>
 	<input type="hidden" Id="CodCli" name="" value="">
-	<div class="container" id="contenedor">
+	<div class="container contenido" id="contenedor">
 		           <br/>
 		            <div class="modal-header" style="color:rgb(0,128,255);"> 
 		                 <STRONG>Registrar Gesti&oacute;n de Pagos </STRONG>
@@ -165,7 +177,7 @@ if($TIPO_TRANSACCION==1){
 								</div>
 								
 								<div class="col-md-3 col-md-offset-9 container-style">
-									<label for="" class="control-label ">
+									<label for="" class="control-label ">Fecha :
 									<?php 
 											date_default_timezone_set('Australia/Melbourne');
 											$date = date('m/d/Y h:i:s a', time());
@@ -302,17 +314,19 @@ if($TIPO_TRANSACCION==1){
 											if(count($docPagoDet)>0){
 												
 												foreach($docPagoDet as $item){
+													$datos = $datos + 1;
+													
 													$cols = "";
 													$cols .= '<tr class="fila'.$item->COD_ORDEN_S.'">';
 													$cols .= '<input type="hidden" class="COD_ORDEN_S" value="'.$item->COD_ORDEN_S.'">';
 													$cols .= '<input type="hidden" class="SUB_TOTAL" value="'.$item->IMPORTE.'">';
-													$cols .= '<td class="col-md-3 input-sm">'.$item->COD_ORDEN_S.'-'.$item->SERIE.'-'.$item->NUMERO.'</td>';
+													$cols .= '<td class="col-md-1 input-sm">'.$item->COD_ORDEN_S.'-'.$item->SERIE.'-'.$item->NUMERO.'</td>';
 													$cols .= '<td class="col-md-1 input-sm" >'.$item->CANTIDAD.'</td>';
-													$cols .= '<td class="col-md-1 input-sm" >'.$item->PRODUCTO.'</td>';
-													$cols .= '<td class="col-md-3 input-sm" >'.$item->TIPOPRODUCTO.'</td>';
-													$cols .= '<td class="col-md-2 input-sm" >'.$item->DESCRIPCION.'</td>';
-													$cols .= '<td class="col-md-3 input-sm" >'.$item->PRECIO.'</td>';
-													$cols .= '<td class="col-md-2 input-sm" >'.$item->IMPORTE.'</td>';
+													$cols .= '<td class="col-md-3 input-sm" >'.$item->PRODUCTO.'</td>';
+													$cols .= '<td class="col-md-1 input-sm" >'.$item->TIPOPRODUCTO.'</td>';
+													$cols .= '<td class="col-md-3 input-sm" >'.$item->DESCRIPCION.'</td>';
+													$cols .= '<td class="col-md-1 input-sm" >'.$item->PRECIO.'</td>';
+													$cols .= '<td class="col-md-1 input-sm" >'.$item->IMPORTE.'</td>';
 													$cols .= '<td class="col-md-1 input-sm" ><i class="btn glyphicon glyphicon-remove" onclick="fn_EliminarOrdenSalidaDetalle('."'fila".$item->COD_ORDEN_S."'".');"></i></td>';
 													$cols .= '</tr>';
 													$IMPORTE = intval($item->IMPORTE);
@@ -320,7 +334,8 @@ if($TIPO_TRANSACCION==1){
 													echo $cols;
 												}
 											}
-										?>
+										?><input type="hidden" name="datos" id="datos" value="<?php echo $datos;?>">
+										<div id="demo"></div>
 									</tbody>
 									<tfoot>
 										<tr>
@@ -329,8 +344,8 @@ if($TIPO_TRANSACCION==1){
 											<th class='col-md-3'></th>
 											<th class='col-md-1'></th>
 											<th class='col-md-3'></th>
-											<th class='col-md-1'>TOTAL:</th>
-											<th class='col-md-1'><span id="TOTAL"><?php echo $TOTAL; ?></span></th>
+											<th class='col-md-1'></th>
+											<th class='col-md-1'></th>
 											<th class='col-md-1'></th>
 										</tr>
 									</tfoot>
@@ -338,7 +353,9 @@ if($TIPO_TRANSACCION==1){
 								</div> 
 								
 							</div>
-						
+							<br><br>
+							<p class="pull-rigth">Total: <span id="TOTAL"><?php echo $TOTAL; ?></span></p>
+								
 						    <br/>
 						    
 						    <div class="form-group">

@@ -16,7 +16,7 @@ GUIA DE REMISIÓN:
   Centrar la  grilla  y que encaje correctamente
   Añadir caja descripción de producto en formulario al agregar producto, el cual debe añadirse a la grilla como a la  base de datos al momento de la       inserción.
 - El número de la guía debe ser actualizado en la tabla serie de guía ya que existe una configuración inicial desde la cual se debe de incrementar
-
+  
  COBROS
  - margen superior no debe ir pegado
  - centrar la  grilla  y que encaje correctamente
