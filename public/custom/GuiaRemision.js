@@ -78,7 +78,7 @@ function bus_GuiRemision()
 				  debugger;
       			if (tpaginas >0)
           		  { var contendiopag="";
-        			contendiopag="<span>Resultado:</span>";
+        			contendiopag="<span>Guias de Remisión :</span><br>";
           			contendiopag=contendiopag+"<ul class='pagination'>";
           			contendiopag=contendiopag+"<li><a  id='retro' href='#' onclick='fn_retroceder()'>&laquo; Anterior</a></li>"; 
 
@@ -136,7 +136,8 @@ function bus_GuiRemision()
 					   sb=sb+" 	  </div>";  			   
    					   sb=sb+" </div>";	
 						  
-						 	   
+								
+						  
 					
             	  	       for(var i=0;i<lista.length;i++)
 						  {  var fila=lista[i];

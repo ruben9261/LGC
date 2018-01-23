@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html> 
   <head> 
-    <title>Crear Orden de Entrada</title> 
+    <title>Registrar Gesti&oacute;n de Cobro</title> 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type ="text/css" href="/public/bootstrap-3.3.7-dist/css/bootstrap.min.css"> 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
@@ -39,7 +39,6 @@ i.btn.glyphicon.glyphicon-ok {
 
 		.container{
 			background-color:rgb(255,255,255);
-			border: 1px solid rgb(0,128,255); 
 			width: 90%;
 			height:50%;
 		}
@@ -123,7 +122,7 @@ if($TIPO_TRANSACCION==1){
 	<div class="container" id="contenedor">
 		           <br/>
 		            <div class="modal-header" style="color:rgb(0,128,255);"> 
-		                 <STRONG>Registrar Orden de Entrada </STRONG>
+		                 <STRONG>Registrar Gesti&oacute;n de Cobro</STRONG>
 						 <div id="ImprimirPdf" class="" style="display:<?php echo $displayPdf;?>;">
 						 	<a class="btn btn-success" target="_blank"  href='/mantGestionCobros_c/DocCobroPdf/<?php echo $COD_DOC_COBRO;?>'>Imprimir <i class="fa fa-file-pdf-o"> </i>  </a>
 						 </div>

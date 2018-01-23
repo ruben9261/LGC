@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html> 
   <head> 
-    <title>Gesti&oacute;n de Guia de Remision</title> 
+    <title>Gesti&oacute;n de Guia de Remisi&oacute;n</title> 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type ="text/css" href="/public/bootstrap-3.3.7-dist/css/bootstrap.min.css"> 
      <style type="text/css">
@@ -37,7 +37,7 @@
     <div class="container">
          <br/>   
          <P class="text-center" style="color:rgb(0,128,255);"> 
-		        GESTI&Oacute;N DE GUIA REMISION
+		 Gesti&oacute;n de Guia de Remisi&oacute;n
 		 </P>
          <br/>
     	<div class="well" style="background-color:rgb(255,255,255); border: 1px solid rgb(0,128,255);">    	     

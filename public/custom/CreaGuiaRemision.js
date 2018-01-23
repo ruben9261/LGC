@@ -368,6 +368,11 @@ $.ajax({
                         MARCA_PLACA: {
                             required: true,
                         },
+                        
+                        NROCONS_INSCRIPC: {
+                            required: true,
+                        },
+                        
                         NROLIC_CONDUCIR: {
                             required: true,
                         },
@@ -411,6 +416,10 @@ $.ajax({
                         NRO_DOCUMENTO: {
                             required: "Ingrese un número de documento",
                         },
+                        NROCONS_INSCRIPC: {
+                            required: "Ingrese número de orden de compra",
+                        },
+
                         MARCA_PLACA: {
                             required: "Ingrese una marca de placa",
                         },

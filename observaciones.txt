@@ -10,8 +10,8 @@ así mismo en los botones de cancelar debe direccionar a la página correspondie
 GUIA DE REMISIÓN:
 - Gestión de guías
   Eliminar el campo código de los filtros de búsqueda-corregido
-  Añadir el encabezado operación a la grilla
-  corregir las búsquedas por cada uno de los campos ya que actualmente me envía a otra página
+  Añadir el encabezado operación a la grilla-corregido
+  corregir las búsquedas por cada uno de los campos ya que actualmente me envía a otra página-corregido
 - Registro de nueva guía
   Centrar la  grilla  y que encaje correctamente
   Añadir caja descripción de producto en formulario al agregar producto, el cual debe añadirse a la grilla como a la  base de datos al momento de la       inserción.
@@ -20,11 +20,11 @@ GUIA DE REMISIÓN:
  COBROS
  - margen superior no debe ir pegado
  - centrar la  grilla  y que encaje correctamente
- - agregar opción de crear cliente desde el  formulario que añade al cliente
+ - agregar opción de crear cliente desde el  formulario que añade al cliente http://localhost:8080/mantOrdenEntrada_c/mostrar_Nuevo
  - centrar la caja del comentario
  - añadir etiqueta de fecha en registro de cobro
  - añadir mensaje de validación en caso no haya registros en el detalle 
- - agregar tipo doc de cliente de boucher
+ - agregar tipo doc de cliente de boucher 
  - al imprimir no debe cerrar la sesión  el sistema no debe cerrarse solo dede abrir una pagina con el pdf 
 
  PAGOS
@@ -42,7 +42,7 @@ GUIA DE REMISIÓN:
 
 favor  de corregirlo esta semana que viene ya que debo estar cerrando el proyecto el fin de semana
 
-gracias de antemano
+gracias de antemano     
 
 quedo atento a tus comentarios
 

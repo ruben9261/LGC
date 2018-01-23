@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html> 
   <head> 
-    <title>Crear Orden de Entrada</title> 
+    <title>Mantenimiento de Gesti&oacute;n de Guia de Remisi&oacute;n </title> 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type ="text/css" href="/public/bootstrap-3.3.7-dist/css/bootstrap.min.css"> 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
@@ -42,7 +42,7 @@ i.btn.glyphicon.glyphicon-ok {
 
 		.container{
 			background-color:rgb(255,255,255);
-			border: 1px solid rgb(0,128,255); 
+			
 			width: 90%;
 			height:50%;
 		}
@@ -160,7 +160,7 @@ i.btn.glyphicon.glyphicon-ok {
 	<div class="container" id="contenedor">
 		           <br/>
 		            <div class="modal-header" style="color:rgb(0,128,255);"> 
-		                 <STRONG>Mantenimiento de Guia de Remision </STRONG>
+		                 <STRONG>Mantenimiento de Gesti&oacute;n de Guia de Remisi&oacute;n</STRONG>
 						 <div id="ImprimirPdf" class="" style="display:<?php echo $displayPdf;?>;">
 						 	<a class="btn btn-success" target="_blank" id="generate">Imprimir <i class="fa fa-file-pdf-o"> </i>  </a>
 						 </div>
@@ -327,19 +327,19 @@ i.btn.glyphicon.glyphicon-ok {
 									<table id="TablaGuiaRemision">
 										<thead>
 											<tr>
-											<th class='col-md-1 thead-style'>
+											<th class='col-md-2 thead-style'>
 													CODIGO 
 											</th> 
-											<th class='col-md-1 thead-style'>
+											<th class='col-md-2 thead-style'>
 													CANTIDAD 
 											</th> 
 											<th class='col-md-3 thead-style'>
 													UNIDAD
 											</th>
-											<th class='col-md-1 thead-style'>
+											<th class='col-md-3 thead-style'>
 													DESCRIPCION
 											</th>
-											<th class='col-md-3 thead-style'>
+											<th class='col-md-2 thead-style'>
 													ACCIONES
 											</th>
 											</tr>
@@ -355,11 +355,11 @@ i.btn.glyphicon.glyphicon-ok {
 													$cols .= '<input type="hidden" class="CANTIDAD" value="'.round($item->CANTIDAD,2).'">';
 													$cols .= '<input type="hidden" class="UNIDMED" value="'.$item->DESC_UM.'">';
 													$cols .= '<input type="hidden" class="PRODUCTO" value="'.$item->DESCRIPCION.'">';
-													$cols .= '<td class="col-md-3 input-sm">'.$item->COD_PROD.'</td>';
-													$cols .= '<td class="col-md-1 input-sm" >'.round($item->CANTIDAD,2).'</td>';
-													$cols .= '<td class="col-md-1 input-sm" >'.$item->DESC_UM.'</td>';
+													$cols .= '<td class="col-md-2 input-sm">'.$item->COD_PROD.'</td>';
+													$cols .= '<td class="col-md-2 input-sm" >'.round($item->CANTIDAD,2).'</td>';
+													$cols .= '<td class="col-md-3 input-sm" >'.$item->DESC_UM.'</td>';
 													$cols .= '<td class="col-md-3 input-sm" >'.$item->DESCRIPCION.'</td>';
-													$cols .= '<td class="col-md-1 input-sm" ><i class="btn glyphicon glyphicon-remove" onclick="fn_EliminarOrdenSalidaDetalle('."'FILA".$item->COD_PROD."'".');"></i></td>';
+													$cols .= '<td class="col-md-2 input-sm" ><i class="btn glyphicon glyphicon-remove" onclick="fn_EliminarOrdenSalidaDetalle('."'FILA".$item->COD_PROD."'".');"></i></td>';
 													
 													echo $cols;
 												 }
