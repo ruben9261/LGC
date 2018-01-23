@@ -121,17 +121,18 @@ class ConsGestionPago_m extends CI_Model {
 
 	public function obt_totpaginas($Filtros){
 		$TotalPaginas = 0;
-		$this->db->select('dc.COD_DOC_PAGO,prov.NOMBRE, prov.NRO_DOCUMENTO, u.COD_USU, u.NOM_USU,c.DESC_CAJA,tp.NOM_TIPOPAGO');
+		$this->db->select('dc.Fecha_OPERACION,dc.COD_DOC_PAGO, prov.NOMBRE,tp.NOM_TIPOPAGO');
 		$this->db->from('doc_pago dc');
 		$this->db->join('Proveedor prov', 'dc.COD_PROV = prov.COD_PROV');
 		$this->db->join('usuario u', 'dc.COD_USU = u.COD_USU');
-		$this->db->join('caja c', 'dc.COD_CAJA = c.COD_CAJA');
 		$this->db->join('tipo_pago tp', 'dc.COD_TIPOPAGO = tp.COD_TIPOPAGO');
-		$this->db->where("((".$Filtros["COD_PROV"]."=0) or(dc.COD_PROV=".$Filtros["COD_PROV"]."))");
-		$this->db->where("((".$Filtros["COD_USU"]."=0) or(u.COD_USU=".$Filtros["COD_USU"]."))");
-		$this->db->where("((".$Filtros["COD_TIPOPAGO"]."=0) or(dc.COD_TIPOPAGO=".$Filtros["COD_TIPOPAGO"]."))");
+		$this->db->join('oficina of', 'dc.COD_OFI = of.COD_OFI');
+
+		$this->db->where("(('".$Filtros["NOMB_OFICINA"]."'='') or(of.NOMB_OFICINA='".$Filtros["NOMB_OFICINA"]."'))");
+		$this->db->where("(('".$Filtros["NOM_TIPOPAGO"]."'='') or(tp.NOM_TIPOPAGO='".$Filtros["NOM_TIPOPAGO"]."'))");
 		$this->db->where("(('".$Filtros["COD_DOC_PAGO"]."'='') or(dc.COD_DOC_PAGO='".$Filtros["COD_DOC_PAGO"]."'))");
 		$this->db->where("(('".$Filtros["DOC_PAGO_FECHA"]."'='') or(date(dc.DOC_PAGO_FECHA)='".$Filtros["DOC_PAGO_FECHA"]."'))");
+
 		//$string = $this->db->get_compiled_select();
 		$query  = $this->db->get();
 		$result = $query->result();
@@ -159,17 +160,18 @@ class ConsGestionPago_m extends CI_Model {
 		$filasxpagina = 10;
 		$inicio = round($P_numpagina/$filasxpagina);
 
-				$this->db->select('dc.COD_DOC_PAGO,prov.NOMBRE, prov.NRO_DOCUMENTO, u.COD_USU, u.NOM_USU,c.DESC_CAJA,tp.NOM_TIPOPAGO');
-				$this->db->from('doc_pago dc');
-				$this->db->join('Proveedor prov', 'dc.COD_PROV = prov.COD_PROV');
-				$this->db->join('usuario u', 'dc.COD_USU = u.COD_USU');
-				$this->db->join('caja c', 'dc.COD_CAJA = c.COD_CAJA');
-				$this->db->join('tipo_pago tp', 'dc.COD_TIPOPAGO = tp.COD_TIPOPAGO');
-				$this->db->where("((".$Filtros["COD_PROV"]."=0) or(dc.COD_PROV=".$Filtros["COD_PROV"]."))");
-				$this->db->where("((".$Filtros["COD_USU"]."=0) or(u.COD_USU=".$Filtros["COD_USU"]."))");
-				$this->db->where("((".$Filtros["COD_TIPOPAGO"]."=0) or(dc.COD_TIPOPAGO=".$Filtros["COD_TIPOPAGO"]."))");
-				$this->db->where("(('".$Filtros["COD_DOC_PAGO"]."'='') or(dc.COD_DOC_PAGO='".$Filtros["COD_DOC_PAGO"]."'))");
-				$this->db->where("(('".$Filtros["DOC_PAGO_FECHA"]."'='') or(date(dc.DOC_PAGO_FECHA)='".$Filtros["DOC_PAGO_FECHA"]."'))");
+		$this->db->select('dc.Fecha_OPERACION,dc.COD_DOC_PAGO, prov.NOMBRE,tp.NOM_TIPOPAGO');
+		$this->db->from('doc_pago dc');
+		$this->db->join('Proveedor prov', 'dc.COD_PROV = prov.COD_PROV');
+		$this->db->join('usuario u', 'dc.COD_USU = u.COD_USU');
+		$this->db->join('tipo_pago tp', 'dc.COD_TIPOPAGO = tp.COD_TIPOPAGO');
+		$this->db->join('oficina of', 'dc.COD_OFI = of.COD_OFI');
+
+		$this->db->where("(('".$Filtros["NOMB_OFICINA"]."'='') or(of.NOMB_OFICINA='".$Filtros["NOMB_OFICINA"]."'))");
+		$this->db->where("(('".$Filtros["NOM_TIPOPAGO"]."'='') or(tp.NOM_TIPOPAGO='".$Filtros["NOM_TIPOPAGO"]."'))");
+		$this->db->where("(('".$Filtros["COD_DOC_PAGO"]."'='') or(dc.COD_DOC_PAGO='".$Filtros["COD_DOC_PAGO"]."'))");
+		$this->db->where("(('".$Filtros["DOC_PAGO_FECHA"]."'='') or(date(dc.DOC_PAGO_FECHA)='".$Filtros["DOC_PAGO_FECHA"]."'))");
+
 				$this->db->limit($filasxpagina,$inicio);
 				//$string = $this->db->get_compiled_select();
 				$query  = $this->db->get();

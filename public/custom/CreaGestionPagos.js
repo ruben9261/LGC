@@ -106,6 +106,7 @@ function fn_ObtenerProveedores(){
 					// cols += '<td><i class="btn glyphicon glyphico	document.getElementById("validartabla").innerHTML = "";n-ok" onclick="fn_SeleccionarProveedor('+"'"+value.COD_CLI+"','"+value.NOMBRE+"','"+value.NRO_DOCUMENTO+"'"+');"></i></td></tr>';
 					//$("#TablaProveedores tbody").append(cols);
 
+					
 					Proveedor = new Object;
 					Proveedor.COD_PROV = value.COD_PROV;
 					Proveedor.NOMBRE = value.NOMBRE;

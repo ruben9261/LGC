@@ -59,9 +59,7 @@
 				       <input type="text" name="btnbuscar" id="DOC_PAGO_FECHA" class="form-control"  placeholder="Fecha de Pago"> 
 					   
                        <input type="text" name="btnbuscar" id="NOMB_OFICINA" class="form-control"  placeholder="Nombre de Oficina"> 
-					   <input type="text" name="btnbuscar" id="NOM_TIPOPAGO" class="form-control"  placeholder="Tipo de Pago"> 
-					   <input type="text" name="btnbuscar" id="NOMBRE" class="form-control"  placeholder="Nombre Cliente"> 
-					   <input type="text" name="btnbuscar" id="DOC_PAGO_FECHA" class="form-control"  placeholder="Fecha de Pago"> 
+					   <input type="text" name="btnbuscar" id="NOM_TIPOPAGO" class="form-control"  placeholder="Tipo de Pago">
 					   
 				    
 					   <!-- 
