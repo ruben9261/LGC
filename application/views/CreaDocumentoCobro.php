@@ -355,7 +355,7 @@ if($TIPO_TRANSACCION==1){
 								
 							</div>
 							<br><br>
-							<p class="pull-rigth">Total: <span id="Total"><?php echo $Total; ?></span></p>
+							<p class="pull-rigth">Total: <span id="Total" value="<?php echo $Total;?>"><?php echo $Total; ?></span></p>
 									
 						    <br/>
 						    

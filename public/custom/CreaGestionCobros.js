@@ -253,8 +253,11 @@ function fn_SeleccionarOrdenEntrada(CodOrdenE){
 								$("#Total").html(Total);
 								$("#MONTO_TOTAL").val(Total);
 								$("#MONTO_NETO").val(Total);
+								document.getElementById("demo").innerHTML = "<div   id='validartabla'><label style='color:red;display:none' class=control-labe>Seleccione orden de entrada</label></label> </div>";
+								
 							});
-							document.getElementById("validartabla").innerHTML = "";
+							document.getElementById("datos").value =$datos ;
+	
 						}
 					},
 					error: function(error){
@@ -271,12 +274,19 @@ function fn_SeleccionarOrdenEntrada(CodOrdenE){
 $( "#Guardar" ).click(function( e ) {
 	// var TipoCobro = $("#COD_TIPOCOBRO").val();
 	// debugger;
+
+
 	$datos = $("#datos").val();
-	 if($datos==0){
-		document.getElementById("demo").innerHTML = "<div id='validartabla'><label style='color:red;' class=control-labe>Seleccione orden de entrada</label></label> </div>";
-	 }
+
+	if($datos==0){
+	   document.getElementById("demo").innerHTML = "<div id='validartabla'><label style='color:red;display:block' class=control-labe>Seleccione orden de salida</label></label> </div>";
 	
+	}
+	if($datos>0){
+		document.getElementById("demo").innerHTML = "<div id='validartabla'><label style='color:red;display:none' class=control-labe>Seleccione orden de salida</label></label> </div>";
 	
+	}
+  
 
 	$("#frmCreaDocCobro").validate({
 				rules: {
@@ -338,16 +348,22 @@ function fn_ActualizarDetalleDocCobro(listDocCobroDet){
 			cols += '<td class="col-md-2 input-sm" >'+value.Importe+'</td>';
 			$("#TablaOrdenEntradaDet tbody").append(cols);
 			Total = Total + parseInt(value.Importe);
+			document.getElementById("demo").innerHTML = "<div   id='validartabla'><label style='color:red;display:none' class=control-labe>Seleccione orden de entrada</label></label> </div>";
+			
+			
+			
 			$("#Total").html(Total);
 			$("#MONTO_TOTAL").val(Total);
 			$("#MONTO_NETO").val(Total);
 		});
-		document.getElementById("validartabla").innerHTML = "";
+		document.getElementById("datos").value =$datos ;
+	
 	}
 	
 }
 function fn_GuardarDocCobro(){
 
+	
 	var fecha= $("#FECHA_OPERACION").val();
 
 	var new_date = moment(fecha).format('YYYY/MM/DD');
@@ -376,8 +392,12 @@ function fn_GuardarDocCobro(){
 		var CodOrdenE = $(".CodOrdenE",this).val();
 		DocCobroDet.COD_ORDEN_E = $(".CodOrdenE",this).val();
 		DocCobroDet.SUB_TOTAL = parseInt($(".SUB_TOTAL",this).val());
+	   
 		
 		listDocCobroDet.push(DocCobroDet);
+      
+
+
 	});
 	debugger;
 
@@ -411,7 +431,7 @@ function fn_GuardarDocCobro(){
 				$("#lblCOD_DOC_COBRO").html(response.COD_DOC_COBRO);
 				$("#TIPO_TRANSACCION").val(2);
 				$("#ImprimirPdf").show();
-				var ImprimirPdf = '<a class="btn btn-success" href="/mantGestionCobros_c/docCobroPdf/'+response.COD_DOC_COBRO+'">Imprimir</a>';
+				var ImprimirPdf = '<a class="btn btn-success href="/mantGestionCobros_c/docCobroPdf/'+response.COD_DOC_COBRO+'  target="_blank" ">Imprimir</a>';
 				$("#ImprimirPdf").html(ImprimirPdf);
 			}else{
 				AlertNotify('', 'Error', 'No se pudo guardar el registro', 'danger');
@@ -507,10 +527,13 @@ function fn_EliminarOrdenEntradaDetalle(elemento){
 	$("#TablaOrdenEntradaDet tbody tr").each(function(){
 		SUB_TOTAL += parseInt($(".SUB_TOTAL",this).val());
 	});
-
+ 	
+	
+	//document.getElementById("Total").value =0;
 	$("#Total").html(SUB_TOTAL);
 	$("#MONTO_TOTAL").val(SUB_TOTAL);
 	$("#MONTO_NETO").val(SUB_TOTAL);
+	$("#datos").val(0);
 }
 
 var DataGrouper = (function() {

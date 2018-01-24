@@ -146,7 +146,7 @@ if($TIPO_TRANSACCION==1){
 		            <div class="modal-header" style="color:rgb(0,128,255);"> 
 		                 <STRONG>Registrar Gesti&oacute;n de Pagos </STRONG>
 						 <div id="ImprimirPdf" class="" style="display:<?php echo $displayPdf;?>;">
-						 	<a class="btn btn-success" target="_blank" href='/mantGestionPagos_c/docPagoPdf/<?php echo $COD_DOC_PAGO;?>'>Imprimir</a>
+						 	<a class="btn btn-success"   href='/mantGestionPagos_c/docPagoPdf/<?php echo $COD_DOC_PAGO;?>' target="_blank" >Imprimir</a>
 						 </div>
 		            </div>
 					<br/>

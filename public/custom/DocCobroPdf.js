@@ -43,6 +43,7 @@ function getPDFFileButton () {
             var pdf = new jsPDF('p', 'mm', 'a4');
             pdf.addImage(myImage, 'JPEG', 15, 2, imgWidth, imgHeight); // 2: 19
             pdf.save('Download.pdf');
+            //window.open(pdf.output('bloburl'), '_blank');
         }
     });
 }       

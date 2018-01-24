@@ -230,7 +230,9 @@ function fn_SeleccionarOrdenSalida(COD_ORDEN_S){
 						var TOTAL = 0;
 						TOTAL = parseInt($("#TOTAL").html());
 						if(listOrdenSalidaDet.length>0){
+						 $datos =0;
 							$.each(listOrdenSalidaDet, function(index, value){
+								$datos=$datos+1;
 								var cols = "";
 								cols += '<tr class="FILA'+value.COD_ORDEN_S+'">';
 								cols += '<input type="hidden" class="COD_DET_ORDEN_S" value="'+value.COD_DET_ORDEN_S+'">';
@@ -250,8 +252,10 @@ function fn_SeleccionarOrdenSalida(COD_ORDEN_S){
 								$("#TOTAL").html(TOTAL);
 								$("#MONTO_TOTAL").val(TOTAL);
 								$("#MONTO_NETO").val(TOTAL);
-								document.getElementById("validartabla").innerHTML = "";
-							});
+								document.getElementById("demo").innerHTML = "<div   id='validartabla'><label style='color:red;display:none' class=control-labe>Seleccione orden de entrada</label></label> </div>";
+							
+	                        	});
+	                    	document.getElementById("datos").value =$datos ;
 						}
 					},
 					error: function(error){
@@ -271,6 +275,10 @@ $( "#Guardar" ).click(function( e ) {
 	$datos = $("#datos").val();
 	if($datos==0){
 	   document.getElementById("demo").innerHTML = "<div id='validartabla'><label style='color:red;' class=control-labe>Seleccione orden de salida</label></label> </div>";
+	}
+	if($datos>0){
+		document.getElementById("demo").innerHTML = "<div id='validartabla'><label style='color:red;display:none' class=control-labe>Seleccione orden de salida</label></label> </div>";
+	
 	}
 	$("#frmCreadocPago").validate({
 				rules: {
@@ -309,7 +317,9 @@ $( "#Guardar" ).click(function( e ) {
 
 });function fn_ActualizarDetalleDocPago(listDocPagoDet){
 	if(listDocPagoDet.length>0){
+		$datos=0;
 		$.each(listDocPagoDet, function(index, value){
+			$datos=$datos+1;
 			var cols = "";
 			cols += '<tr>';
 			cols += '<input type="hidden" class="COD_DOC_PAGO_DET" value="'+value.COD_DOC_PAGO_DET+'">';
@@ -327,8 +337,11 @@ $( "#Guardar" ).click(function( e ) {
 			$("#TOTAL").html(TOTAL);
 			$("#MONTO_TOTAL").val(TOTAL);			
 			$("#MONTO_NETO").val(TOTAL);
-			document.getElementById("validartabla").innerHTML = "";
+			 
+			document.getElementById("demo").innerHTML = "<div   id='validartabla'><label style='color:red;display:none' class=control-labe>Seleccione orden de entrada</label></label> </div>";
+							
 		});
+		document.getElementById("datos").value =$datos ;
 	}
 }
 function fn_GuardarDocPago(){
@@ -400,7 +413,7 @@ function fn_GuardarDocPago(){
 				$("#lblCOD_DOC_PAGO").html(response.COD_DOC_PAGO);
 				$("#TIPO_TRANSACCION").val(2);
 				$("#ImprimirPdf").show();
-				var ImprimirPdf = '<a class="btn btn-success" href="/mantGestionPagos_c/docPagoPdf/'+response.COD_DOC_PAGO+'">Imprimir</a>';
+				var ImprimirPdf = '<a class="btn btn-success" href="/mantGestionPagos_c/docPagoPdf/'+response.COD_DOC_PAGO+' target="_blank">Imprimir</a>';
 				$("#ImprimirPdf").html(ImprimirPdf);
 			}else{
 				AlertNotify('', 'Error', 'No se pudo guardar el registro', 'danger');
@@ -501,6 +514,8 @@ function fn_EliminarOrdenSalidaDetalle(elemento){
 	$("#TOTAL").html(SUB_TOTAL);
 	$("#MONTO_TOTAL").val(SUB_TOTAL);
 	$("#MONTO_NETO").val(SUB_TOTAL);
+
+	$("#datos").val(0);
 }
 
 var DataGrouper = (function() {
