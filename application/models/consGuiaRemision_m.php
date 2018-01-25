@@ -242,11 +242,14 @@ class ConsGuiaRemision_m extends CI_Model {
 				'COD_GUIAREM' => $COD_GUIAREM,
 				'COD_PROD' => $item["COD_PROD"],
                 'COD_UM' => $item["COD_UM"],
-                'CANTIDAD' => $item["CANTIDAD"]
+				'CANTIDAD' => $item["CANTIDAD"],
+				'DESCRIPCION' => $item["DESCRIPCION"],
 			);
 			$this->db->insert('GuiaRemision_Detalle',$GuiaRemision_Detalle);
 		}
 		
+
+
 		$respuesta = FALSE;
 		$this->db->trans_complete();
 		if ($this->db->trans_status() === FALSE) {

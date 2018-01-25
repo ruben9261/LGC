@@ -15,6 +15,13 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
 	
 	<style>
+label.help-block {
+    color: #ba0f26 !important;
+}label.control-label {
+    color: #0080ff!important;
+}
+
+
 		p.pull-rigth {
     float: right;
     margin-right: 105px;
@@ -196,7 +203,7 @@ a#btnNuevo_selproducto {
 									<label for="" class="control-label col-md-6" >Fecha de Emisión :</label>
 									<div class="col-md-6">
 										<div class='input-group'>
-										<input type='text' name="FECHA_EMISION" id="FECHA_EMISION" class="form-control input-sm FECHA_EMISION" value="<?php echo $FECHA_EMISION_NEW;?>" />
+										<input type='text' name="FECHA_EMISION" id="FECHA_EMISION" class="form-control input-sm" value="<?php echo $FECHA_EMISION_NEW;?>" />
 										<!-- <div class="input-group-addon">
 										<span class="glyphicon glyphicon-calendar"></span>
 										</div> -->
@@ -207,7 +214,7 @@ a#btnNuevo_selproducto {
 									<label for="" class="control-label col-md-6" >Fecha de Translado :</label>
 									<div class="col-md-6">
 										<div class='input-group'>
-										<input type='text' name="FECHA_TRASLADO" id="FECHA_TRASLADO" class="form-control input-sm FECHA_TRASLADO" value="<?php echo $FECHA_TRASLADO_NEW;?>"/>
+										<input type='text' name="FECHA_TRASLADO" id="FECHA_TRASLADO" class="form-control input-sm" value="<?php echo $FECHA_TRASLADO_NEW;?>"/>
 										<!-- <div class="input-group-addon">
 										<span class="glyphicon glyphicon-calendar"></span>
 										</div> -->
@@ -346,17 +353,14 @@ a#btnNuevo_selproducto {
 									<table id="TablaGuiaRemision">
 										<thead>
 											<tr>
-											<th class='col-md-2 thead-style'>
-													CODIGO 
+											<th class='col-md-3 thead-style'>
+											PRODUCTO 
 											</th> 
 											<th class='col-md-2 thead-style'>
-													CANTIDAD 
+													 CANTIDAD
 											</th> 
-											<th class='col-md-3 thead-style'>
-													PRODUCTO
-											</th>
-											<th class='col-md-3 thead-style'>
-													UNIDAD
+											<th class='col-md-2 thead-style'>
+											DESC_UM
 											</th>
 											<th class='col-md-3 thead-style'>
 													DESCRIPCION
@@ -370,33 +374,34 @@ a#btnNuevo_selproducto {
 									   <?php
 									 		if(count($GuiaRemisionDet)>0){
 												$datos = $datos + 1;
+												
 												 foreach($GuiaRemisionDet as $item){
 													$cols = "";
-													$cols .= '<tr class="FILA'.$item->COD_PROD.'">';
+													$cols .= '<tr type="hidden"  class="FILA'.$item->COD_PROD.'">';
 													$cols .= '<input type="hidden" class="COD_PROD" value="'.$item->COD_PROD.'">';
 													$cols .= '<input type="hidden" class="COD_UM" value="'.$item->COD_UM.'">';
 													$cols .= '<input type="hidden" class="CANTIDAD" value="'.round($item->CANTIDAD,2).'">';
 													$cols .= '<input type="hidden" class="PRODUCTO" value="'.$item->DESCRIPCION.'">';
 													$cols .= '<input type="hidden" class="UNIDMED" value="'.$item->DESC_UM.'">';
-													$cols .= '<input type="hidden" class="DESCRIBIR" value="'.$item->DESCRIBIR.'">';
-													$cols .= '<td class="col-md-2 input-sm">'.$item->COD_PROD.'</td>';
-													$cols .= '<td class="col-md-2 input-sm" >'.round($item->CANTIDAD,2).'</td>';
-													$cols .= '<td class="col-md-3 input-sm" >'.$item->DESC_UM.'</td>';
+													$cols .= '<input type="hidden" class="DESCRIPCION" value="'.$item->DESCRIBIR.'">';
 													$cols .= '<td class="col-md-3 input-sm" >'.$item->DESCRIPCION.'</td>';
+													$cols .= '<td class="col-md-2 input-sm" >'.round($item->CANTIDAD,2).'</td>';
+													$cols .= '<td class="col-md-2 input-sm" >'.$item->DESC_UM.'</td>';
+													
+													$cols .= '<td class="col-md-3 input-sm" >'.$item->DESCRIBIR.'</td>';
 													$cols .= '<td class="col-md-2 input-sm" ><i class="btn glyphicon glyphicon-remove" onclick="fn_EliminarOrdenSalidaDetalle('."'FILA".$item->COD_PROD."'".');"></i></td>';
 													
 													echo $cols;
 												 }
 											}
 									   ?>
-									</tbody><input type="hidden" name="datos" id="datos" value="<?php echo $datos;?>">
-										<div id="demo"></div>
+									</tbody><input type="hidden" name="datos" id="datos" value="0">
 									<tfoot>
 										<tr>
-											<th class='col-md-2 '></th>
+											<th class='col-md-3'></th>
 											<th class='col-md-2'></th> 
-											<th class='col-md-3'></th>
-											<th class='col-md-3'></th>
+											<th class='col-md-2'></th>
+											<th class='col-md-2'></th>
 											<th class='col-md-3'></th>
 											<th class='col-md-2'></th>
 										</tr>
@@ -406,8 +411,13 @@ a#btnNuevo_selproducto {
 								</div> 
 								
 							</div>
-									
-						    <br/>
+							 <br/>
+							 <br/>
+							
+										
+							<div id="demo"></div>
+
+					
 
 						    <br/>
 						    

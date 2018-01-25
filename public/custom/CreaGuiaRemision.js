@@ -246,7 +246,11 @@ $(document).ready(function() {
                             var TOTAL = 0;
                             TOTAL = parseInt($("#TOTAL").html());
                             if(listOrdenSalidaDet.length>0){
+                                var sum=0;
                                 $.each(listOrdenSalidaDet, function(index, value){
+                              
+                            
+                                    sum= parseInt( $("#datos").val())+1;
                                     var cols = "";
                                     cols += '<tr class="FILA'+value.COD_ORDEN_S+'">';
                                     cols += '<input type="hidden" class="COD_DET_ORDEN_S" value="'+value.COD_DET_ORDEN_S+'">';
@@ -267,7 +271,7 @@ $(document).ready(function() {
                                     $("#MONTO_TOTAL").val(TOTAL);
                                     $("#MONTO_NETO").val(TOTAL);
                                 });
-                                document.getElementById("validartabla").innerHTML = "";
+                              
                             }
                         },
                         error: function(error){
@@ -347,10 +351,17 @@ $.ajax({
     $( "#Guardar" ).click(function( e ) {
         // var TipoCobro = $("#COD_TIPOPAGO").val();
         // debugger;
+   $mensaje= $(".DESCRIPCION",this).val();
 
-        $datos = $("#datos").val();
-        if($datos==0){
+
+       var sum=0;
+        sum= parseInt( $("#datos").val());
+
+        if(sum==0){
            document.getElementById("demo").innerHTML = "<div id='validartabla'><label style='color:red;' class=control-labe>Seleccione  Producto</label></label> </div>";
+        }
+        if(sum>0){
+            document.getElementById("demo").innerHTML = "<div id='validartabla'></div>";
         }
         $("#frmGuiaRemision").validate({
                     rules: {
@@ -403,8 +414,14 @@ $.ajax({
                         },
                         RUC_EMPRESA: {
                             required: true,
+                        },ORDEN_COMPRA: {
+                            required: true,
                         }
                     }, messages: {
+                        ORDEN_COMPRA: {
+                            required: "Ingrese orden de compra"
+                        }
+                        ,
                         FECHA_EMISION: {
                             required: "Ingrese una fecha de emisión"
                         },
@@ -506,10 +523,12 @@ $.ajax({
             GuiaRemisionDet.CANTIDAD = parseInt($(".CANTIDAD",this).val());
             GuiaRemisionDet.UNIDMED = $(".UNIDMED",this).val();
             GuiaRemisionDet.PRODUCTO = $(".PRODUCTO",this).val();
+            GuiaRemisionDet.DESCRIPCION = $(".DESCRIPCION",this).val();
             listGuiaRemisionDet.push(GuiaRemisionDet);
         });
         debugger;
     
+
         GuiaRemision.listGuiaRemisionDet = listGuiaRemisionDet;
         var valor  = 1;
         $.ajax({
@@ -624,10 +643,13 @@ $.ajax({
         $("#TablaOrdenSalidaDet tbody tr").each(function(){
             SUB_TOTAL += parseInt($(".SUB_TOTAL",this).val());
         });
-    
+        var sum=0;
+        sum= parseInt( $("#datos").val())-1;
+
         $("#TOTAL").html(SUB_TOTAL);
         $("#MONTO_TOTAL").val(SUB_TOTAL);
         $("#MONTO_NETO").val(SUB_TOTAL);
+        $("#datos").val(sum);
     }
     
     var DataGrouper = (function() {
@@ -749,10 +771,12 @@ $.ajax({
                         fn_AgregarProducto();
                     }
                 });
-
+               
     });
     
     function fn_AgregarProducto(){
+
+     
         debugger;
         var COD_PROD = $("#COD_PROD").val();
         var COD_UM = $("#COD_UM").val();
@@ -762,25 +786,34 @@ $.ajax({
         var UNIDMED = $("#COD_UM").find(":selected").text();
         
         var cols = "";
-        cols += '<tr class="FILA'+COD_PROD+'">';
+        cols += '<tr type="hidden" class="FILA'+COD_PROD+'">';
         cols += '<input type="hidden" class="COD_PROD" value="'+COD_PROD+'">';
         cols += '<input type="hidden" class="COD_UM" value="'+COD_UM+'">';
         cols += '<input type="hidden" class="CANTIDAD" value="'+CANTIDAD+'">';
         cols += '<input type="hidden" class="UNIDMED" value="'+UNIDMED+'">';
         cols += '<input type="hidden" class="PRODUCTO" value="'+PRODUCTO+'">';
-        cols += '<td class="col-md-3 input-sm">'+COD_PROD+'</td>';
-        cols += '<td class="col-md-1 input-sm" >'+CANTIDAD+'</td>';
-        cols += '<td class="col-md-1 input-sm" >'+UNIDMED+'</td>';
+        cols += '<input type="hidden" class="DESCRIPCION" value="'+DESCRIBIR+'">';
         cols += '<td class="col-md-3 input-sm" >'+PRODUCTO+'</td>';
+        cols += '<td class="col-md-2 input-sm" >'+CANTIDAD+'</td>';
+        cols += '<td class="col-md-2 input-sm" >'+UNIDMED+'</td>';
+       
         cols += '<td class="col-md-3 input-sm" >'+DESCRIBIR+'</td>';
-        
-        cols += '<td class="col-md-1 input-sm" ><i class="btn glyphicon glyphicon-remove" onclick="fn_EliminarOrdenSalidaDetalle('+"'FILA"+COD_PROD+"'"+');"></i></td>';
+
+
+        cols += '<td class="col-md-2 input-sm" ><i class="btn glyphicon glyphicon-remove" onclick="fn_EliminarOrdenSalidaDetalle('+"'FILA"+COD_PROD+"'"+');"></i></td>';
         
         $("#TablaGuiaRemision tbody").append(cols);
         $("#ProductosModal").modal("toggle");
        
+   
+        debugger;
         var COD_PROD = $("#COD_PROD").val("");
         var COD_UM = $("#COD_UM").val("");
         var CANTIDAD = $("#CANTIDAD").val("");
         var DESCRIBIR = $("#DESCRIBIR").val("");
+         var sum=0;
+        sum= parseInt( $("#datos").val())+1;
+        $("#datos").val(sum);
+        document.getElementById("demo").innerHTML = "<div id='validartabla'></div>";
+      
     }

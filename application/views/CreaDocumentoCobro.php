@@ -12,6 +12,12 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
 	
 	<style>
+
+label.help-block {
+    color: #ba0f26 !important;
+}label.control-label {
+    color: #0080ff!important;
+}
 		p.pull-rigth {
     float: right;
     margin-right: 105px;

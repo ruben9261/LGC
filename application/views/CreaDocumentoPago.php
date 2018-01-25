@@ -10,6 +10,13 @@
 	<script type="text/javascript" src="/public/jquery/jquery-3.1.1.min.js"></script>
 	<script  type="text/javascript"  src="/public/bootstrap-3.3.7-dist/js/bootstrap.min.js"> </script>
 	<style>
+label.help-block {
+    color: #ba0f26 !important;
+}label.control-label {
+    color: #0080ff!important;
+}
+
+
 			p.pull-rigth {
     float: right;
     margin-right: 105px;
