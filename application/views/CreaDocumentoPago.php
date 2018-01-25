@@ -488,16 +488,16 @@ if($TIPO_TRANSACCION==1){
 		      <div class="modal-body">
 			  <form id="frmCreaProveedor">
 					        <div class="form-group">
-						          <input id="nomb_prov" type="text" class="form-control" placeholder="Nombre" >
+						          <input id="nomb_prov" name="nomb_prov" type="text" class="form-control" placeholder="Nombre" >
 						    </div>
 						   
 						    <div class="form-group">
-						         <input id="doc_prov" type="text" class="form-control" placeholder="Documento">
+						         <input id="doc_prov"  name="doc_prov" type="text" class="form-control" placeholder="Documento">
 						    </div>
 						   
 						    <div class="form-group">
 						       <select  id="oferta" name="oferta"  class="form-control">
-								    <option value="0">
+								    <option value="">
 											SELECCIONAR OFERTA
 								     </option>
 								     
@@ -511,7 +511,7 @@ if($TIPO_TRANSACCION==1){
 						  
 						  <div class="form-group">
 							 
-							   <a href="#" class="btn btn-primary"  style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" onclick="fn_registrar_proveedor();" >
+							   <a href="#"  id="GuardarProveedor" class="btn btn-primary"  style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" >
 							   				Guardar
 							        	<img src="<?php echo base_url()?>public/images/GUARDAR.png">
 							   </a>

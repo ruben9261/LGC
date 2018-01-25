@@ -317,7 +317,9 @@ $( "#Guardar" ).click(function( e ) {
 
 			});
 
-});function fn_ActualizarDetalleDocPago(listDocPagoDet){
+});
+
+function fn_ActualizarDetalleDocPago(listDocPagoDet){
 	if(listDocPagoDet.length>0){
 		$datos=0;
 		$.each(listDocPagoDet, function(index, value){
@@ -569,11 +571,232 @@ DataGrouper.register("sum", function(item) {
 
 
 /*                                                            */
+
+
+//var op_item=0;	//bandera para controlar operaci�n 0 insertar item 1 actualizar item
+
+/*******************utilitarios********************/
 function fn_mostrar_modal(ide)
 {   $('#'+ide).modal("show");
 }
 
 function fn_ocultar_modal(ide)
 { $('#'+ide).modal("hide");
-  
+
 }
+
+/**************************************************/
+
+
+
+function fn_limpiar_modal_sel_proveedor()
+{ $("#txt_nombre").val('');
+$("#txt_documento").val('');
+$("#cuadro_paginacion_sel_proveedor").html('');
+$("#tabla_sel_proveedor").html('');
+}
+
+
+function fn_setproveedor(codproveedor,nombre,documento)
+{  $("#codproveedor").val(codproveedor);
+$("#nomb_proveedor").text(nombre);
+$("#docproveedor").text(documento);
+}
+
+
+
+
+
+
+/**********************  mantenimiento cliente **************************/
+
+function fn_limpiar_modal_crea_proveedor()
+{ $("#nomb_prov").val('');
+$("#doc_prov").val('');
+$("#oferta").val(0);
+
+}
+
+
+
+	$( "#GuardarProveedor" ).click(function( e ) {
+		var nomb_prov = $("#nomb_prov").val();
+		var doc_prov= $("#doc_prov").val();
+		var oferta= $("#oferta").val();
+		// debugger;
+  
+		alert(nomb_prov+"doc"+doc_prov+"oferta"+oferta);
+		$("#frmCreaProveedor").validate({
+					rules: {
+						nomb_prov: {
+							required: true
+						},
+						doc_prov: {
+							required: true
+						},
+						oferta: {
+							required: true,
+						}
+					}, messages: {
+						nomb_prov: {
+							required: "Ingrese nombre"
+						},
+						doc_prov: {
+							required: "Ingrese documento"
+						},
+						oferta: {
+							required: "Seleccione oferta"
+						}
+					},
+					submitHandler: function (form) {
+						e.preventDefault();
+						insertar_proveedor();
+						debugger;
+					}
+	
+				});
+	
+	});
+
+
+function insertar_proveedor(){
+	var v_nombprov=$("#nomb_prov").val();
+	var v_docprov=$("#doc_prov").val();
+    var v_oferta=$("#oferta").val();
+    debugger;
+
+	$.ajax({
+		type: "post",
+		url: "/MantProveedor_c/insertar_creaOrdenSalida",
+		// dataType : "json",
+		// contentType:"application/json",
+		data: { nombre:	      v_nombprov,
+			documento:    v_docprov,
+			oferta:       v_oferta
+		  },
+		success: function(response){
+			debugger;
+			var response = JSON.parse(response);
+			if(response.respuesta){
+				AlertNotify('', 'Éxito', 'El registro se guardo correctamente', 'success');
+	
+	
+			}else{
+				AlertNotify('', 'Error', 'No se pudo guardar el registro', 'danger');
+			}
+		},
+		error: function(e){
+			AlertNotify('', 'Error', 'Error en el servidor consulte con el administrador', 'danger');
+		}
+	});
+}
+
+
+/********************* fin mantenimiento cliente  ***********************/
+
+/*****************************selecciona producto***************************************/
+
+
+
+
+
+function fn_set_producto(codprod,desprod,tipo,tarifa,cod_tarifa,precio)
+{ $('#codproducto').val(codprod);
+$('#prod_sel').text(desprod);
+$('#tip_prod_sel').text(tipo);
+$('#codtarifa').val(cod_tarifa);
+$('#tarifa_sel').text(tarifa);
+$('#precio_prod_sel').val(precio);
+
+}
+
+/*************************fin selecion cliente********************************************/
+
+/*************************  Inicio crea Producto  *****************************/
+
+function fn_mostrar_crea_producto()
+{  $('#modal_crea_producto').modal('show');  
+$('#modal_seleccionar_producto').modal('hide'); 
+$('#modal_add_producto').modal('hide');  
+} 
+
+
+function fn_limpiar_modal_crea_producto()
+{ $("#txt_descproducto").val('');
+$("#tipo_producto").val(0);
+$("#tipo_producto option[value="+"0" +"]").attr("selected",true);
+$("#txt_precio_producto").val('');
+
+}
+
+function fn_limpiar_modal_sel_producto()
+{ $("#txt_des_producto").val('');
+$("#cuadro_paginacion_sel_producto").html('');
+$("#tabla_sel_producto").html('');
+}
+
+function fn_limpiar_modal_add_producto()
+{// $('#codproducto').val(-1);
+$('#prod_sel').text('');
+$('#tip_prod_sel').text('');
+$('#tarifa_sel').text('');
+$('#precio_prod_sel').val('');
+$('#cant_prod_sel').val('');
+}
+
+
+function fn_limpiar_modal_add_producto_edit()
+{ $('#codproducto').val(-1);
+$('#prod_sel').text('');
+$('#tip_prod_sel').text('');
+$('#tarifa_sel').text('');
+$('#precio_prod_sel').val('');
+$('#cant_prod_sel').val('');
+}
+
+
+
+
+
+
+
+
+function fn_registrar_producto()
+{ var msg=validarDatos_Producto();
+if (msg=='')
+  {   insertar_Producto();  }
+else
+  {   $("#mensaje_creaProducto").html(msg);
+	  $("#modal_CreaProducto_msg_error").modal("show");
+  }	    
+}
+
+
+
+
+
+function fn_mostrar()
+{  $("#modal_add_producto").modal("show");
+}
+
+
+function redondeo(numero,decimales)
+{	var flotante=parseFloat(numero);
+var resultado=Math.round(flotante*Math.pow(10,decimales))/Math.pow(10,decimales);
+return resultado;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
