@@ -56,6 +56,7 @@ class MantOrdenSalida_c  extends CI_Controller{
 		$tipo_prod=$this->consProducto_m->obt_Tipos();
 		mysqli_next_result($this->db->conn_id);
 		
+		
 		//obtenemos tipo de tarifa
 		$this->load->model('consTarifa_m');
 		$tarifas=$this->consTarifa_m->obt_tarifas();
@@ -75,6 +76,7 @@ class MantOrdenSalida_c  extends CI_Controller{
 		$data['fecha']= $dia.'/'.$mes.'/'.$anio;
 		//$data['fecha']= $anio.'-'.$mes.'-'.$dia;
 		$data['ofertas']=$ofertas;
+
 		$data['tipo_prod']=$tipo_prod;
 		$data['serie']=$serie;
 		$data['numero']=$numero;

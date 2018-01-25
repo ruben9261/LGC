@@ -473,6 +473,132 @@ if($TIPO_TRANSACCION==1){
 		</div>
 	</div>
 
+
+
+ <!-- ************ Inicio formulario  modal para crear proveedor  *************** -->
+
+ <div  data-backdrop="static"  class="modal fade" id="modal_crea_proveedor" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+			 <div class="modal-header btn-primary" style="background-color:rgb(0,128,255);">
+			      <button class="close" data-dismiss="modal" aria-hidden="true" onclick="fn_ocultar_modal('modal_crea_proveedor');fn_limpiar_modal_crea_proveedor(); fn_mostrar_modal('ProveedoresModal');">&times;</button>
+			                <h4>Crear Proveedor</h4>
+			  </div>
+		          
+		      <div class="modal-body">
+			  <form id="frmCreaProveedor">
+					        <div class="form-group">
+						          <input id="nomb_prov" type="text" class="form-control" placeholder="Nombre" >
+						    </div>
+						   
+						    <div class="form-group">
+						         <input id="doc_prov" type="text" class="form-control" placeholder="Documento">
+						    </div>
+						   
+						    <div class="form-group">
+						       <select  id="oferta" name="oferta"  class="form-control">
+								    <option value="0">
+											SELECCIONAR OFERTA
+								     </option>
+								     
+										<?php foreach ($ofertas as $oferta): ?>
+										     <option value="<?php echo "".$oferta->COD_OFER?>">
+											     <?php echo "".$oferta->NOMB_OFERTA?>
+										    </option>
+							          <?php  endforeach ?>
+							   </select>
+						   </div>
+						  
+						  <div class="form-group">
+							 
+							   <a href="#" class="btn btn-primary"  style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" onclick="fn_registrar_proveedor();" >
+							   				Guardar
+							        	<img src="<?php echo base_url()?>public/images/GUARDAR.png">
+							   </a>
+							     
+							   <a href="#" class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);" onclick="fn_ocultar_modal('modal_crea_proveedor');fn_limpiar_modal_crea_proveedor();fn_limpiar_modal_sel_proveedor(); fn_mostrar_modal('modal_seleccionar_proveedor');">
+							        Cancelar
+							        <img src="<?php echo base_url()?>public/images/CANCELAR.png">
+							   </a>
+						 </div>   
+				 </form>
+		     </div>
+             
+             <div class="container">
+               		  <div id="respuesta"></div>
+	         </div> 
+	
+             
+             <div class="modal-footer">
+          			
+            </div>
+       </div>
+   </div>
+</div>
+
+<div class="modal fade" id="modal_creaProveedor_reg_ok" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+           <div class="modal-header">
+               <h3>Registro de Proveedor</h3>
+           </div>
+           <div class="modal-body">
+            	 <div class="alert alert-success">
+     		           La informaci&oacute;n se registro correctamente 
+     		      </div>
+          </div>
+          <div class="modal-footer">
+          	    <a href="#" class="btn btn-danger"  onclick="fn_ocultar_modal('modal_creaProveedor_reg_ok');fn_ocultar_modal('modal_crea_proveedor');fn_limpiar_modal_crea_proveedor(); fn_mostrar_modal('modal_seleccionar_proveedor');">Cerrar</a>
+           </div>
+       </div>
+   </div>
+</div>
+
+
+
+
+ <div class="modal fade" id="modal_creaProveedor_reg_error" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+     
+           <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3>Registro de Proveedor</h3>
+           </div>
+           <div class="modal-body">
+          		<div class="alert alert-danger">
+             		   Error al registrar la informaci&oacute;n
+          		</div>
+           </div>
+           <div class="modal-footer">
+          		 <a href="<?php echo base_url()?>consProveedor_c/"  class="btn btn-danger">Cerrar</a>
+           </div>
+      </div>
+   </div>
+</div>
+
+
+<div class="modal fade" id="modal_creaProveedor_msg_error" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+     
+           <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3>Registro de Proveedor</h3>
+           </div>
+           <div class="modal-body">
+          		 
+          		<div class="alert alert-warning">
+          		    Alerta<br/>
+          		    <div id="mensaje_creaProveedor"></div>
+          		</div>
+           </div>
+      </div>
+   </div>
+</div>
+
+
+
 	<script type="text/javascript" src="/public/custom/CreaGestionPagos.js"></script>
 	<script type="text/javascript" src="/public/js/datatable.js" ></script>
  	<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
@@ -480,14 +606,17 @@ if($TIPO_TRANSACCION==1){
 	<script  type="text/javascript"  src="/public/js/moment.min.js"> </script>
 	<script src="/public/js/bootstrap-datepicker.min.js"></script>   
   	<script src="/public/js/bootstrap-datepicker.es.min.js"></script>
-	  
-	 
+	   
 	<script src="/public/pnotify/pnotify.custom.min.js"></script>
 	<script>
 		$(document).ready(function() {
 
-			$("#COD_TIPOPAGO").val("<?php echo COD_TIPOPAGO; ?>");
+			$("#COD_TIPOPAGO").val("<?php echo $COD_TIPOPAGO; ?>");
+			document.getElementById("TablaProveedores_length").innerHTML = "<a class='btn btn-primary'  style='background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);' onclick=fn_ocultar_modal('ProveedoresModal');fn_mostrar_modal('modal_crea_proveedor');><img src='<?php echo base_url()?>public/images/REGISTRAR.png'> Nuevo</a>";
+		
 		});
 	</script>
+
+
 </body>
 </html>

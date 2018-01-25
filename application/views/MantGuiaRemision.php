@@ -396,6 +396,7 @@ a#btnNuevo_selproducto {
 											}
 									   ?>
 									</tbody><input type="hidden" name="datos" id="datos" value="0">
+									<div id="demo"></div>
 									<tfoot>
 										<tr>
 											<th class='col-md-3'></th>
@@ -415,7 +416,7 @@ a#btnNuevo_selproducto {
 							 <br/>
 							
 										
-							<div id="demo"></div>
+							
 
 					
 

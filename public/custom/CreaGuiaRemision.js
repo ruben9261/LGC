@@ -416,8 +416,14 @@ $.ajax({
                             required: true,
                         },ORDEN_COMPRA: {
                             required: true,
+                        },NRO_PEDIDO: {
+                            required: true,
                         }
                     }, messages: {
+                        NRO_PEDIDO: {
+                            required: "Ingrese numero de pedido"
+                        }
+                        ,
                         ORDEN_COMPRA: {
                             required: "Ingrese orden de compra"
                         }

@@ -150,7 +150,10 @@ class MantGestionPagos_c  extends CI_Controller{
 			$this->load->model('consGestionPago_m');
 			$listdatosPago=$this->consGestionPago_m->obt_DatosPago($codusu);
 			mysqli_next_result($this->db->conn_id);
-
+            //obtenemos tipo de documento de cliente
+		$this->load->model('consProveedor_m');
+		$ofertas=$this->consProveedor_m->obt_ofertas();
+		mysqli_next_result($this->db->conn_id);
 			foreach ($listdatosPago as $campos)
 			{	$COD_USU=$campos->COD_USU;
 				$Nom_Usu=$campos->Nom_Usu;
@@ -180,7 +183,9 @@ class MantGestionPagos_c  extends CI_Controller{
 			$data['docPago']=$docPago;
 			$data['docPagoDet']=$docPagoDet;
 			$data['listTipoPago']=$listTipoPago;
-
+		  
+			
+			$data['ofertas']=$ofertas;
 			if($COD_DOC_PAGO!=0){
 				$data['TIPO_TRANSACCION'] = 2;
 			}else{

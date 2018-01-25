@@ -565,6 +565,8 @@ if($TIPO_TRANSACCION==1){
 	<script>
 		$(document).ready(function() {
 			
+
+			
 			$("#COD_TIPOCOBRO").val("<?php echo $COD_TIPOCOBRO; ?>");
 
 			document.getElementById("TabalClientes_length").innerHTML = "<a class='btn btn-primary'  style='background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);' onclick=fn_ocultar_modal('ClientesModal');fn_mostrar_modal('modal_crea_cliente');><img src='<?php echo base_url()?>public/images/REGISTRAR.png'> Nuevo</a>";

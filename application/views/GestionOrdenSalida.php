@@ -94,6 +94,7 @@
 
 
 
+
 function fn_cambiar_est_operativo(cod) 
 {   var v_estado=$("#estado_"+cod).val();
 	$.ajax({

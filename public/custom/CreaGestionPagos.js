@@ -64,6 +64,8 @@ function QuitarValidacion (element) {
 	
 }
 
+
+
 function fn_eliminar(cod) 
 {  $.ajax({
 		    url:  "/mantOrdenSalida_c/eliminar",
@@ -383,6 +385,7 @@ function fn_GuardarDocPago(){
 	});
 	debugger;
 
+
 	var result = [];
 	listDocPagoDet = listDocPagoDet.reduce(function (res, value) {
 		if (!res[value.COD_ORDEN_S]) {
@@ -563,3 +566,14 @@ DataGrouper.register("sum", function(item) {
         return memo + Number(node.Value);
     }, 0)});
 });
+
+
+/*                                                            */
+function fn_mostrar_modal(ide)
+{   $('#'+ide).modal("show");
+}
+
+function fn_ocultar_modal(ide)
+{ $('#'+ide).modal("hide");
+  
+}
