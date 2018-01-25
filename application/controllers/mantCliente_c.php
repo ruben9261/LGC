@@ -320,7 +320,7 @@ class MantCliente_c  extends CI_Controller{
 		
 			
 		
-		/*=================== 2. obtenemos último código registrado ================*/
+		/*=================== 2. obtenemos ï¿½ltimo cï¿½digo registrado ================*/
 		
 		$P_razon_social= addslashes(htmlspecialchars($_POST["razon_social"]));
 		$P_tipo=addslashes(htmlspecialchars($_POST["tipo"]));

@@ -70,6 +70,12 @@ td.input-sm {
     margin-right: 10px;
     margin-left: 10px;
 }
+
+
+
+a#btnNuevo_selproducto {
+    padding: 0px;
+}
 	</style>
 
 
@@ -347,6 +353,9 @@ td.input-sm {
 													CANTIDAD 
 											</th> 
 											<th class='col-md-3 thead-style'>
+													PRODUCTO
+											</th>
+											<th class='col-md-3 thead-style'>
 													UNIDAD
 											</th>
 											<th class='col-md-3 thead-style'>
@@ -367,8 +376,9 @@ td.input-sm {
 													$cols .= '<input type="hidden" class="COD_PROD" value="'.$item->COD_PROD.'">';
 													$cols .= '<input type="hidden" class="COD_UM" value="'.$item->COD_UM.'">';
 													$cols .= '<input type="hidden" class="CANTIDAD" value="'.round($item->CANTIDAD,2).'">';
-													$cols .= '<input type="hidden" class="UNIDMED" value="'.$item->DESC_UM.'">';
 													$cols .= '<input type="hidden" class="PRODUCTO" value="'.$item->DESCRIPCION.'">';
+													$cols .= '<input type="hidden" class="UNIDMED" value="'.$item->DESC_UM.'">';
+													$cols .= '<input type="hidden" class="DESCRIBIR" value="'.$item->DESCRIBIR.'">';
 													$cols .= '<td class="col-md-2 input-sm">'.$item->COD_PROD.'</td>';
 													$cols .= '<td class="col-md-2 input-sm" >'.round($item->CANTIDAD,2).'</td>';
 													$cols .= '<td class="col-md-3 input-sm" >'.$item->DESC_UM.'</td>';
@@ -446,7 +456,7 @@ td.input-sm {
 		     <div class="modal-body">
 		          <form id="frmCreaProducto" >
 					    <div class="form-group">
-						          <input id="txt_desc_producto" name="descripcion"  type="text" class="form-control" placeholder="Descripcion" >
+						          <input id="txt_desc_producto" name="descripcion"  type="text" class="form-control" placeholder="Nombre Producto" >
 					    </div>
 						   
 						<div class="form-group">
@@ -517,7 +527,7 @@ td.input-sm {
 						</select>
 					</div>
 
-					<a href="#"   class="btn btn-primary col-md-2 col-md-offset-1"  id="btnNuevo_selproducto" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" onclick="fn_modal_crea_producto();" >
+					<a href="#"   class="btn btn-primary col-md-3 col-md-offset-1"  id="btnNuevo_selproducto" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" onclick="fn_modal_crea_producto();" >
 					    	 		    <img src="<?php echo base_url()?>public/images/REGISTRAR.png">
 					    	 		    Nuevo
 					    	 	    </a
@@ -544,8 +554,15 @@ td.input-sm {
 					</div>
 				</div>
 				<div class="form-group">
+					<label for="" class=" col-md-3 control-label">Descripci&oacute;n :</label>
+					<div class="col-md-8">
+						<textarea id="DESCRIBIR"  name="DESCRIBIR"  rows="4" cols="20" class="form-control" placeholder="descripci&oacute;n" ><?php 
+					  ?></textarea>		
+					</div>
+				</div>
+				<div class="form-group">
 			
-				<button  type="submit" class="btn btn-primary col-md-2 col-md-offset-8" id="AgregarProducto"  style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);">
+				<button  type="submit" id="AgregarProducto"  class="btn btn-primary col-md-2 col-md-offset-8" id=""  style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);">
 									   		   Agregar
 									           <img src="/public/images/GUARDAR.png">
 				</button>

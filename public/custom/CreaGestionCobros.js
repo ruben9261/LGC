@@ -431,7 +431,7 @@ function fn_GuardarDocCobro(){
 				$("#lblCOD_DOC_COBRO").html(response.COD_DOC_COBRO);
 				$("#TIPO_TRANSACCION").val(2);
 				$("#ImprimirPdf").show();
-				var ImprimirPdf = '<a class="btn btn-success href="/mantGestionCobros_c/docCobroPdf/'+response.COD_DOC_COBRO+'  target="_blank" ">Imprimir</a>';
+				var ImprimirPdf = "<a type='button' class='btn btn-success' href='/mantGestionCobros_c/docCobroPdf/"+response.COD_DOC_COBRO+"' target='blank'>Imprimir</a>";
 				$("#ImprimirPdf").html(ImprimirPdf);
 			}else{
 				AlertNotify('', 'Error', 'No se pudo guardar el registro', 'danger');
@@ -579,3 +579,125 @@ DataGrouper.register("sum", function(item) {
         return memo + Number(node.Value);
     }, 0)});
 });
+
+/* ---------------------------------------------------------------------------------------------------------*/
+
+
+ /*******************utilitarios********************/
+ function fn_mostrar_modal(ide)
+ {   $('#'+ide).modal("show");
+ }
+
+ function fn_ocultar_modal(ide)
+ { $('#'+ide).modal("hide");
+   
+ }
+ 
+ $( "#GuardarCliente" ).click(function( e ) {
+ $("#frmCreaCliente").validate({
+		 rules: {
+			nombre: {
+				 required: true
+			 },v_contact: {
+				 required: true
+			 },tlfn: {
+				 required: true,
+				 number:true
+			 },domicilio: {
+				 required: true
+			 },razon_social: {
+				 required: true
+			 },tipo: {
+				 required: true
+			 },documento: {
+				 required: true,
+				 number:true
+			 }
+		 }, messages: {
+			nombre: {
+				 required: "Ingrese Descripcion"
+			 },v_contact: {
+				 required: "Ingrese Contacto"
+			 },tlfn: {
+				 required: "Ingrese Telefono",
+				 number: "Ingrese Digitos"
+			 },domicilio: {
+				 required: "Ingrese domicilio",
+			 },razon_social: {
+				 required: "Ingrese Razon Social",
+			 },tipo: {
+				 required: "Seleccione tipo",
+			 },documento: {
+				 required: "Ingrese documento",
+				 number: "Ingrese Digitos"
+				 
+			 }
+		 },
+		 submitHandler: function (form) {
+			 e.preventDefault();
+			 insertar_Cliente();
+		 }
+	 });
+ });
+/**************************************************/
+
+
+function fn_limpiar_modal_sel_cliente()
+{ $("#txt_nombre").val('');
+  $("#txt_documento").val('');
+  $("#cuadro_paginacion_sel_cliente").html('');
+  $("#tabla_sel_cliente").html('');
+}
+
+
+function fn_set_cliente(codcliente,nombre,documento)
+{  $("#codcliente").val(codcliente);
+   $("#nomb_cliente").text(nombre);
+   $("#doc_cliente").text(documento);
+}
+/**************************************************/
+function fn_limpiar_modal_crea_cliente()
+{ $("#txt_razon_social").val('');
+  $("#tipo_doc").val(0);
+  $("#tipo_doc option[value="+"0" +"]").attr("selected",true);
+  $("#txt_doc_cliente").val('');
+  $("#txt_contacto").val('');
+  $("#txt_direccion").val('');
+  $("#txt_tlfn").val('');
+}
+ 
+
+function insertar_cliente()
+{       var v_rsocial=$("#txt_razon_social").val();
+	    var v_tipo=$("#tipo_doc").val();
+		var v_docu=$("#txt_doc_cliente").val();
+		var v_contact=$("#txt_contacto").val();
+		var v_dir=$("#txt_direccion").val();
+		var v_tlfn=$("#txt_tlfn").val();
+
+$.ajax({
+	    url:  "<?php echo base_url()?>MantCliente_c/insertar_creaOrdenEntrada",
+	    type: 'post',//metodo
+	    data: { nombre:	      v_contact,
+			    tlfn:         v_tlfn,
+		        domicilio:    v_dir,
+		        razon_social: v_rsocial,
+		        tipo:         v_tipo,
+		        documento:    v_docu
+	    	  }, //parametros
+	    success: function(respuesta) { 
+
+	   if(respuesta==1)
+	       {  $("#modal_creaCliente_reg_ok").modal("show");
+	       }
+	       else
+	       {
+	      	 $("#modal_creaCliente_reg_error").modal("show");
+	       }    
+	    }, 
+	    error: function() { alert('Se ha producido un error'); }
+
+    });
+
+    return false;
+}

@@ -436,6 +436,7 @@ if($TIPO_TRANSACCION==1){
           <h4 style="color:red;"> Buscar Cliente</h4>
         </div>
         <div class="modal-body">
+		    	 			
 		<table id="TabalClientes" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <tr>
@@ -452,7 +453,9 @@ if($TIPO_TRANSACCION==1){
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-          
+          <a class="btn btn-primary"  style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);" onclick="fn_ocultar_modal('ClientesModal'); fn_limpiar_modal_sel_cliente();">
+						Salir
+					</a>
         </div>
       </div>
     </div>
@@ -470,7 +473,81 @@ if($TIPO_TRANSACCION==1){
 			</div>
 		</div>
 	</div>
+ 
+<!-- ************ Inicio formulario  modal para crear cliente  *************** -->
 
+<div  data-backdrop="static"  class="modal fade" id="modal_crea_cliente" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+			 <div class="modal-header btn-primary" style="background-color:rgb(0,128,255);">
+			      <button class="close" data-dismiss="modal" aria-hidden="true" onclick="fn_ocultar_modal('modal_crea_cliente');fn_limpiar_modal_crea_cliente(); fn_mostrar_modal('modal_seleccionar_cliente');">&times;</button>
+			                <h4>Crear Cliente</h4>
+			  </div>
+		          
+		      <div class="modal-body">
+		           <form id="frmCreaCliente" >
+					       
+						   <div class="form-group">
+						          <input id="txt_razon_social" name="razon_social" type="text" class="form-control" placeholder="RAZON SOCIAL">
+						    </div>
+						   
+						    <div class="form-group">
+								       <select  id="tipo_doc"  name="tipo"  class="form-control">
+										    <option value="">
+													SELECCIONAR TIPO DOCUMENTO
+										     </option>
+										     
+												<?php foreach ($tipodoc as $tipo): ?>
+												     <option value="<?php echo "".$tipo->CLAVE?>">
+													     <?php echo "".$tipo->VALOR?>
+												    </option>
+									          <?php  endforeach ?>
+									   </select>
+									    <script type="text/javascript">
+									          $("#tipo_doc option[value="+"0" +"]").attr("selected",true);
+										</script>   
+						   </div>
+						   
+						    <div class="form-group">
+						         <input id="txt_doc_cliente" name="documento" type="text" class="form-control" placeholder="Documento">
+						    </div>
+						    
+						   <div class="form-group">
+						         <input id="txt_contacto" name="v_contact" type="text" class="form-control" placeholder="Contacto" >
+						    </div>
+						    <div class="form-group">
+						         <input id="txt_direccion" name="domicilio" type="text" class="form-control" placeholder="Direcci&oacute;n" >
+						    </div>
+						 
+						    <div class="form-group">
+						         <input id="txt_tlfn" name="tlfn" type="text" class="form-control" placeholder="Telefono" >
+						    </div>
+						 
+						 
+						  <div class="form-group">
+						  <button class="btn btn-primary" type="submit"  id="GuardarCliente" style="background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);">
+						  Guardar
+					   <img src="<?php echo base_url()?>public/images/GUARDAR.png">
+							  </button>
+							  
+							  <a href="#" class="btn btn-primary"  id="boton1" style="background-color: white; border: 1px solid rgb(0,128,255); color:rgb(0,128,255);" onclick="fn_ocultar_modal('modal_crea_cliente');fn_limpiar_modal_crea_cliente();fn_limpiar_modal_sel_cliente(); fn_mostrar_modal('modal_seleccionar_cliente');">   
+                                   Cancelar <img src="<?php echo base_url()?>public/images/CANCELAR.png">
+							  </a>
+						        											  
+						 </div>   
+			 </form>
+		     </div>
+             
+             <div class="container">
+               		  <div id="respuesta"></div>
+	         </div> 
+        
+             <div class="modal-footer">
+          			
+            </div>
+       </div>
+   </div>
+</div>
 	<script type="text/javascript" src="/public/custom/CreaGestionCobros.js"></script>
  	<script type="text/javascript" src="/public/js/datatable.js" ></script>
  	<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
@@ -484,8 +561,11 @@ if($TIPO_TRANSACCION==1){
 			
 			$("#COD_TIPOCOBRO").val("<?php echo $COD_TIPOCOBRO; ?>");
 
-			
+			document.getElementById("TabalClientes_length").innerHTML = "<a class='btn btn-primary'  style='background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);' onclick=fn_ocultar_modal('ClientesModal');fn_mostrar_modal('modal_crea_cliente');><img src='<?php echo base_url()?>public/images/REGISTRAR.png'> Nuevo</a>";
 		});
 	</script>
-</body>
-</html>
+	<script>
+
+
+</script>
+</body></html>

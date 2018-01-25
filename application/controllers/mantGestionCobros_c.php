@@ -27,6 +27,7 @@ class MantGestionCobros_c  extends CI_Controller{
 		$data['listUsuarios'] = $listUsuarios;
 		$data['listTipoCobro'] = $listTipoCobro;
 		$data['listClientes'] = $listClientes;
+		
 
 		$this->load->view("GestionDeCobros",$data);
 	}
@@ -144,6 +145,12 @@ class MantGestionCobros_c  extends CI_Controller{
 			$datos= $this->session->cod_usu;
 			// $this->session->unset_userdata('cod_usu');
 				//  print_r($datos);kol,.
+				$this->load->model('consCliente_m');
+				$tipodoc=$this->consCliente_m->listar_tipo_documento();
+				mysqli_next_result($this->db->conn_id);
+				
+
+
 			foreach ($datos as $campos) 
 				{	$codusu=$campos->COD_USU;}
 			
@@ -177,15 +184,95 @@ class MantGestionCobros_c  extends CI_Controller{
 			$data['docCobro']=$docCobro;
 			$data['docCobroDet']=$docCobroDet;
 			$data['listTipoCobro'] = $listTipoCobro;
+
+
+			$data['tipodoc']=$tipodoc;
 			if($COD_DOC_COBRO!=0){
 				$data['TIPO_TRANSACCION'] = 2;
 			}else{
 				$data['TIPO_TRANSACCION'] = 1;
 			}
 
+
+//obtenemos tipo de documento de cliente
+
 		$this->load->view("CreaDocumentoCobro",$data);
 		 
 	}
+	public function procesar_cliente()
+	{  $opcion=$_POST["opcion"];
+       if($opcion==1)
+		   { $this->Nuevo_cliente(); }	
+	   else
+		   {  $codcliente=$_POST["codcliente"];
+	          $nombre=$_POST["nombre"];
+	          $documento=$_POST["documento"];
+	     	  $this->mostrar_Nuevo_y_cliente($codcliente,$nombre,$documento) ;
+		   }
+
+	}
+	public function mostrar_Nuevo_y_cliente($codcli,$nomb,$doc)
+	{ 	    $this->load->library('session');
+			$datos= $this->session->cod_usu;
+			// $this->session->unset_userdata('cod_usu');
+			//  print_r($datos);
+			foreach ($datos as $campos)
+			{	$codusu=$campos->COD_USU;}
+				
+			$this->load->model('consOrdenEntrada_m');
+			$datos1=$this->consOrdenEntrada_m->obt_serie_orden_x_usu($codusu,1);
+			mysqli_next_result($this->db->conn_id);
+			foreach ($datos1 as $campos)
+			{	$serie=$campos->SERIE;
+			$numero=$campos->NUMERO;
+			}
+			
+			$data['cod_cliente']=$codcli;
+			$data['nomb_cliente']=$nomb;
+			$data['doc_cliente']=$doc;
+			$data['serie']=$serie;
+			$data['numero']=$numero;
+			$this->load->view("CreaOrdenEntrada",$data);
+	
+	}
+	public function Nuevo_cliente()
+	{ 	    $this->load->model('consCliente_m');
+			$tipodoc=$this->consCliente_m->listar_tipo_documento();
+			mysqli_next_result($this->db->conn_id);
+			
+			$regimen=$this->consCliente_m->listar_regimen();
+			mysqli_next_result($this->db->conn_id);
+			
+			$estado=$this->consCliente_m->listar_estado_cliente();
+			mysqli_next_result($this->db->conn_id);
+			
+			$clasificacion=$this->consCliente_m->listar_clasificacion_cliente();
+			mysqli_next_result($this->db->conn_id);
+			
+			$actividad=$this->consCliente_m->listar_actividad_cliente();
+			mysqli_next_result($this->db->conn_id);
+			
+			
+			$contacto=$this->consCliente_m->listar_contacto();
+			mysqli_next_result($this->db->conn_id);
+			
+			$data['band_SelCliente']=1;
+			$data['tipodoc']=$tipodoc;
+			$data['regimenes']=$regimen;
+			$data['estados']=$estado;
+			$data['clasificaciones']=$clasificacion;
+			$data['actividades']=$actividad;
+			$data['contactos']=$contacto;
+			$this->load->view("CreaDocumentoCobro",$data);
+				
+	}
+
+
+
+
+
+
+
 
 	public function ObtenerClientes(){
 		 $this->load->model('consGestionCobro_m');

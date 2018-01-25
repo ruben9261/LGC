@@ -104,6 +104,7 @@ $tipo_prod=$this->consProducto_m->obt_Tipos();
 mysqli_next_result($this->db->conn_id);
 
 
+
 date_default_timezone_set("America/Bogota");
 
 $data['tipo_prod']=$tipo_prod;

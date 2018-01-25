@@ -21,6 +21,7 @@ $(document).ready(function() {
             }
         });
         
+
         $('.FECHA_EMISION').datepicker({
         format: 'mm/dd/yyyy',
           pickTime: false,
@@ -716,6 +717,9 @@ $.ajax({
         // debugger;
         $("#formAgregarProducto").validate({
                     rules: {
+                        DESCRIPCION: {
+                            required: true
+                        },
                         COD_PROD: {
                             required: true
                         },
@@ -726,6 +730,9 @@ $.ajax({
                             required: true,
                         }
                     }, messages: {
+                        DESCRIPCION: {
+                            required: "Ingrese descripción"
+                        },
                         COD_PROD: {
                             required: "Seleccione un producto"
                         },
@@ -750,6 +757,7 @@ $.ajax({
         var COD_PROD = $("#COD_PROD").val();
         var COD_UM = $("#COD_UM").val();
         var CANTIDAD = $("#CANTIDAD").val();
+        var DESCRIBIR = $("#DESCRIBIR").val();
         var PRODUCTO = $("#COD_PROD").find(":selected").text();
         var UNIDMED = $("#COD_UM").find(":selected").text();
         
@@ -764,13 +772,15 @@ $.ajax({
         cols += '<td class="col-md-1 input-sm" >'+CANTIDAD+'</td>';
         cols += '<td class="col-md-1 input-sm" >'+UNIDMED+'</td>';
         cols += '<td class="col-md-3 input-sm" >'+PRODUCTO+'</td>';
+        cols += '<td class="col-md-3 input-sm" >'+DESCRIBIR+'</td>';
+        
         cols += '<td class="col-md-1 input-sm" ><i class="btn glyphicon glyphicon-remove" onclick="fn_EliminarOrdenSalidaDetalle('+"'FILA"+COD_PROD+"'"+');"></i></td>';
         
         $("#TablaGuiaRemision tbody").append(cols);
         $("#ProductosModal").modal("toggle");
-        document.getElementById("validartabla").innerHTML ="";
        
         var COD_PROD = $("#COD_PROD").val("");
         var COD_UM = $("#COD_UM").val("");
         var CANTIDAD = $("#CANTIDAD").val("");
+        var DESCRIBIR = $("#DESCRIBIR").val("");
     }

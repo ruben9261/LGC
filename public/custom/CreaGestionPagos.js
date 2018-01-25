@@ -413,7 +413,9 @@ function fn_GuardarDocPago(){
 				$("#lblCOD_DOC_PAGO").html(response.COD_DOC_PAGO);
 				$("#TIPO_TRANSACCION").val(2);
 				$("#ImprimirPdf").show();
-				var ImprimirPdf = '<a class="btn btn-success" href="/mantGestionPagos_c/docPagoPdf/'+response.COD_DOC_PAGO+' target="_blank">Imprimir</a>';
+			//var ImprimirPdf = '<a class="btn btn-success" href="/MantGestionPagos_c/docPagoPdf/'+response.COD_DOC_PAGO+' target="_blank">Imprimir</a>';
+			var ImprimirPdf = "<a type='button' class='btn btn-success' href='/MantGestionPagos_c/docPagoPdf/"+response.COD_DOC_PAGO+"' target='blank'>Imprimir</a>";
+				
 				$("#ImprimirPdf").html(ImprimirPdf);
 			}else{
 				AlertNotify('', 'Error', 'No se pudo guardar el registro', 'danger');
