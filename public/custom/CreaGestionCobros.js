@@ -82,6 +82,7 @@ function fn_eliminar(cod)
 }
 
 
+
 function fn_ObtenerClientes(){
 	$('#TabalClientes').dataTable().fnClearTable();
 	//$('#TabalClientes').dataTable().fnDestroy();
@@ -689,7 +690,15 @@ $.ajax({
 	    success: function(respuesta) { 
 
 	   if(respuesta==1)
-	       {  $("#modal_creaCliente_reg_ok").modal("show");
+		   {  
+		
+
+		  // document.getElementById("TabalClientes").innerHTML = "";
+		   document.getElementById("TabalClientes").innerHTML = "<table id='TabalClientes' class='table table-striped table-bordered' cellspacing='0' width=c100%'><thead><tr><th>Código</th><th>Cliente</th><th>Documento</th><th>Acción</th></tr></thead><tbody></tbody></table>";
+           document.getElementById("TabalClientes_length").innerHTML = "<a class='btn btn-primary'  style='background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);' onclick=fn_ocultar_modal('ClientesModal');fn_mostrar_modal('modal_crea_cliente');><img src='<?php echo base_url()?>public/images/REGISTRAR.png'> Nuevo</a>";
+		
+			   fn_ObtenerClientes();
+			  $("#modal_creaCliente_reg_ok").modal("show");
 	       }
 	       else
 	       {

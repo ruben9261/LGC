@@ -620,12 +620,12 @@ $("#oferta").val(0);
 
 
 	$( "#GuardarProveedor" ).click(function( e ) {
-		var nomb_prov = $("#nomb_prov").val();
-		var doc_prov= $("#doc_prov").val();
-		var oferta= $("#oferta").val();
+	//	var nomb_prov = $("#nomb_prov").val();
+	//	var doc_prov= $("#doc_prov").val();
+	//	var oferta= $("#oferta").val();
 		// debugger;
   
-		alert(nomb_prov+"doc"+doc_prov+"oferta"+oferta);
+		//alert(nomb_prov+"doc"+doc_prov+"oferta"+oferta);
 		$("#frmCreaProveedor").validate({
 					rules: {
 						nomb_prov: {
@@ -678,9 +678,14 @@ function insertar_proveedor(){
 			debugger;
 			var response = JSON.parse(response);
 			if(response.respuesta){
-				AlertNotify('', 'Éxito', 'El registro se guardo correctamente', 'success');
-	
-	
+				
+				//document.getElementById("TabalClientes").innerHTML = "";
+				document.getElementById("TablaProveedores").innerHTML = "<table id='TablaProveedores' class='table table-striped table-bordered' cellspacing='0' width='100%'><thead><tr><th>Código</th><th>Cliente</th><th>Documento</th><th>Acción</th></tr></thead><tbody></tbody></table>";
+				
+				document.getElementById("TablaProveedores_length").innerHTML = "<a class='btn btn-primary'  style='background-color: white; border: 1px solid rgb(0,128,255);color:rgb(0,128,255);' onclick=fn_ocultar_modal('ProveedoresModal');fn_mostrar_modal('modal_crea_proveedor');><img src='<?php echo base_url()?>public/images/REGISTRAR.png'> Nuevo</a>";
+		
+				fn_ObtenerProveedores();
+	               AlertNotify('', 'Éxito', 'El registro se guardo correctamente', 'success');
 			}else{
 				AlertNotify('', 'Error', 'No se pudo guardar el registro', 'danger');
 			}
