@@ -18,6 +18,8 @@ class ConsGuiaRemision_m extends CI_Model {
 		}
 	}
 
+
+
 	public function obt_OrdenSalida()
 	{	
 		$this->db->select('os.COD_ORDEN_S');
@@ -146,8 +148,8 @@ class ConsGuiaRemision_m extends CI_Model {
 		$this->db->where("(('".$Filtros["FECHA_EMISION"]."'='') or(date(gr.FECHA_EMISION)='".$Filtros["FECHA_EMISION"]."'))");
 		$this->db->where("(('".$Filtros["FECHA_TRASLADO"]."'='') or(date(gr.FECHA_TRASLADO)='".$Filtros["FECHA_TRASLADO"]."'))");
 		
-		$this->db->where("(('".$Filtros["NRO_DOCUMENTO"]."'='') or(gr.NRO_DOCUMENTO='".$Filtros["NRO_DOCUMENTO"]."'))");
-		$this->db->where("(('".$Filtros["NRO_COMPROBANTE"]."'='') or(gr.NRO_COMPROBANTE='".$Filtros["NRO_COMPROBANTE"]."'))");
+		
+		
 	  //	$this->db->where("(('".$Filtros["COD_PROD"]."'='') or(dt_gr.COD_PROD='".$Filtros["COD_PROD"]."'))");
 		//$string = $this->db->get_compiled_select();
 		$query  = $this->db->get();
@@ -190,8 +192,8 @@ class ConsGuiaRemision_m extends CI_Model {
 	  $this->db->where("(('".$Filtros["FECHA_EMISION"]."'='') or(date(gr.FECHA_EMISION)='".$Filtros["FECHA_EMISION"]."'))");
 	  $this->db->where("(('".$Filtros["FECHA_TRASLADO"]."'='') or(date(gr.FECHA_TRASLADO)='".$Filtros["FECHA_TRASLADO"]."'))");
 	 
-	  $this->db->where("(('".$Filtros["NRO_DOCUMENTO"]."'='') or(gr.NRO_DOCUMENTO='".$Filtros["NRO_DOCUMENTO"]."'))");
-	  $this->db->where("(('".$Filtros["NRO_COMPROBANTE"]."'='') or(gr.NRO_COMPROBANTE='".$Filtros["NRO_COMPROBANTE"]."'))");
+	  
+	  
 	  
 	 // $this->db->where("((".$Filtros["COD_PROD"]."'='') or(dt_gr.COD_PROD=".$Filtros["COD_PROD"]."))");
 	   $this->db->limit($filasxpagina,$inicio);

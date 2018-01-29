@@ -61,8 +61,7 @@
 		    	  <div class="form_group">
 				       <input type="text" name="btnbuscar" id="FECHA_EMISION" class="form-control"  placeholder="FECHA_EMISION"> 
 					   <input type="text" name="btnbuscar" id="FECHA_TRASLADO"  class="form-control"  placeholder="FECHA_TRASLADO">
-				       <input type="text" name="btnbuscar" id="NRO_DOCUMENTO" class="form-control"  placeholder="NRO_DOCUMENTO"> 
-					   <input type="text" name="btnbuscar" id="NRO_COMPROBANTE"  class="form-control"  placeholder="NRO_COMPROBANTE">
+				        <input type="text" name="btnbuscar" id="NRO_COMPROBANTE"  class="form-control"  placeholder="NRO_COMPROBANTE">
 				     
 
 					   <br/>
