@@ -9,7 +9,12 @@ define(['jspdf', 'jspdf-autotable'], function(jsPDF) {
  var GuiaRemision = new Object();
  GuiaRemision.COD_GUIAREM = $("#COD_GUIAREM").val();
  GuiaRemision.RUC_EMPRESA = $("#RUC_EMPRESA").val();
- GuiaRemision.SERIE = $("#SERIE").val();
+ //GuiaRemision.SERIE = $("#SERIE").val();
+ //GuiaRemision.COD_SERIE_GUIA = $("#COD_SERIE_GUIA").val();
+ //GuiaRemision.NUM_ACTUAL = $("#NUM_ACTUAL").val();
+
+ GuiaRemision.SERIE=$("#SERIE").val() +"-"+$("#NUM_ACTUAL").val();
+
  GuiaRemision.FECHA_EMISION = $("#FECHA_EMISION").val();
  GuiaRemision.FECHA_TRASLADO = $("#FECHA_TRASLADO").val();
  GuiaRemision.PUNTO_PARTIDA = $("#PUNTO_PARTIDA").val();

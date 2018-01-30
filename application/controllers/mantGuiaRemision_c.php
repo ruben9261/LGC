@@ -64,25 +64,34 @@ class MantGuiaRemision_c  extends CI_Controller{
 			$this->load->model('consGuiaRemision_m');
 			
 			$listMotivoTraslado=$this->consGuiaRemision_m->obt_MotivoTraslado();
+			
 			$listUnidadMedida=$this->consGuiaRemision_m->obt_UnidadMedida();
+
 			$listProducto=$this->consGuiaRemision_m->obt_Producto();
 
 			$GuiaRemision=$this->consGuiaRemision_m->obt_GuiaRemision($COD_GUIAREM);
+
 			$GuiaRemisionDet=$this->consGuiaRemision_m->obt_GuiaRemisionDet($COD_GUIAREM);
 			
-			$listNUMERO_ACTUAL=$this->consGuiaRemision_m->NUMERO_ACTUAL();
+			$listNUMERO_ACTUAL=$this->consGuiaRemision_m->NUMERO_ACTUAL($COD_USU);
+			mysqli_next_result($this->db->conn_id);
 			foreach ($listNUMERO_ACTUAL as $campos)
 			{	
-				$NUMERO_ACTUAL=$campos->NUMERO_ACTUAL;
-			
+				$COD_SERIE_GUIA=$campos->COD_SERIE_GUIA;
+				$SERIE=$campos->SERIE;
+				$NUM_ACTUAL=$campos->NUM_ACTUAL;
 			}
+
 			$data["listMotivoTraslado"] = $listMotivoTraslado;
 			$data["listUnidadMedida"] = $listUnidadMedida;
 			$data["listProducto"] = $listProducto;
 			$data["GuiaRemision"] = $GuiaRemision;
 			$data["GuiaRemisionDet"] = $GuiaRemisionDet;
 			$data["COD_GUIAREM"] = $COD_GUIAREM;
-	        $data['NUMERO_ACTUAL']=$NUMERO_ACTUAL;
+			$data['COD_SERIE_GUIA']=$COD_SERIE_GUIA;
+			$data['SERIE']=$SERIE;
+			$data['NUM_ACTUAL']=$NUM_ACTUAL;
+
 			if($COD_GUIAREM!=0){
 				$data['TIPO_TRANSACCION'] = 2;
 			}else{
@@ -93,17 +102,17 @@ class MantGuiaRemision_c  extends CI_Controller{
 
 
 ////////////////////////////////////////
-foreach ($datos as $campos) 
-{	$codusu=$campos->COD_USU;}
+//foreach ($datos as $campos) 
+//{	$codusu=$campos->COD_USU;}
 
-$this->load->model('consOrdenEntrada_m');
-$datos1=$this->consOrdenEntrada_m->obt_serie_orden_x_usu($codusu,1);
-mysqli_next_result($this->db->conn_id);
-foreach ($datos1 as $campos)
-{	$codserorden=$campos->COD_SERIE_ORDEN;
-  $serie=$campos->SERIE;
-  $numero=$campos->NUMERO;
-}
+////$this->load->model('consOrdenEntrada_m');
+//$datos1=$this->consOrdenEntrada_m->obt_serie_orden_x_usu($codusu,1);
+//mysqli_next_result($this->db->conn_id);
+//foreach ($datos1 as $campos)
+//{	$codserorden=$campos->COD_SERIE_ORDEN;
+ // $serie=$campos->SERIE;
+  //$numero=$campos->NUMERO;
+//}
 
    
 $this->load->model('consProducto_m');
@@ -126,6 +135,7 @@ $data['tipo_prod']=$tipo_prod;
 		$TIPO_TRANSACCION = $GuiaRemision["TIPO_TRANSACCION"];
 		$this->load->model('consGuiaRemision_m');
 		if($TIPO_TRANSACCION==1){
+			
 			$respuesta=$this->consGuiaRemision_m->insertGuiaRemision($GuiaRemision);
 		}else{
 			$respuesta=$this->consGuiaRemision_m->updateGuiaRemision($GuiaRemision);

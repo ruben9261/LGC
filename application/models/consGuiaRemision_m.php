@@ -18,17 +18,20 @@ class ConsGuiaRemision_m extends CI_Model {
 		}
 	}
 
-	public function NUMERO_ACTUAL()
+
+
+	public function NUMERO_ACTUAL($CodUsu)
 	{	
-		$this->db->select('MAX(NUMERO_ACTUAL) AS NUMERO_ACTUAL,');
-		$this->db->from('serie_guia');
-		//$string = $this->db->get_compiled_select();
-		$query  = $this->db->get();
-		$result = $query->result();
-
-		return $result;
+			if($query = $this->db->query("CALL SP_R_SERIE_GUIA_OBT_SGTE_NUM_ACTUAL('".$CodUsu."');"))
+			{	if($query->num_rows() > 0 )
+				{	return $query->result();} 
+				else{ return 0;}
+			}
 	}
-
+	public function NUMERO_ACTUAL_ACTUALIZA($codusu,$COD_SERIE_GUIA,$NUM_ACTUAL)
+	{	
+		$this->db->query("CALL SP_W_SERIE_GUIA_ACT_NUMERO('".$codusu."','".$COD_SERIE_GUIA."','".$NUM_ACTUAL."')");		
+	}
 
 	public function obt_OrdenSalida()
 	{	
@@ -214,6 +217,30 @@ class ConsGuiaRemision_m extends CI_Model {
 		date_default_timezone_set('America/Lima');
 		$DOC_PAGO_FECHA = date('Y/m/d h:i:s', time());
 		$COD_DOC_PAGO = 0;
+	   
+		$this->load->library('session');
+		$datos= $this->session->cod_usu;
+
+	           foreach ($datos as $campos) 
+				 {	$codusu=$campos->COD_USU;}
+			
+			$ListSerie=$GuiaRemision;
+
+		$ListSerie = array(
+			$COD_SERIE_GUIA= $ListSerie["COD_SERIE_GUIA"],
+			$NUM_ACTUAL = $ListSerie["NUM_ACTUAL"]
+	
+	         );
+	
+			 $this->consGuiaRemision_m->NUMERO_ACTUAL_ACTUALIZA($codusu,$COD_SERIE_GUIA,$NUM_ACTUAL);
+			
+			
+		
+
+
+	
+
+
 
 		$GUIA_REMISION = array(
 				'SERIE' => $GuiaRemision["SERIE"],
@@ -240,6 +267,12 @@ class ConsGuiaRemision_m extends CI_Model {
 		
 		$this->db->insert('GuiaRemision', $GUIA_REMISION);
 
+
+
+   
+	//P_codigo       
+//P_num_actual   	
+//P_usuario    
 		
 		//$string = $this->db->get_compiled_select();
 		$COD_GUIAREM = $this->db->insert_id();

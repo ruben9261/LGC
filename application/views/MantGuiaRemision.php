@@ -119,7 +119,9 @@ a#btnNuevo_selproducto {
 		foreach($GuiaRemision as $item){
 			$FECHA_EMISION = $item->FECHA_EMISION;
 			$FECHA_TRASLADO = $item->FECHA_TRASLADO;
-			//$NUMERO_ACTUAL = $item->NUMERO_ACTUAL;
+			//$NUM_ACTUAL = $item->NUM_ACTUAL;
+
+			
 			$fechahora=explode(" ", $FECHA_EMISION);
 			$fecha=$fechahora[0];
 			$hora = $fechahora[1];
@@ -192,11 +194,16 @@ a#btnNuevo_selproducto {
 						 </div>
 		            </div>
 					<br/>
+
+
 				<form id="frmGuiaRemision" rol="form" class="form-horizontal" method="POST">
 						 <input type="hidden" id="COD_GUIAREM" value="<?php echo $COD_GUIAREM; ?>">
-						 <input type="hidden" id="SERIE" value="<?php echo str_pad($COD_CAJA,3,"0",STR_PAD_LEFT).'-'.str_pad($COD_GUIAREM,6,"0",STR_PAD_LEFT);?>">
+						 <input type="hidden" id="SERIE" value="<?php echo $SERIE;?>">
+						 <input type="hidden" id="COD_SERIE_GUIA" value="<?php echo $COD_SERIE_GUIA;?>">
+					     <input type="hidden" id="NUM_ACTUAL" value="<?php echo $NUM_ACTUAL; ?>">
+
 		    	         <input type="hidden" id="RUC_EMPRESA" value="<?php echo $RUC_EMPRESA; ?>">
-						  <input type="hidden" id="NUMERO_ACTUAL" value="<?php echo $NUMERO_ACTUAL; ?>">
+						 
 						 <input type="hidden" id="TIPO_TRANSACCION" value="<?php echo $TIPO_TRANSACCION; ?>">
 						 <input type="hidden" id="Nomb_Empresa" value="<?php echo $Nomb_Empresa; ?>">
 							<div class="form-group">

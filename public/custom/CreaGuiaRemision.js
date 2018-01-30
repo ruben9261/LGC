@@ -515,14 +515,12 @@ $.ajax({
      // (234).zfill(10); // '00234'
 
     function fn_GuardarGuiaRemision(){
-      var serieactual=0;
-      serieactual= $("#NUMERO_ACTUAL").val();
-      serieactual= zfill(serieactual, 6);
-      serieactual="001-"+serieactual;
+
         var GuiaRemision = new Object();
-      
-      //  GuiaRemision.SERIE = $("#NUMERO_ACTUAL").val();
-        GuiaRemision.SERIE = serieactual ;
+        GuiaRemision.COD_SERIE_GUIA = $("#COD_SERIE_GUIA").val();
+        GuiaRemision.SERIE = $("#SERIE").val();
+        GuiaRemision.NUM_ACTUAL = $("#NUM_ACTUAL").val();
+      //  GuiaRemision.SERIE = serieactual ;
 
  
         GuiaRemision.COD_GUIAREM = $("#COD_GUIAREM").val();
@@ -554,7 +552,8 @@ $.ajax({
         GuiaRemision.COD_MOT_TRAS = $("#COD_MOT_TRAS").val();
         GuiaRemision.Nomb_Empresa = $("#Nomb_Empresa").val();
         GuiaRemision.RUC_EMPRESA = $("#RUC_EMPRESA").val();
-    
+        
+
         var listGuiaRemisionDet = new Array();
         var GuiaRemisionDet = null;
         $("#TablaGuiaRemision tbody").each(function(){
