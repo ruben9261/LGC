@@ -94,6 +94,7 @@ a#btnNuevo_selproducto {
 
   $datos = 0;
 
+	
 	$FECHA_EMISION = "";
 	$FECHA_TRASLADO = "";
 	$PUNTO_PARTIDA = "";
@@ -118,8 +119,7 @@ a#btnNuevo_selproducto {
 		foreach($GuiaRemision as $item){
 			$FECHA_EMISION = $item->FECHA_EMISION;
 			$FECHA_TRASLADO = $item->FECHA_TRASLADO;
-			
-			
+			//$NUMERO_ACTUAL = $item->NUMERO_ACTUAL;
 			$fechahora=explode(" ", $FECHA_EMISION);
 			$fecha=$fechahora[0];
 			$hora = $fechahora[1];
@@ -196,6 +196,7 @@ a#btnNuevo_selproducto {
 						 <input type="hidden" id="COD_GUIAREM" value="<?php echo $COD_GUIAREM; ?>">
 						 <input type="hidden" id="SERIE" value="<?php echo str_pad($COD_CAJA,3,"0",STR_PAD_LEFT).'-'.str_pad($COD_GUIAREM,6,"0",STR_PAD_LEFT);?>">
 		    	         <input type="hidden" id="RUC_EMPRESA" value="<?php echo $RUC_EMPRESA; ?>">
+						  <input type="hidden" id="NUMERO_ACTUAL" value="<?php echo $NUMERO_ACTUAL; ?>">
 						 <input type="hidden" id="TIPO_TRANSACCION" value="<?php echo $TIPO_TRANSACCION; ?>">
 						 <input type="hidden" id="Nomb_Empresa" value="<?php echo $Nomb_Empresa; ?>">
 							<div class="form-group">
@@ -377,18 +378,24 @@ a#btnNuevo_selproducto {
 												
 												 foreach($GuiaRemisionDet as $item){
 													$cols = "";
-													$cols .= '<tr type="hidden"  class="FILA'.$item->COD_PROD.'">';
+
+
+												   // GuiaRemisionDet.PRODUCTO = $(".PRODUCTO",this).val();
+													$cols .= '<tr class="FILA'.$item->COD_PROD.'">';
 													$cols .= '<input type="hidden" class="COD_PROD" value="'.$item->COD_PROD.'">';
 													$cols .= '<input type="hidden" class="COD_UM" value="'.$item->COD_UM.'">';
+													
 													$cols .= '<input type="hidden" class="CANTIDAD" value="'.round($item->CANTIDAD,2).'">';
-													$cols .= '<input type="hidden" class="PRODUCTO" value="'.$item->DESCRIPCION.'">';
+													$cols .= '<input type="hidden" class="DESCRIPCION" value="'.$item->DESCRIPCION.'">';
+													$cols .= '<input type="hidden" class="PRODUCTO" value="'.$item->PRODUCTO.'">';
 													$cols .= '<input type="hidden" class="UNIDMED" value="'.$item->DESC_UM.'">';
-													$cols .= '<input type="hidden" class="DESCRIPCION" value="'.$item->DESCRIBIR.'">';
+												
 													$cols .= '<td class="col-md-3 input-sm" >'.$item->DESCRIPCION.'</td>';
+													$cols .= '<td class="col-md-3 input-sm" >'.$item->PRODUCTO.'</td>';
 													$cols .= '<td class="col-md-2 input-sm" >'.round($item->CANTIDAD,2).'</td>';
 													$cols .= '<td class="col-md-2 input-sm" >'.$item->DESC_UM.'</td>';
+
 													
-													$cols .= '<td class="col-md-3 input-sm" >'.$item->DESCRIBIR.'</td>';
 													$cols .= '<td class="col-md-2 input-sm" ><i class="btn glyphicon glyphicon-remove" onclick="fn_EliminarOrdenSalidaDetalle('."'FILA".$item->COD_PROD."'".');"></i></td>';
 													
 													echo $cols;

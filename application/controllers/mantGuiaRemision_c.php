@@ -50,7 +50,7 @@ class MantGuiaRemision_c  extends CI_Controller{
 				$COD_OFI=$campos->COD_OFI;
 				$RUC_EMPRESA = $campos->RUC;
 			}
-			
+
 			date_default_timezone_set("America/Bogota");
 			$data['COD_USU'] = $COD_USU;
 			$data['Nom_Usu']=$Nom_Usu;
@@ -69,19 +69,26 @@ class MantGuiaRemision_c  extends CI_Controller{
 
 			$GuiaRemision=$this->consGuiaRemision_m->obt_GuiaRemision($COD_GUIAREM);
 			$GuiaRemisionDet=$this->consGuiaRemision_m->obt_GuiaRemisionDet($COD_GUIAREM);
-	
+			
+			$listNUMERO_ACTUAL=$this->consGuiaRemision_m->NUMERO_ACTUAL();
+			foreach ($listNUMERO_ACTUAL as $campos)
+			{	
+				$NUMERO_ACTUAL=$campos->NUMERO_ACTUAL;
+			
+			}
 			$data["listMotivoTraslado"] = $listMotivoTraslado;
 			$data["listUnidadMedida"] = $listUnidadMedida;
 			$data["listProducto"] = $listProducto;
 			$data["GuiaRemision"] = $GuiaRemision;
 			$data["GuiaRemisionDet"] = $GuiaRemisionDet;
 			$data["COD_GUIAREM"] = $COD_GUIAREM;
-
+	        $data['NUMERO_ACTUAL']=$NUMERO_ACTUAL;
 			if($COD_GUIAREM!=0){
 				$data['TIPO_TRANSACCION'] = 2;
 			}else{
 				$data['TIPO_TRANSACCION'] = 1;
 			}
+///////////////////
 
 
 

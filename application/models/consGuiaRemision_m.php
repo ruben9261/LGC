@@ -18,6 +18,16 @@ class ConsGuiaRemision_m extends CI_Model {
 		}
 	}
 
+	public function NUMERO_ACTUAL()
+	{	
+		$this->db->select('MAX(NUMERO_ACTUAL) AS NUMERO_ACTUAL,');
+		$this->db->from('serie_guia');
+		//$string = $this->db->get_compiled_select();
+		$query  = $this->db->get();
+		$result = $query->result();
+
+		return $result;
+	}
 
 
 	public function obt_OrdenSalida()
@@ -74,7 +84,21 @@ class ConsGuiaRemision_m extends CI_Model {
 
 	public function obt_GuiaRemisionDet($COD_GUIAREM)
 	{	
-		$this->db->select('*');
+		
+		$this->db->select(' gd.COD_GUIAREM_DET,');
+		$this->db->select(' gd.COD_ORDEN_S,');
+		$this->db->select(' gd.COD_PROD,');
+		$this->db->select(' gd.COD_UM,');
+		$this->db->select(' gd.CANTIDAD,');
+		$this->db->select(' gd.SUB_TOTAL,');
+		$this->db->select(' gd.DESCRIPCION ,');
+		$this->db->select(' p.COD_TIP_PROD,');
+		$this->db->select(' p.COD_TIP_TARIFA,');
+		$this->db->select(' p.COD_CATEGORIA,');
+		$this->db->select(' p.PRECIO,');
+		$this->db->select(' um.DESC_UM,');
+
+		$this->db->select(' p.DESCRIPCION AS PRODUCTO');
         $this->db->from('GuiaRemision_Detalle gd');
         $this->db->join('producto p', 'gd.COD_PROD = p.COD_PROD');
         $this->db->join('UnidadMedida um', 'gd.COD_UM = um.COD_UM');
@@ -133,25 +157,12 @@ class ConsGuiaRemision_m extends CI_Model {
 		$TotalPaginas = 0;
 		$this->db->select('gr.COD_GUIAREM ,gr.FECHA_EMISION , gr.FECHA_TRASLADO , gr.NRO_DOCUMENTO ,gr.NRO_COMPROBANTE ,gr.TIPO_COMPROBANTE , gr.RUC_EMPRESA ');
 
-		//$this->db->select('gr.COD_GUIAREM ,gr.FECHA_EMISION , gr.FECHA_TRASLADO , gr.NRO_DOCUMENTO ,gr.NRO_COMPROBANTE ,gr.TIPO_COMPROBANTE , gr.RUC_EMPRESA ,
-		//prod.DESCRIPCION ,unit.DESC_UM ,dt_gr.CANTIDAD');
 
 	   $this->db->from('GuiaRemision gr');
-	   //$this->db->join('GuiaRemision_Detalle dt_gr', 'gr.COD_GUIAREM = dt_gr.COD_GUIAREM');
-	   //$this->db->join('orden_s or', 'dt_gr.COD_ORDEN_S = or.COD_ORDEN_S');
-       // $this->db->join('producto prod', 'dt_gr.COD_PROD = prod.COD_PROD');
-		//$this->db->join('UnidadMedida unit', 'dt_gr.COD_UM = unit.COD_UM');
-		
-
-
-		//$this->db->where("(('".$Filtros["COD_GUIAREM"]."'='') or(gr.COD_GUIAREM='".$Filtros["COD_GUIAREM"]."'))");
-		$this->db->where("(('".$Filtros["FECHA_EMISION"]."'='') or(date(gr.FECHA_EMISION)='".$Filtros["FECHA_EMISION"]."'))");
+	   
+	   $this->db->where("(('".$Filtros["FECHA_EMISION"]."'='') or(date(gr.FECHA_EMISION)='".$Filtros["FECHA_EMISION"]."'))");
 		$this->db->where("(('".$Filtros["FECHA_TRASLADO"]."'='') or(date(gr.FECHA_TRASLADO)='".$Filtros["FECHA_TRASLADO"]."'))");
 		
-		
-		
-	  //	$this->db->where("(('".$Filtros["COD_PROD"]."'='') or(dt_gr.COD_PROD='".$Filtros["COD_PROD"]."'))");
-		//$string = $this->db->get_compiled_select();
 		$query  = $this->db->get();
 		$result = $query->result();
 		//$error = $this->db->error_message();
@@ -180,14 +191,6 @@ class ConsGuiaRemision_m extends CI_Model {
 
 		$this->db->select('gr.COD_GUIAREM ,gr.FECHA_EMISION , gr.FECHA_TRASLADO , gr.NRO_DOCUMENTO ,gr.NRO_COMPROBANTE ,gr.TIPO_COMPROBANTE , gr.RUC_EMPRESA ');
 	   $this->db->from('GuiaRemision gr');
-	   
-	   //$this->db->join('GuiaRemision_Detalle dt_gr', 'gr.COD_GUIAREM = dt_gr.COD_GUIAREM');
-	   // $this->db->join('orden_s or', 'dt_gr.COD_ORDEN_S = or.COD_ORDEN_S');
-       // $this->db->join('producto prod', 'dt_gr.COD_PROD = prod.COD_PROD');
-	   //$this->db->join('UnidadMedida unit', 'dt_gr.COD_UM = unit.COD_UM');
-	 
-		
-		// $this->db->where("((".$Filtros["COD_GUIAREM"]."'='') or(gr.COD_GUIAREM=".$Filtros["COD_GUIAREM"]."))");
 	   
 	  $this->db->where("(('".$Filtros["FECHA_EMISION"]."'='') or(date(gr.FECHA_EMISION)='".$Filtros["FECHA_EMISION"]."'))");
 	  $this->db->where("(('".$Filtros["FECHA_TRASLADO"]."'='') or(date(gr.FECHA_TRASLADO)='".$Filtros["FECHA_TRASLADO"]."'))");
@@ -236,20 +239,21 @@ class ConsGuiaRemision_m extends CI_Model {
 		);
 		
 		$this->db->insert('GuiaRemision', $GUIA_REMISION);
+
+		
 		//$string = $this->db->get_compiled_select();
 		$COD_GUIAREM = $this->db->insert_id();
-		
+			
 		foreach($GuiaRemision["listGuiaRemisionDet"] as $item){
 			$GuiaRemision_Detalle = array(
 				'COD_GUIAREM' => $COD_GUIAREM,
 				'COD_PROD' => $item["COD_PROD"],
                 'COD_UM' => $item["COD_UM"],
 				'CANTIDAD' => $item["CANTIDAD"],
-				'DESCRIPCION' => $item["DESCRIPCION"],
+				'DESCRIPCION' => $item["DESCRIPCION"]
 			);
 			$this->db->insert('GuiaRemision_Detalle',$GuiaRemision_Detalle);
 		}
-		
 
 
 		$respuesta = FALSE;
@@ -312,7 +316,9 @@ class ConsGuiaRemision_m extends CI_Model {
 				'COD_GUIAREM' => $COD_GUIAREM,
 				'COD_PROD' => $item["COD_PROD"],
                 'COD_UM' => $item["COD_UM"],
-                'CANTIDAD' => $item["CANTIDAD"]
+				'CANTIDAD' => $item["CANTIDAD"],
+				'DESCRIPCION' => $item["DESCRIPCION"]
+			//	'PRODUCTO' => $item["PRODUCTO"]
 			);
 			$this->db->insert('GuiaRemision_Detalle',$GuiaRemision_Detalle);
 		}

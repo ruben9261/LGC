@@ -50,7 +50,7 @@ define(['jspdf', 'jspdf-autotable'], function(jsPDF) {
      GuiaRemisionDet.CANTIDAD = $(".CANTIDAD",this).val();
      GuiaRemisionDet.UNIDMED = $(".UNIDMED",this).val();
      GuiaRemisionDet.PRODUCTO = $(".PRODUCTO",this).val();
-
+    
      
    // listGuiaRemisionDet.push(GuiaRemisionDet);
 

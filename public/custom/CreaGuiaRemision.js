@@ -20,8 +20,7 @@ $(document).ready(function() {
                 }
             }
         });
-        
-
+   
         $('.FECHA_EMISION').datepicker({
         format: 'mm/dd/yyyy',
           pickTime: false,
@@ -209,7 +208,7 @@ $(document).ready(function() {
     function fn_ValidarSiExisteOrdenSalida(NewCOD_ORDEN_S){
         var YaExiste = false;
         var COD_ORDEN_S = null;
-        $("#TablaOrdenSalidaDet tbody tr").each(function(){
+        $("#TablaOrdenSalidaDet tbody").each(function(){
             COD_ORDEN_S = $(".COD_ORDEN_S",this).val();
             if(COD_ORDEN_S == NewCOD_ORDEN_S){
                 YaExiste = true;
@@ -252,10 +251,12 @@ $(document).ready(function() {
                             
                                     sum= parseInt( $("#datos").val())+1;
                                     var cols = "";
-                                    cols += '<tr class="FILA'+value.COD_ORDEN_S+'">';
+                                    cols += '<input type="hidden" class="FILA'+value.COD_ORDEN_S+'">';
                                     cols += '<input type="hidden" class="COD_DET_ORDEN_S" value="'+value.COD_DET_ORDEN_S+'">';
                                     cols += '<input type="hidden" class="COD_ORDEN_S" value="'+value.COD_ORDEN_S+'">';
-                                    cols += '<input type="hidden" class="SUB_TOTAL" value="'+value.IMPORTE+'">'
+                                    cols += '<input type="hidden" class="SUB_TOTAL" value="'+value.IMPORTE+'">';
+                                    cols += '<input type="hidden" class="DESCRIPCION" value="'+value.DESCRIPCION+'">';
+                                    cols += '<input type="hidden" class="PRODUCTO" value="'+value.PRODUCTO+'">';
                                     cols += '<td class="col-md-3 input-sm">'+value.COD_ORDEN_S+'-'+value.SERIE+'-'+value.NUMERO+'</td>';
                                     cols += '<td class="col-md-1 input-sm" >'+value.CANTIDAD+'</td>';
                                     cols += '<td class="col-md-1 input-sm" >'+value.PRODUCTO+'</td>';
@@ -263,6 +264,10 @@ $(document).ready(function() {
                                     cols += '<td class="col-md-2 input-sm" >'+value.DESCRIPCION+'</td>';
                                     cols += '<td class="col-md-3 input-sm" >'+value.PRECIO+'</td>';
                                     cols += '<td class="col-md-2 input-sm" >'+value.IMPORTE+'</td>';
+
+                                    
+
+                                    
                                     cols += '<td class="col-md-1 input-sm" ><i class="btn glyphicon glyphicon-remove" onclick="fn_EliminarOrdenSalidaDetalle('+"'FILA"+value.COD_ORDEN_S+"'"+');"></i></td>';
                                     
                                     $("#TablaOrdenSalidaDet tbody").append(cols);
@@ -352,7 +357,7 @@ $.ajax({
         // var TipoCobro = $("#COD_TIPOPAGO").val();
         // debugger;
    $mensaje= $(".DESCRIPCION",this).val();
-
+   
 
        var sum=0;
         sum= parseInt( $("#datos").val());
@@ -487,12 +492,42 @@ $.ajax({
     
     });
 
+    function zfill(number, width) {
+        var numberOutput = Math.abs(number); /* Valor absoluto del número */
+        var length = number.toString().length; /* Largo del número */ 
+        var zero = "0"; /* String de cero */  
+        
+        if (width <= length) {
+            if (number < 0) {
+                 return ("-" + numberOutput.toString()); 
+            } else {
+                 return numberOutput.toString(); 
+            }
+        } else {
+            if (number < 0) {
+                return ("-" + (zero.repeat(width - length)) + numberOutput.toString()); 
+            } else {
+                return ((zero.repeat(width - length)) + numberOutput.toString()); 
+            }
+        }
+    }
+      
+     // (234).zfill(10); // '00234'
+
     function fn_GuardarGuiaRemision(){
-        debugger;
+      var serieactual=0;
+      serieactual= $("#NUMERO_ACTUAL").val();
+      serieactual= zfill(serieactual, 6);
+      serieactual="001-"+serieactual;
         var GuiaRemision = new Object();
+      
+      //  GuiaRemision.SERIE = $("#NUMERO_ACTUAL").val();
+        GuiaRemision.SERIE = serieactual ;
+
+ 
         GuiaRemision.COD_GUIAREM = $("#COD_GUIAREM").val();
         GuiaRemision.RUC_EMPRESA = $("#RUC_EMPRESA").val();
-        GuiaRemision.SERIE = $("#SERIE").val();
+      //  GuiaRemision.SERIE = $("#SERIE").val();
         GuiaRemision.FECHA_EMISION = $("#FECHA_EMISION").val();
         GuiaRemision.FECHA_TRASLADO = $("#FECHA_TRASLADO").val();
         GuiaRemision.PUNTO_PARTIDA = $("#PUNTO_PARTIDA").val();
@@ -522,13 +557,13 @@ $.ajax({
     
         var listGuiaRemisionDet = new Array();
         var GuiaRemisionDet = null;
-        $("#TablaGuiaRemision tbody tr").each(function(){
+        $("#TablaGuiaRemision tbody").each(function(){
             GuiaRemisionDet = new Object();
             GuiaRemisionDet.COD_PROD = $(".COD_PROD",this).val();
             GuiaRemisionDet.COD_UM = parseInt($(".COD_UM",this).val());
             GuiaRemisionDet.CANTIDAD = parseInt($(".CANTIDAD",this).val());
             GuiaRemisionDet.UNIDMED = $(".UNIDMED",this).val();
-            GuiaRemisionDet.PRODUCTO = $(".PRODUCTO",this).val();
+           // GuiaRemisionDet.PRODUCTO = $(".PRODUCTO",this).val();
             GuiaRemisionDet.DESCRIPCION = $(".DESCRIPCION",this).val();
             listGuiaRemisionDet.push(GuiaRemisionDet);
         });
@@ -544,7 +579,6 @@ $.ajax({
             // contentType:"application/json",
             data: {GuiaRemision: GuiaRemision},
             success: function(response){
-                debugger;
                 var response = JSON.parse(response);
                 if(response.respuesta){
                     AlertNotify('', 'Éxito', 'El registro se guardo correctamente', 'success');
@@ -646,7 +680,7 @@ $.ajax({
         $(elemento2).remove();
     
         var SUB_TOTAL = 0;
-        $("#TablaOrdenSalidaDet tbody tr").each(function(){
+        $("#TablaOrdenSalidaDet tbody").each(function(){
             SUB_TOTAL += parseInt($(".SUB_TOTAL",this).val());
         });
         var sum=0;
@@ -792,13 +826,13 @@ $.ajax({
         var UNIDMED = $("#COD_UM").find(":selected").text();
         
         var cols = "";
-        cols += '<tr type="hidden" class="FILA'+COD_PROD+'">';
+        cols += '<tr class="FILA'+COD_PROD+'">';
         cols += '<input type="hidden" class="COD_PROD" value="'+COD_PROD+'">';
         cols += '<input type="hidden" class="COD_UM" value="'+COD_UM+'">';
-        cols += '<input type="hidden" class="CANTIDAD" value="'+CANTIDAD+'">';
         cols += '<input type="hidden" class="UNIDMED" value="'+UNIDMED+'">';
-        cols += '<input type="hidden" class="PRODUCTO" value="'+PRODUCTO+'">';
+        cols += '<input type="hidden" class="CANTIDAD" value="'+CANTIDAD+'">';
         cols += '<input type="hidden" class="DESCRIPCION" value="'+DESCRIBIR+'">';
+        cols += '<input type="hidden" class="PRODUCTO" value="'+PRODUCTO+'">';
         cols += '<td class="col-md-3 input-sm" >'+PRODUCTO+'</td>';
         cols += '<td class="col-md-2 input-sm" >'+CANTIDAD+'</td>';
         cols += '<td class="col-md-2 input-sm" >'+UNIDMED+'</td>';
