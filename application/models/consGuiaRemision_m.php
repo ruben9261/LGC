@@ -28,9 +28,9 @@ class ConsGuiaRemision_m extends CI_Model {
 				else{ return 0;}
 			}
 	}
-	public function NUMERO_ACTUAL_ACTUALIZA($codusu,$COD_SERIE_GUIA,$NUM_ACTUAL)
+	public function NUMERO_ACTUAL_ACTUALIZA($COD_SERIE_GUIA,$NUM_ACTUAL,$codusu)
 	{	
-		$this->db->query("CALL SP_W_SERIE_GUIA_ACT_NUMERO('".$codusu."','".$COD_SERIE_GUIA."','".$NUM_ACTUAL."')");		
+		$this->db->query("CALL SP_W_SERIE_GUIA_ACT_NUMERO('".$COD_SERIE_GUIA."','".$NUM_ACTUAL."','".$codusu."')");		
 	}
 
 	public function obt_OrdenSalida()
@@ -232,7 +232,7 @@ class ConsGuiaRemision_m extends CI_Model {
 	
 	         );
 	
-			 $this->consGuiaRemision_m->NUMERO_ACTUAL_ACTUALIZA($codusu,$COD_SERIE_GUIA,$NUM_ACTUAL);
+			 $this->consGuiaRemision_m->NUMERO_ACTUAL_ACTUALIZA($COD_SERIE_GUIA,$NUM_ACTUAL,$codusu);
 			
 			
 		
